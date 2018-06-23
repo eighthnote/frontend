@@ -11,19 +11,13 @@ store.subscribe(() => {
   if(latestToken === token) return;
 
   token = latestToken;
-  token ? storage.setItem(key, JSON.stringify(token)) : clearStoredToken();
+  token ? storage.setItem(key, token) : clearStoredToken();
 });
 
 export const clearStoredToken = () => storage.removeItem(key);
 
 export const getStoredToken = () => {
-  const json = storage.getItem(key);
-  try {
-    return JSON.parse(json);
-  }
-  catch(err) {
-    clearStoredToken();
-  }
+  return storage.getItem(key);
 };
 
 function request(url, options = {}, data) {
