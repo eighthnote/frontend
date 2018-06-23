@@ -13,3 +13,10 @@ export function loading(state = false, { type }) {
       return state;
   }
 }
+
+export function error(state = null, { type }) {
+  switch(type) {
+    default:
+      return state;
+  }
+}

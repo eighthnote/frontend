@@ -3,7 +3,8 @@ import {
   LOAD_END,
   ERROR,
   ERROR_CLEAR,
-  loading
+  loading,
+  error
 } from './reducers';
 
 describe('loading reducer', () => {
@@ -20,5 +21,12 @@ describe('loading reducer', () => {
   it('reverts loading state to false when loading ends', () => {
     const state = loading(true, { type: LOAD_END });
     expect(state).toBe(false);
+  });
+});
+
+describe('error reducer', () => {
+  it('has a default value of null', () => {
+    const state = error(undefined, {});
+    expect(state).toBe(null);
   });
 });
