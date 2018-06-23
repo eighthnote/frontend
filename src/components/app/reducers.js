@@ -14,8 +14,12 @@ export function loading(state = false, { type }) {
   }
 }
 
-export function error(state = null, { type }) {
+export function error(state = null, { type, payload }) {
   switch(type) {
+    case ERROR:
+      return payload;
+    case ERROR_CLEAR:
+      return null;
     default:
       return state;
   }

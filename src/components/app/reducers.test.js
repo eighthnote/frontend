@@ -29,4 +29,16 @@ describe('error reducer', () => {
     const state = error(undefined, {});
     expect(state).toBe(null);
   });
+
+  const err = { message: 'something is wrong' };
+
+  it('sets error state to an error', () => {
+    const state = error(null, { type: ERROR, payload: err });
+    expect(state).toBe(err);
+  });
+
+  it('resets error state to null', () => {
+    const state = error(err, { type: ERROR_CLEAR });
+    expect(state).toBe(null);
+  });
 });
