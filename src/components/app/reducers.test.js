@@ -4,7 +4,9 @@ import {
   ERROR,
   ERROR_CLEAR,
   loading,
-  error
+  error,
+  getLoading,
+  getError
 } from './reducers';
 
 describe('loading reducer', () => {
@@ -40,5 +42,19 @@ describe('error reducer', () => {
   it('resets error state to null', () => {
     const state = error(err, { type: ERROR_CLEAR });
     expect(state).toBe(null);
+  });
+});
+
+describe('selectors', () => {
+  it('gets the loading state', () => {
+    const loading = true;
+    const got = getLoading({ loading });
+    expect(got).toBe(loading);
+  });
+
+  it('gets an error', () => {
+    const error = { message: 'oops' };
+    const got = getError({ error });
+    expect(got).toBe(error);
   });
 });
