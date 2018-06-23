@@ -1,29 +1,28 @@
 import store from '../store/store';
-import { getUser } from '../components/auth/reducers';
+import { getToken } from '../components/auth/reducers';
 
 let token = '';
 
-const key = 'user';
+const key = 'token';
 const storage = window.localStorage;
 
 store.subscribe(() => {
-  const user = getUser(store.getState());
-  const retrievedToken = user ? (user.token || '') : '';
-  if(retrievedToken === token) return;
+  const latestToken = getToken(store.getState()) || '';
+  if(latestToken === token) return;
 
-  token = retrievedToken;
-  token ? storage.setItem(key, JSON.stringify(user)) : clearStoredUser();
+  token = latestToken;
+  token ? storage.setItem(key, JSON.stringify(token)) : clearStoredToken();
 });
 
-export const clearStoredUser = () => storage.removeItem(key);
+export const clearStoredToken = () => storage.removeItem(key);
 
-export const getStoredUser = () => {
+export const getStoredToken = () => {
   const json = storage.getItem(key);
   try {
     return JSON.parse(json);
   }
   catch(err) {
-    clearStoredUser();
+    clearStoredToken();
   }
 };
 
