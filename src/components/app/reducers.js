@@ -5,6 +5,10 @@ export const ERROR_CLEAR = 'ERROR_CLEAR';
 
 export function loading(state = false, { type }) {
   switch(type) {
+    case LOAD_START:
+      return true;
+    case LOAD_END:
+      return false;
     default:
       return state;
   }
