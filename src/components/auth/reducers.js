@@ -8,7 +8,18 @@ export const getCheckedAuth = state => state.checkedAuth;
 export function user(state = null, { type, payload }) {
   switch(type) {
     case USER_AUTH:
-      return payload;
+      return payload.user;
+    case LOGOUT:
+      return null;
+    default:
+      return state;
+  }
+}
+
+export function token(state = null, { type, payload }) {
+  switch(type) {
+    case USER_AUTH:
+      return payload.token;
     case LOGOUT:
       return null;
     default:

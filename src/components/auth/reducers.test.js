@@ -5,10 +5,11 @@ import {
   user,
   checkedAuth,
   getUser,
-  getCheckedAuth
+  getCheckedAuth,
+  token
 } from './reducers';
 
-const info = { name: 'me' };
+const authResponse = { token: '123', user: { name: 'me' } };
 
 describe('user reducer', () => {
   it('has a default value of null', () => {
@@ -17,12 +18,29 @@ describe('user reducer', () => {
   });
 
   it('loads a user', () => {
-    const state = user(null, { type: USER_AUTH, payload: info });
-    expect(state).toBe(info);
+    const state = user(null, { type: USER_AUTH, payload: authResponse });
+    expect(state).toBe(authResponse.user);
   });
 
   it('clears a user on logout', () => {
-    const state = user(info, { type: LOGOUT });
+    const state = user(authResponse.user, { type: LOGOUT });
+    expect(state).toBe(null);
+  });
+});
+
+describe('token reducer', () => {
+  it('has a default value of null', () => {
+    const state = token(undefined, {});
+    expect(state).toBe(null);
+  });
+
+  it('loads a token', () => {
+    const state = token(null, { type: USER_AUTH, payload: authResponse });
+    expect(state).toBe(authResponse.token);
+  });
+
+  it('clears a token on logout', () => {
+    const state = token(authResponse.token, { type: LOGOUT });
     expect(state).toBe(null);
   });
 });
@@ -41,7 +59,7 @@ describe('checked auth reducer', () => {
 
 describe('selectors', () => {
   it('gets the current user object', () => {
-    expect(getUser({ user: info })).toBe(info);
+    expect(getUser({ user: authResponse.user })).toBe(authResponse.user);
   });
 
   it('gets the checked auth status', () => {
