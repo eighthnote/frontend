@@ -10,4 +10,15 @@ describe('user reducer', () => {
     const state = user(undefined, {});
     expect(state).toBe(null);
   });
+
+  it('loads a user', () => {
+    const info = { email: 'me@me.me', password: 'abc' };
+    const state = user(null, { type: USER_AUTH, payload: info });
+    expect(state).toBe(info);
+  });
+
+  it('clears a user on logout', () => {
+    const state = user({}, { type: LOGOUT });
+    expect(state).toBe(null);
+  });
 });
