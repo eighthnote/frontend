@@ -4,7 +4,7 @@ import {
   LOGOUT,
   user,
   checkedAuth,
-  getUser,
+  getCurrentUser,
   getCheckedAuth,
   token
 } from './reducers';
@@ -59,7 +59,7 @@ describe('checked auth reducer', () => {
 
 describe('selectors', () => {
   it('gets the current user object', () => {
-    expect(getUser({ user: authResponse.user })).toBe(authResponse.user);
+    expect(getCurrentUser({ user: authResponse.user })).toBe(authResponse.user);
   });
 
   it('gets the checked auth status', () => {

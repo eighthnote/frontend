@@ -2,7 +2,7 @@ export const USER_AUTH = 'USER_AUTH';
 export const AUTH_CHECKED = 'AUTH_CHECKED';
 export const LOGOUT = 'LOGOUT';
 
-export const getUser = state => state.user;
+export const getCurrentUser = state => state.user;
 export const getCheckedAuth = state => state.checkedAuth;
 
 export function user(state = null, { type, payload }) {
