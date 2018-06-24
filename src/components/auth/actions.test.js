@@ -61,4 +61,24 @@ describe('auth action creators', () => {
         });
       });
   });
+
+  it('creates an action that clears a stored user if they can not be verified', () => {
+    const thunk = attemptUserLoad();
+    const dispatch = jest.fn();
+
+    const token = 'bad';
+    getStoredToken.mockReturnValueOnce(token);
+    const verifiedResponse = Promise.reject();
+    getUserVerified.mockReturnValueOnce(verifiedResponse);
+
+    thunk(dispatch)
+      .then(() => {
+        expect(getUserVerified.mock.calls[1][0]).toBe('bad');
+        expect(dispatch.mock.calls.length).toBe(1);
+        expect(clearStoredToken.mock.calls.length).toBe(1);
+        expect(dispatch.mock.calls[0][0]).toEqual({
+          type: AUTH_CHECKED
+        });
+      });
+  });
 });
