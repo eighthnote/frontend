@@ -6,7 +6,8 @@ import {
   checkedAuth,
   getCurrentUser,
   getCheckedAuth,
-  token
+  token,
+  getUserName
 } from './reducers';
 
 const authResponse = { token: '123', user: { name: 'me' } };
@@ -60,6 +61,10 @@ describe('checked auth reducer', () => {
 describe('selectors', () => {
   it('gets the current user object', () => {
     expect(getCurrentUser({ user: authResponse.user })).toBe(authResponse.user);
+  });
+  
+  it('gets the current user\'s first name', () => {
+    expect(getUserName({ user: authResponse.user })).toBe(authResponse.user.firstName);
   });
 
   it('gets the checked auth status', () => {
