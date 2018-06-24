@@ -1,6 +1,6 @@
 import {
   USER_AUTH,
-  CHECKED_AUTH,
+  AUTH_CHECKED,
   LOGOUT,
   user,
   checkedAuth,
@@ -52,7 +52,7 @@ describe('checked auth reducer', () => {
   });
 
   it('switches to true', () => {
-    const state = checkedAuth(false, { type: CHECKED_AUTH });
+    const state = checkedAuth(false, { type: AUTH_CHECKED });
     expect(state).toBe(true);
   });
 });

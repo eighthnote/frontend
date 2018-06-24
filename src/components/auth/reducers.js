@@ -1,5 +1,5 @@
 export const USER_AUTH = 'USER_AUTH';
-export const CHECKED_AUTH = 'CHECKED_AUTH';
+export const AUTH_CHECKED = 'AUTH_CHECKED';
 export const LOGOUT = 'LOGOUT';
 
 export const getUser = state => state.user;
@@ -29,7 +29,7 @@ export function token(state = null, { type, payload }) {
 
 export function checkedAuth(state = false, { type }) {
   switch(type) {
-    case CHECKED_AUTH:
+    case AUTH_CHECKED:
       return true;
     default:
       return state;
