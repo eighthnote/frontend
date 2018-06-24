@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getUserName } from '../auth/reducers';
 import { logout } from '../auth/actions';
+import styles from './Header.css';
 
 class Header extends Component {
   static propTypes = {
@@ -15,7 +16,7 @@ class Header extends Component {
     const { name, logout } = this.props;
 
     return (
-      <header>
+      <header className={styles.header}>
         <h1>Together</h1>
         <nav>
           <ul>
