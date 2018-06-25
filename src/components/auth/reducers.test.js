@@ -1,48 +1,28 @@
 import {
-  USER_AUTH,
+  ACCOUNT_AUTH,
   AUTH_CHECKED,
   LOGOUT,
-  user,
   checkedAuth,
-  getCurrentUser,
   getCheckedAuth,
-  token,
-  getUserName,
-  getToken
+  account,
+  getAccount
 } from './reducers';
 
-const authResponse = { token: '123', user: { name: 'me' } };
+const authResponse = { token: 'abc', _id: '123' };
 
-describe('user reducer', () => {
+describe('account reducer', () => {
   it('has a default value of null', () => {
-    const state = user(undefined, {});
+    const state = account(undefined, {});
     expect(state).toBe(null);
   });
 
-  it('loads a user', () => {
-    const state = user(null, { type: USER_AUTH, payload: authResponse });
-    expect(state).toBe(authResponse.user);
+  it('loads a account', () => {
+    const state = account(null, { type: ACCOUNT_AUTH, payload: authResponse });
+    expect(state).toBe(authResponse);
   });
 
-  it('clears a user on logout', () => {
-    const state = user(authResponse.user, { type: LOGOUT });
-    expect(state).toBe(null);
-  });
-});
-
-describe('token reducer', () => {
-  it('has a default value of null', () => {
-    const state = token(undefined, {});
-    expect(state).toBe(null);
-  });
-
-  it('loads a token', () => {
-    const state = token(null, { type: USER_AUTH, payload: authResponse });
-    expect(state).toBe(authResponse.token);
-  });
-
-  it('clears a token on logout', () => {
-    const state = token(authResponse.token, { type: LOGOUT });
+  it('clears a account on logout', () => {
+    const state = account(authResponse, { type: LOGOUT });
     expect(state).toBe(null);
   });
 });
@@ -60,16 +40,8 @@ describe('checked auth reducer', () => {
 });
 
 describe('selectors', () => {
-  it('gets the current user object', () => {
-    expect(getCurrentUser({ user: authResponse.user })).toBe(authResponse.user);
-  });
-  
-  it('gets the current user\'s first name', () => {
-    expect(getUserName({ user: authResponse.user })).toBe(authResponse.user.firstName);
-  });
-
-  it('gets the user\'s token', () => {
-    expect(getToken({ token: authResponse.token })).toBe(authResponse.token);
+  it('gets the account', () => {
+    expect(getAccount({ account: authResponse })).toBe(authResponse);
   });
 
   it('gets the checked auth status', () => {
