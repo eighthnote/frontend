@@ -1,6 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
-class Friends extends Component {
+class Friends extends PureComponent {
+  static propTypes = {
+    
+  };
+
   render() {
     return (
       <div>
