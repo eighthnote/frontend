@@ -2,6 +2,7 @@ import {
   friends,
   FRIENDS_LOAD
 } from './reducers';
+import { LOGOUT } from '../auth/reducers';
 
 describe('friends reducer', () => {
   it('has a default value of an empty object', () => {
@@ -15,5 +16,10 @@ describe('friends reducer', () => {
       payload: [{ _id: '123', name: 'Pilar' }, { _id: '456', name: 'Bailey' }]
     });
     expect(state.byId).toEqual({ 123: { _id: '123', name: 'Pilar' }, 456: { _id: '456', name: 'Bailey' } });
+  });
+
+  it('clears friends on logout', () => {
+    const state = friends({ byId: { 123: { _id: '123', name: 'Pilar' } } }, { type: LOGOUT });
+    expect(state.byId).toEqual({});
   });
 });
