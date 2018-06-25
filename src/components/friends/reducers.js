@@ -3,6 +3,8 @@ import { LOGOUT } from '../auth/reducers';
 
 export const FRIENDS_LOAD = 'FRIENDS_LOAD';
 
+export const getFriends = ({ friends }) => friends.allIds.map(id => friends.byId[id]);
+
 function friendsById(state = {}, { type, payload }) {
   switch(type) {
     case FRIENDS_LOAD:
