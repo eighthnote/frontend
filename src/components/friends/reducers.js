@@ -17,7 +17,18 @@ function friendsById(state = {}, { type, payload }) {
   }
 }
 
+function allFriends(state = [], { type, payload }) {
+  switch(type) {
+    case FRIENDS_LOAD:
+      return payload.map(friend => friend._id);
+    case LOGOUT:
+      return [];
+    default:
+      return state;
+  }
+}
+
 export const friends = combineReducers({
   byId : friendsById,
-  // allIds : allFriends
+  allIds : allFriends
 });
