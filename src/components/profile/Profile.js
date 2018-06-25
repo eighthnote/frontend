@@ -17,7 +17,7 @@ export default class Profile extends PureComponent {
         <img src={picture} alt={`profile picture for ${firstName}`}/>
         <h2>{firstName} {lastName}</h2>
         <h4>preferred contact info:</h4>
-        <span>{preferredContact.type}</span>
+        <span>{preferredContact.type}</span><br/>
         <span>{preferredContact.details}</span>
         {!!additionalContact.length &&
         <Fragment>
@@ -37,7 +37,7 @@ export default class Profile extends PureComponent {
         <span>{availability}</span>
         <h3>offering:</h3>
         <ul>
-          
+
         </ul>
       </section>
     );
