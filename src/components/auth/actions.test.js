@@ -10,7 +10,7 @@ jest.mock('../../services/request', () => ({
 }));
 
 import { signup, signin, logout, attemptUserLoad } from './actions';
-import { USER_AUTH, AUTH_CHECKED, LOGOUT } from './reducers';
+import { ACCOUNT_AUTH, AUTH_CHECKED, LOGOUT } from './reducers';
 import { postSignup, postSignin, getUserVerified } from '../../services/api';
 import { getStoredToken, clearStoredToken } from '../../services/request';
 
@@ -22,7 +22,7 @@ describe('auth action creators', () => {
 
       const credentials = {};
       const { type, payload } = actionCreator(credentials);
-      expect(type).toBe(USER_AUTH);
+      expect(type).toBe(ACCOUNT_AUTH);
       expect(payload).toBe(promise);
       expect(mockService.mock.calls.length).toBe(1);
       expect(mockService.mock.calls[0][0]).toBe(credentials);
@@ -53,7 +53,7 @@ describe('auth action creators', () => {
         expect(dispatch.mock.calls.length).toBe(2);
         expect(clearStoredToken.mock.calls.length).toBe(0);
         expect(dispatch.mock.calls[0][0]).toEqual({
-          type: USER_AUTH,
+          type: ACCOUNT_AUTH,
           payload: { user, token }
         });
         expect(dispatch.mock.calls[1][0]).toEqual({

@@ -1,11 +1,11 @@
-import { USER_AUTH, LOGOUT, AUTH_CHECKED } from './reducers';
+import { ACCOUNT_AUTH, LOGOUT, AUTH_CHECKED } from './reducers';
 
 import { postSignup, postSignin, getUserVerified } from '../../services/api';
 import { getStoredToken, clearStoredToken } from '../../services/request';
 
 const makeAuth = api => {
   return credentials => ({
-    type: USER_AUTH,
+    type: ACCOUNT_AUTH,
     payload: api(credentials)
   });
 };
@@ -26,7 +26,7 @@ export const attemptUserLoad = () => {
 
     return getUserVerified(token)
       .then(user => dispatch({
-        type: USER_AUTH,
+        type: ACCOUNT_AUTH,
         payload: { user, token }
       }))
       .catch(() => {
