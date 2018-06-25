@@ -1,0 +1,29 @@
+:root {
+  --magenta: #e02685;
+  --soft-black: #141414;
+}
+
+* {
+  /* margin: 0;
+  padding: 0; */
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: sans-serif;
+  color: var(--soft-black);
+}
+
+a {
+  text-decoration: none;
+  color: var(--magenta);
+}
+
+ul {
+  list-style: none;
+}
