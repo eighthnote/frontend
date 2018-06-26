@@ -1,16 +1,18 @@
 jest.mock('../../services/api', () => ({
   getUser: jest.fn(),
-  putUser: jest.fn()
+  putUser: jest.fn(),
+  putShareable: jest.fn()
 }));
 
 import {
   USER_LOAD,
-  USER_UPDATE
+  USER_UPDATE,
+  SHAREABLE_UPDATE
 } from './reducers';
 
-import { loadUser, updateUser } from './actions';
+import { loadUser, updateUser, updateShareable } from './actions';
 
-import { getUser, putUser } from '../../services/api';
+import { getUser, putUser, putShareable } from '../../services/api';
 
 describe('action creators', () => {
   it('creates a user load action with normalized shareables', () => {
@@ -49,5 +51,14 @@ describe('action creators', () => {
     const { type, payload } = updateUser('id', update);
     expect(type).toBe(USER_UPDATE);
     expect(payload).resolves.toEqual(update);
+  });
+
+  it('creates a shareable update action', () => {
+    const data = { description: 'homemade jam' };
+    putShareable.mockReturnValueOnce(Promise.resolve(data));
+
+    const { type, payload } = updateShareable('id', '1', data);
+    expect(type).toBe(SHAREABLE_UPDATE);
+    expect(payload).resolves.toEqual(data);
   });
 });

@@ -1,7 +1,9 @@
-import { getUser, putUser } from '../../services/api';
+import { getUser, putUser, putShareable } from '../../services/api';
 
 import {
-  USER_LOAD, USER_UPDATE
+  USER_LOAD,
+  USER_UPDATE,
+  SHAREABLE_UPDATE
 } from './reducers';
 
 export function loadUser(id) {
@@ -35,5 +37,12 @@ export function updateUser(id, data) {
   return {
     type: USER_UPDATE,
     payload: putUser(id, data).then(() => data)
+  };
+}
+
+export function updateShareable(id, shareableId, data) {
+  return {
+    type: SHAREABLE_UPDATE,
+    payload: putShareable(id, shareableId, data)
   };
 }
