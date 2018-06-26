@@ -1,27 +1,14 @@
-export const USER_AUTH = 'USER_AUTH';
+export const ACCOUNT_AUTH = 'ACCOUNT_AUTH';
 export const AUTH_CHECKED = 'AUTH_CHECKED';
 export const LOGOUT = 'LOGOUT';
 
-export const getCurrentUser = state => state.user;
-export const getUserName = state => getCurrentUser(state) ? getCurrentUser(state).firstName : '';
-export const getToken = state => state.token;
+export const getAccount = state => state.account;
 export const getCheckedAuth = state => state.checkedAuth;
 
-export function user(state = null, { type, payload }) {
+export function account(state = null, { type, payload }) {
   switch(type) {
-    case USER_AUTH:
-      return payload.user;
-    case LOGOUT:
-      return null;
-    default:
-      return state;
-  }
-}
-
-export function token(state = null, { type, payload }) {
-  switch(type) {
-    case USER_AUTH:
-      return payload.token;
+    case ACCOUNT_AUTH:
+      return payload;
     case LOGOUT:
       return null;
     default:
