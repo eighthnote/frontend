@@ -1,33 +1,36 @@
 jest.mock('../../services/api', () => ({
   getUser: jest.fn(),
   putUser: jest.fn(),
-  putShareable: jest.fn()
+  putShareable: jest.fn(),
+  postShareable: jest.fn()
 }));
 
 import {
   USER_LOAD,
   USER_UPDATE,
-  SHAREABLE_UPDATE
+  SHAREABLE_UPDATE,
+  GIVING_ADD
 } from './reducers';
 
-import { loadUser, updateUser, updateShareable } from './actions';
+import { loadUser, updateUser, updateShareable, addShareable } from './actions';
 
-import { getUser, putUser, putShareable } from '../../services/api';
+import { getUser, putUser, putShareable, postShareable } from '../../services/api';
 
 describe('action creators', () => {
   it('creates a user load action with normalized shareables', () => {
     const data = {
-      _id: 'a',
-      firstName: 'Keli',
-      lastName: 'Hansen',
-      pictureUrl: 'pix.com',
-      contact: ['(555) 555-5555'],
-      availability: 'Fridays',
-      shareables: [{ _id: '1', type: 'giving' }, { _id: '2', type: 'requesting' }, { _id: '3', type: 'giving' }]
+      body: {
+        _id: 'a',
+        firstName: 'Keli',
+        lastName: 'Hansen',
+        pictureUrl: 'pix.com',
+        contact: ['(555) 555-5555'],
+        availability: 'Fridays',
+        shareables: [{ _id: '1', type: 'giving' }, { _id: '2', type: 'requesting' }, { _id: '3', type: 'giving' }]
+      }
     };
 
-    const results = Promise.resolve(data);
-    getUser.mockReturnValueOnce(results);
+    getUser.mockReturnValueOnce(Promise.resolve(data));
 
     const { type, payload } = loadUser('a');
     expect(type).toBe(USER_LOAD);
@@ -60,5 +63,14 @@ describe('action creators', () => {
     const { type, payload } = updateShareable('id', '1', data);
     expect(type).toBe(SHAREABLE_UPDATE);
     expect(payload).resolves.toEqual(data);
+  });
+
+  it('creates a shareable add action', () => {
+    const data = { type: 'giving', description: 'woodworking' };
+    postShareable.mockReturnValueOnce(Promise.resolve({ ...data, _id: '5' }));
+
+    const { type, payload } = addShareable('id', data);
+    expect(type).toBe(GIVING_ADD);
+    expect(payload).resolves.toEqual({ ...data, _id: '5' });
   });
 });
