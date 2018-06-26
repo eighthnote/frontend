@@ -1,6 +1,7 @@
 import {
   USER_LOAD,
   USER_UPDATE,
+  SHAREABLE_UPDATE,
   user,
   getCurrentUser,
   giving,
@@ -59,6 +60,12 @@ describe('giving reducer', () => {
     expect(state).toEqual(userObject.giving);
   });
 
+  it('updates a giving object', () => {
+    const update = { _id: '1', type: 'giving', description: 'homemade jam' };
+    const state = giving(userObject.giving, { type: SHAREABLE_UPDATE, payload: update });
+    expect(state).toEqual({ ...userObject.giving, [update._id]:update });
+  });
+
   it('clears giving objects on logout', () => {
     const state = giving(userObject.giving, { type: LOGOUT });
     expect(state).toEqual({});
@@ -74,6 +81,12 @@ describe('requesting reducer', () => {
   it('loads requesting objects when a user is loaded', () => {
     const state = requesting({}, { type: USER_LOAD, payload: userObject });
     expect(state).toEqual(userObject.requesting);
+  });
+
+  it('updates a requesting object', () => {
+    const update = { _id: '2', type: 'requesting', description: 'homemade jam' };
+    const state = requesting(userObject.requesting, { type: SHAREABLE_UPDATE, payload: update });
+    expect(state).toEqual({ ...userObject.requesting, [update._id]:update });
   });
 
   it('clears requesting objects on logout', () => {
