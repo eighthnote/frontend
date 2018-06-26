@@ -1,40 +1,33 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 export default class Checkbox extends Component {
-  
-state = {
-  options: [
-    { value: 'sunday', text: 'Sunday' },
-    { value: 'monday', text: 'Monday' },
-    { value: 'tuesday', text: 'Tuesday' },
-    { value: 'wednesday', text: 'Wednesday' },
-    { value: 'thursday', text: 'Thursday' },
-    { value: 'friday', text: 'Friday' },
-    { value: 'saturday', text: 'Saturday' }
-  ]
-};
+  static propTypes = {
+    handleCheckboxChange: PropTypes.func.isRequired,
+    days: PropTypes.object.isRequired
+  };
 
-handleClick(e) {
-  //console.log(e.target.value);
-}
-  
+  render() {
+    const { handleCheckboxChange, days } = this.props;
 
-render() {
-  const options = this.state.options.map(option => {
+    const dayNames = Object.keys(days);
+    const capitalize = string => `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
+    
+    const options = dayNames.map(day => {
+
+      return (
+        <div className="checkbox" key={day}>
+          <label>{capitalize(day)}</label>
+          <input onChange={event => handleCheckboxChange(event)} type='checkbox' name={day} 
+            checked={days[day]}/>
+        </div>
+      );
+    });
+
     return (
-      <div className="checkbox" key={option.value}>
-        <label>{option.text}</label>
-        <input onClick={this.handleClick} type='checkbox' name={option.value} 
-          value={option.value}/>
-      </div>
+      <Fragment>
+        {options}
+      </Fragment>
     );
-  });
-
-
-  return (
-    <Fragment>
-      {options}
-    </Fragment>
-  );
-}
+  }
 }

@@ -7,6 +7,8 @@ import styles from './Profile.css';
 import { getCurrentUser, getGivingArray, getRequestingArray } from './reducers';
 import Checkbox from './Checkbox';
 
+const _id = '5b327868cf85ff348f7775e4';
+
 class Profile extends PureComponent {
   static propTypes = {
     match: PropTypes.object.isRequired,
@@ -18,27 +20,47 @@ class Profile extends PureComponent {
   };
 
   state = {
+    days: { 
+      sunday: false,
+      monday: false,
+      tuesday: false,
+      wednesday: false,
+      thursday: false,
+      friday: false,
+      saturday: false,
+    },
     notes: ''
   };
-
+ 
   componentDidMount() {
     const { match } = this.props;
-    const id = match.url === '/profile' ? '5b328493ee12bd61ae53736b' : match.params.id;
+    const id = match.url === '/profile' ? _id : match.params.id;
     this.props.loadUser(id);
   }
 
   handleChange = ({ target }) => {
-    this.setState({ notes: target.value });
+    const { type, name, checked, value } = target;
+    type === 'checkbox' ?
+      this.setState(prevState => ({ days: { ...prevState.days, [name]: checked } }))
+      : this.setState({ [name]: value });
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.updateUser(this.state);
+    const { days, notes } = this.state;
+    const dayArray = Object.keys(days);
+    const checkedDays = dayArray.filter(day => days[day]);
+    this.props.updateUser(_id, {
+      availability: {
+        days: checkedDays,
+        notes
+      }
+    });
   };
 
   render() {
     const { user, giving, requesting } = this.props;
-    const { notes } = this.state;
+    const { notes, days } = this.state;
 
     if(!user) return null;
 
@@ -48,47 +70,27 @@ class Profile extends PureComponent {
       <section className={styles.profile}>
         <img src={pictureUrl} alt={`profile picture for ${firstName}`}/>
         <h2>{firstName} {lastName}</h2>
-        <h4>contact info:</h4>
+        <h4>Contact Info:</h4>
         <ul>
-          {
-            contact.map(item => {
-              return <li key={item._id}>
-                {item}
-              </li>;
-            })
-          }
+          {contact.map((item, i) => <li key={i}>{item}</li>)}
         </ul>
-        <h4>availability:</h4>
-        <span>{availability.days}</span>
+        <h4>Best Days:</h4>
+        <ul>
+          {availability.days.map((item, i) => <li key={i}>{item}</li>)}
+        </ul>
+        <p>{availability.notes}</p>
         <form onSubmit={this.handleSubmit}>
-          <Checkbox/>
+          <Checkbox handleCheckboxChange={this.handleChange} days={days}/>
           <label>Notes</label>
-          <input onChange={this.handleChange} type="text" value={notes}/>
+          <input onChange={this.handleChange} name="notes" type="text" value={notes}/>
           <button type="submit">save</button>
         </form>
         <h3>giving:</h3>
-        
         <ul>
-          {
-            giving.map(item => {
-              return <li key={item._id}>
-                {item.name}
-              </li>;
-            })
-          }
-
+          {giving.map(item => <li key={item._id}>{item.name}</li>)}
         </ul>
         <h3>requesting:</h3>
-        
-        <ul>
-          {
-            requesting.map(item => {
-              return <li key={item._id}>
-                {item.name}
-              </li>;
-            })
-          }
-
+        <ul>{requesting.map(item => <li key={item._id}>{item.name}</li>)}
         </ul>
       </section>
     );
