@@ -5,6 +5,7 @@ import { loadUser } from './actions';
 import { getAccount } from '../auth/reducers';
 import styles from './Profile.css';
 import { getCurrentUser, getGivingArray, getRequestingArray } from './reducers';
+import Checkbox from './Checkbox';
 
 class Profile extends PureComponent {
   static propTypes = {
@@ -44,6 +45,7 @@ class Profile extends PureComponent {
         </ul>
         <h4>availability notes:</h4>
         <span>{availability.days}</span>
+        <Checkbox/>
         <h3>giving:</h3>
         
         <ul>
