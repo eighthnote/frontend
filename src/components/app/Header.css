@@ -1,6 +1,11 @@
 :local(.header) {
-  ul {
-    width: 50%;
+  background-color:#4a86e8ff;
+  text-align: center;
+  //font-family: Lobster;
+  padding-top: 2em;
+  
+  .nav {
+    width: 80%;
     margin: 0 auto;
     display: flex;
     justify-content: space-around;
