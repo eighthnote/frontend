@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loadUser } from './actions';
+import { loadUser, updateUser } from './actions';
 import { getAccount } from '../auth/reducers';
 import styles from './Profile.css';
 import { getCurrentUser, getGivingArray, getRequestingArray } from './reducers';
@@ -13,7 +13,12 @@ class Profile extends PureComponent {
     loadUser: PropTypes.func.isRequired,
     user: PropTypes.object,
     giving: PropTypes.array,
-    requesting: PropTypes.array
+    requesting: PropTypes.array,
+    updateUser: PropTypes.func.isRequired,
+  };
+
+  state = {
+    notes: ''
   };
 
   componentDidMount() {
@@ -22,8 +27,18 @@ class Profile extends PureComponent {
     this.props.loadUser(id);
   }
 
+  handleChange = ({ target }) => {
+    this.setState({ notes: target.value });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    this.props.updateUser(this.state);
+  };
+
   render() {
     const { user, giving, requesting } = this.props;
+    const { notes } = this.state;
 
     if(!user) return null;
 
@@ -43,9 +58,14 @@ class Profile extends PureComponent {
             })
           }
         </ul>
-        <h4>availability notes:</h4>
+        <h4>availability:</h4>
         <span>{availability.days}</span>
-        <Checkbox/>
+        <form onSubmit={this.handleSubmit}>
+          <Checkbox/>
+          <label>Notes</label>
+          <input onChange={this.handleChange} type="text" value={notes}/>
+          <button type="submit">save</button>
+        </form>
         <h3>giving:</h3>
         
         <ul>
@@ -82,5 +102,5 @@ export default connect(
     giving: getGivingArray(state),
     requesting: getRequestingArray(state)
   }),
-  { loadUser }
+  { loadUser, updateUser }
 )(Profile);
