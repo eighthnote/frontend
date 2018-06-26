@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getUserName } from '../auth/reducers';
 import { logout } from '../auth/actions';
 import styles from './Header.css';
 
 class Header extends Component {
   static propTypes = {
-    name: PropTypes.string.isRequired,
     logout: PropTypes.func.isRequired
   };
 
@@ -32,8 +30,6 @@ class Header extends Component {
 }
 
 export default connect(
-  state => ({
-    name: getUserName(state)
-  }),
+  null,
   { logout }
 )(Header);
