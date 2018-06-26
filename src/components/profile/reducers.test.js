@@ -1,5 +1,6 @@
 import {
   USER_LOAD,
+  USER_UPDATE,
   user,
   getCurrentUser,
   giving,
@@ -33,6 +34,12 @@ describe('user reducer', () => {
   it('stores a loaded user', () => {
     const state = user(null, { type: USER_LOAD, payload: userObject });
     expect(state).toEqual(userObject.user);
+  });
+
+  it('updates a user', () => {
+    const update = { pictureUrl: 'betterpix.com' };
+    const state = user(userObject.user, { type: USER_UPDATE, payload: update });
+    expect(state).toEqual({ ...userObject.user, ...update });
   });
 
   it('clears a user on logout', () => {

@@ -1,4 +1,5 @@
 export const USER_LOAD = 'USER_LOAD';
+export const USER_UPDATE = 'USER_UPDATE';
 
 import { LOGOUT } from '../auth/reducers';
 
@@ -12,6 +13,8 @@ export function user(state = null, { type, payload }) {
   switch(type) {
     case USER_LOAD:
       return payload.user;
+    case USER_UPDATE:
+      return { ...state, ...payload };
     case LOGOUT:
       return null;
     default:
