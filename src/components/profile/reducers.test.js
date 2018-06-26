@@ -2,6 +2,7 @@ import {
   USER_LOAD,
   USER_UPDATE,
   SHAREABLE_UPDATE,
+  GIVING_ADD,
   user,
   getCurrentUser,
   giving,
@@ -9,7 +10,8 @@ import {
   getGivingArray,
   requesting,
   getRequesting,
-  getRequestingArray
+  getRequestingArray,
+  REQUESTING_ADD
 } from './reducers';
 
 import { LOGOUT } from '../auth/reducers';
@@ -60,6 +62,12 @@ describe('giving reducer', () => {
     expect(state).toEqual(userObject.giving);
   });
 
+  it('adds a giving object', () => {
+    const addition = { _id: '4', type: 'giving' };
+    const state = giving(userObject.giving, { type: GIVING_ADD, payload: addition });
+    expect(state).toEqual({ ...userObject.giving, [addition._id]:addition });
+  });
+
   it('updates a giving object', () => {
     const update = { _id: '1', type: 'giving', description: 'homemade jam' };
     const state = giving(userObject.giving, { type: SHAREABLE_UPDATE, payload: update });
@@ -81,6 +89,12 @@ describe('requesting reducer', () => {
   it('loads requesting objects when a user is loaded', () => {
     const state = requesting({}, { type: USER_LOAD, payload: userObject });
     expect(state).toEqual(userObject.requesting);
+  });
+
+  it('adds a requesting object', () => {
+    const addition = { _id: '5', type: 'requesting' };
+    const state = requesting(userObject.requesting, { type: REQUESTING_ADD, payload: addition });
+    expect(state).toEqual({ ...userObject.requesting, [addition._id]:addition });
   });
 
   it('updates a requesting object', () => {
