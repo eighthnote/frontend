@@ -12,6 +12,7 @@ export const getFriends = id => get(`${USERS_URL}/${id}/friends`);
 // pending friends?
 // deleting friends?
 
+// return new
 export const postShareable = (id, shareable) => post(`${USERS_URL}/${id}/shareables`, shareable);
 export const putShareable = (id, shareableId, data) => put(`${USERS_URL}/${id}/shareables/${shareableId}`, data);
 
