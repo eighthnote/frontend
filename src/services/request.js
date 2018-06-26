@@ -1,31 +1,31 @@
-import store from '../store/store';
-import { getAccount } from '../components/auth/reducers';
+// import store from '../store/store';
+// import { getAccount } from '../components/auth/reducers';
 
 let token = '';
 
-const key = 'account';
-const storage = window.localStorage;
+// const key = 'account';
+// const storage = window.localStorage;
 
-store.subscribe(() => {
-  const account = getAccount(store.getState());
-  const latestToken = account ? (account.token || '') : '';
-  if(latestToken === token) return;
+// store.subscribe(() => {
+//   const account = getAccount(store.getState());
+//   const latestToken = account ? (account.token || '') : '';
+//   if(latestToken === token) return;
 
-  token = latestToken;
-  token ? storage.setItem(key, JSON.stringify(account)) : clearStoredAccount();
-});
+//   token = latestToken;
+//   token ? storage.setItem(key, JSON.stringify(account)) : clearStoredAccount();
+// });
 
-export const clearStoredAccount = () => storage.removeItem(key);
+// export const clearStoredAccount = () => storage.removeItem(key);
 
-export const getStoredAccount = () => {
-  const json = storage.getItem(key);
-  try {
-    return JSON.parse(json);
-  }
-  catch(err) {
-    clearStoredAccount();
-  }
-};
+// export const getStoredAccount = () => {
+//   const json = storage.getItem(key);
+//   try {
+//     return JSON.parse(json);
+//   }
+//   catch(err) {
+//     clearStoredAccount();
+//   }
+// };
 
 function request(url, options = {}, data) {
   if(data) options.body = JSON.stringify(data);
