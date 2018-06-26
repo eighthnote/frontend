@@ -1,5 +1,7 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 export default class Credentials extends PureComponent {
   static propTypes = {
@@ -25,28 +27,33 @@ export default class Credentials extends PureComponent {
   };
 
   render() {
-    const { action, includeName = false } = this.props;
+    const { action = false } = this.props;
     const { firstName, lastName, email, password } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        {includeName &&
-          <Fragment>
+      <body className="tabs" onSubmit={this.handleSubmit}>
+        <Tabs>
+          <TabList>
+            <Tab><Link to="/auth/signin">Sign In</Link></Tab>
+            <Tab><Link to="/auth/signup">Sign Up</Link></Tab>
+          </TabList>
+          <TabPanel>
             <label htmlFor="firstName">First Name:</label>
             <input type="text" id="firstName" value={firstName} onChange={this.handleChange}/>
             <label htmlFor="lastName">Last Name:</label>
             <input type="text" id="lastName" value={lastName} onChange={this.handleChange}/>
-          </Fragment>
-        }
+          </TabPanel>
+          <TabPanel>
+            <label htmlFor="email">Email:</label>
+            <input type="text" id="email" value={email} onChange={this.handleChange}/>
 
-        <label htmlFor="email">Email:</label>
-        <input type="text" id="email" value={email} onChange={this.handleChange}/>
+            <label htmlFor="password">Password:</label>
+            <input type="password" id="password" value={password} onChange={this.handleChange}/>
 
-        <label htmlFor="password">Password:</label>
-        <input type="password" id="password" value={password} onChange={this.handleChange}/>
-
-        <button type="submit">{action}</button>
-      </form>
+            <button type="submit">{action}</button>
+          </TabPanel>
+        </Tabs>
+      </body>
     );
   }
 }
