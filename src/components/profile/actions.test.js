@@ -1,14 +1,16 @@
 jest.mock('../../services/api', () => ({
-  getUser: jest.fn()
+  getUser: jest.fn(),
+  putUser: jest.fn()
 }));
 
 import {
-  USER_LOAD
+  USER_LOAD,
+  USER_UPDATE
 } from './reducers';
 
-import { loadUser } from './actions';
+import { loadUser, updateUser } from './actions';
 
-import { getUser } from '../../services/api';
+import { getUser, putUser } from '../../services/api';
 
 describe('action creators', () => {
   it('creates a user load action with normalized shareables', () => {
@@ -38,5 +40,14 @@ describe('action creators', () => {
       giving: { 1: { _id: '1', type: 'giving' }, 3: { _id: '3', type: 'giving' } },
       requesting: { 2: { _id: '2', type: 'requesting' } }
     });
+  });
+
+  it('creates a user update action', () => {
+    putUser.mockReturnValueOnce(Promise.resolve());
+
+    const update = { pictureUrl: 'betterpix.com' };
+    const { type, payload } = updateUser('id', update);
+    expect(type).toBe(USER_UPDATE);
+    expect(payload).resolves.toEqual(update);
   });
 });

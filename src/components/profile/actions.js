@@ -1,7 +1,7 @@
-import { getUser } from '../../services/api';
+import { getUser, putUser } from '../../services/api';
 
 import {
-  USER_LOAD
+  USER_LOAD, USER_UPDATE
 } from './reducers';
 
 export function loadUser(id) {
@@ -28,5 +28,12 @@ export function loadUser(id) {
         requesting
       };
     })
+  };
+}
+
+export function updateUser(id, data) {
+  return {
+    type: USER_UPDATE,
+    payload: putUser(id, data).then(() => data)
   };
 }
