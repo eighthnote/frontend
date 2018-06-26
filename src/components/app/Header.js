@@ -14,7 +14,8 @@ class Header extends Component {
   };
 
   render() {
-    const { name, logout } = this.props;
+    const { logout } = this.props;
+    //deleted name from const, replaced in nav with profile
 
     return (
       <header className={styles.header}>
