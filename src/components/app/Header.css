@@ -1,4 +1,8 @@
 :local(.header) {
+  background-color:#4a86e8ff;
+  text-align: center;
+  //font-family: Lobster;
+  padding-top: 2em;
   ul {
     width: 50%;
     margin: 0 auto;
