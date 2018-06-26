@@ -24,6 +24,10 @@ a {
   color: var(--magenta);
 }
 
-ul {
-  list-style: none;
+nav {
+  display: inline-flex;
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
 }
