@@ -1,7 +1,9 @@
-
-body {
-  font-family: sans-serif;
-  color: var(--soft-black);
+.nav {
+  width: 90%;
+  display: inline-flex;
+  margin: 0 auto;
+  justify-content: space-around;
+  font-family: Roboto;
 }
 
 
