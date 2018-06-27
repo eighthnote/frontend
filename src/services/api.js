@@ -4,8 +4,8 @@ const URL = '/api';
 const PROFILE_URL = `${URL}/profile`;
 
 // populate shareables?
-export const getUser = () => get(PROFILE_URL);
-export const putUser = data => put(PROFILE_URL, data);
+export const getProfile = () => get(PROFILE_URL);
+export const putProfile = data => put(PROFILE_URL, data);
 
 export const getFriends = () => get(`${PROFILE_URL}/friends`);
 // pending friends?
@@ -20,10 +20,8 @@ export const getFeed = () => get(`${PROFILE_URL}/feed`);
 
 export const postSignin = credentials => post(`${URL}/signin`, credentials);
 export const postSignup = credentials => post(`${URL}/signup`, credentials);
-export const getUserVerified = token => get(`${URL}/verify`, {
+export const getAccountVerified = token => get(`${URL}/verify`, {
   headers: {
-    headers: {
-      Authorization: token
-    }
+    Authorization: token
   }
 });
