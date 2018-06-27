@@ -1,33 +1,8 @@
-:root {
-  --orange: #ff9900ff;
-  --soft-black: #141414;
-}
-
-* {
-  /* margin: 0;
-  padding: 0; */
-  box-sizing: border-box;
-}
-
-html, body, #root {
-  width: 100%;
-  height: 100%;
-}
 
 body {
   font-family: sans-serif;
   color: var(--soft-black);
 }
 
-a {
-  text-decoration: none;
-  color: var(--magenta);
-}
 
-nav {
-  display: inline-flex;
-  width: 80%;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-around;
-}
+
