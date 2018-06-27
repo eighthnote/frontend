@@ -75,13 +75,13 @@ export function addShareable(shareable) {
   };
 }
 
-export function removeShareable(userId, shareableId, shareableType) {
+export function removeShareable(shareableId, shareableType) {
   let actionType;
   if(shareableType === 'giving') actionType = GIVING_REMOVE;
   if(shareableType === 'requesting') actionType = REQUESTING_REMOVE;
 
   return {
     type: actionType,
-    payload: deleteShareable(userId, shareableId).then(() => ({ _id: shareableId }))
+    payload: deleteShareable(shareableId).then(() => ({ _id: shareableId }))
   };
 }
