@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loadUser, updateUser } from './actions';
 import { getAccount } from '../auth/reducers';
-import styles from './Profile.css';
 import { getCurrentUser, getGivingArray, getRequestingArray } from './reducers';
 import DayPicker from './DayPicker';
+import capitalize from '../../utils/capitalize';
+import styles from './Profile.css';
 
 const _id = '5b327868cf85ff348f7775e4';
 
@@ -76,7 +77,7 @@ class Profile extends PureComponent {
         </ul>
         <h4>Best Days:</h4>
         <ul>
-          {availability.days.map((item, i) => <li key={i}>{item}</li>)}
+          {availability.days.map((item, i) => <li key={i}>{capitalize(item)}</li>)}
         </ul>
         <p>{availability.notes}</p>
         <form onSubmit={this.handleSubmit}>

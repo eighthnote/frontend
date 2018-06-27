@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import capitalize from '../../utils/capitalize';
 
 export default class DayPicker extends Component {
   static propTypes = {
@@ -11,7 +12,6 @@ export default class DayPicker extends Component {
     const { handleCheckboxChange, days } = this.props;
 
     const dayNames = Object.keys(days);
-    const capitalize = string => `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
     
     return (
       <Fragment>
