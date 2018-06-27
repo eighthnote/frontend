@@ -5,7 +5,7 @@ import { loadUser, updateUser } from './actions';
 import { getAccount } from '../auth/reducers';
 import styles from './Profile.css';
 import { getCurrentUser, getGivingArray, getRequestingArray } from './reducers';
-import Checkbox from './Checkbox';
+import DayPicker from './DayPicker';
 
 const _id = '5b327868cf85ff348f7775e4';
 
@@ -80,7 +80,7 @@ class Profile extends PureComponent {
         </ul>
         <p>{availability.notes}</p>
         <form onSubmit={this.handleSubmit}>
-          <Checkbox handleCheckboxChange={this.handleChange} days={days}/>
+          <DayPicker handleCheckboxChange={this.handleChange} days={days}/>
           <label>Notes</label>
           <input onChange={this.handleChange} name="notes" type="text" value={notes}/>
           <button type="submit">save</button>

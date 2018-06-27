@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-export default class Checkbox extends Component {
+export default class DayPicker extends Component {
   static propTypes = {
     handleCheckboxChange: PropTypes.func.isRequired,
     days: PropTypes.object.isRequired
