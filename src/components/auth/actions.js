@@ -25,7 +25,7 @@ export const attemptAccountLoad = () => {
     }
 
     return getAccountVerified(account.token)
-      .then(account => dispatch({
+      .then(() => dispatch({
         type: ACCOUNT_AUTH,
         payload: account
       }))
