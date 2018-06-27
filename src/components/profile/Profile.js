@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loadUser, updateUser, addShareable, removeShareable } from './actions';
+import { loadUser, updateUser } from './actions';
 import { getAccount } from '../auth/reducers';
 import { getCurrentUser, getGivingArray, getRequestingArray } from './reducers';
 import DayPicker from './DayPicker';
-import ShareableForm from './ShareableForm';
-import { capitalize, formatDate } from '../../utils/formatters';
+import Shareable from './Shareable';
+import { capitalize } from '../../utils/formatters';
 import styles from './Profile.css';
 
 const _id = '5b327868cf85ff348f7775e4';
@@ -18,9 +18,7 @@ class Profile extends PureComponent {
     user: PropTypes.object,
     giving: PropTypes.array,
     requesting: PropTypes.array,
-    updateUser: PropTypes.func.isRequired,
-    addShareable: PropTypes.func.isRequired,
-    removeShareable: PropTypes.func.isRequired
+    updateUser: PropTypes.func.isRequired
   };
 
   state = {
@@ -63,7 +61,7 @@ class Profile extends PureComponent {
   };
 
   render() {
-    const { user, giving, requesting, addShareable, removeShareable } = this.props;
+    const { user, giving, requesting } = this.props;
     const { notes, days } = this.state;
 
     if(!user) return null;
@@ -89,20 +87,8 @@ class Profile extends PureComponent {
           <input onChange={this.handleChange} name="notes" type="text" value={notes}/>
           <button type="submit">save</button>
         </form>
-        <h3>Giving:</h3>
-        <ShareableForm shareableType="giving" action="ADD" onComplete={addShareable}/>
-        <ul>
-          {giving.map(item => (
-            <li key={item._id}>
-              {item.name} {item.date && `(by ${formatDate(item.date)})`} <button onClick={() => removeShareable(user._id, item._id, 'giving')}>&times;</button>
-            </li>
-          ))}
-        </ul>
-        <h3>Requesting:</h3>
-        <ShareableForm shareableType="requesting" action="ADD" onComplete={addShareable}/>
-        <ul>
-          {requesting.map(item => <li key={item._id}>{item.name}</li>)}
-        </ul>
+        <Shareable heading="Giving" shareableType="giving" shareable={giving}/>
+        <Shareable heading="Requesting" shareableType="requesting" shareable={requesting}/>
       </section>
     );
   }
@@ -115,5 +101,5 @@ export default connect(
     giving: getGivingArray(state),
     requesting: getRequestingArray(state)
   }),
-  { loadUser, updateUser, addShareable, removeShareable }
+  { loadUser, updateUser }
 )(Profile);

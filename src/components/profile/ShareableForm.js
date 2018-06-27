@@ -1,11 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-const clearedState = {
-  name: '',
-  date: ''
-};
-
 export default class ShareableForm extends PureComponent {
   static propTypes = {
     shareableType: PropTypes.string.isRequired,
@@ -14,7 +9,8 @@ export default class ShareableForm extends PureComponent {
   };
 
   state = {
-    clearedState
+    name: '',
+    date: ''
   };
 
   handleChange = ({ target }) => {
@@ -26,7 +22,10 @@ export default class ShareableForm extends PureComponent {
     const { shareableType, onComplete } = this.props;
     const submission = { ...this.state, type: shareableType };
     onComplete('5b327868cf85ff348f7775e4', { shareable: submission });
-    this.setState(clearedState);
+    this.setState({
+      name: '',
+      date: ''
+    });
   };
 
   render() {
