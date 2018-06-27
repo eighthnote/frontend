@@ -4,7 +4,7 @@ const URL = '/api';
 const PROFILE_URL = `${URL}/profile`;
 
 // populate shareables?
-export const getProfile = () => get(PROFILE_URL);
+export const getUserProfile = () => get(PROFILE_URL);
 export const putProfile = data => put(PROFILE_URL, data);
 
 export const getFriends = () => get(`${PROFILE_URL}/friends`);
