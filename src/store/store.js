@@ -3,13 +3,17 @@ import thunk from 'redux-thunk';
 import promiseMiddleware from './promise-middleware';
 import { loading, error } from '../components/app/reducers';
 import { account, checkedAuth } from '../components/auth/reducers';
-import { user } from '../components/profile/reducers';
+import { user, giving, requesting } from '../components/profile/reducers';
+import { friends } from '../components/friends/reducers';
 
 const rootReducer = combineReducers({
   loading,
   error,
-  user,
   account,
+  user,
+  giving,
+  requesting,
+  friends,
   checkedAuth
 });
 

@@ -19,15 +19,13 @@ import { getUser, putUser, putShareable, postShareable } from '../../services/ap
 describe('action creators', () => {
   it('creates a user load action with normalized shareables', () => {
     const data = {
-      body: {
-        _id: 'a',
-        firstName: 'Keli',
-        lastName: 'Hansen',
-        pictureUrl: 'pix.com',
-        contact: ['(555) 555-5555'],
-        availability: 'Fridays',
-        shareables: [{ _id: '1', type: 'giving' }, { _id: '2', type: 'requesting' }, { _id: '3', type: 'giving' }]
-      }
+      _id: 'a',
+      firstName: 'Keli',
+      lastName: 'Hansen',
+      pictureUrl: 'pix.com',
+      contact: ['(555) 555-5555'],
+      availability: 'Fridays',
+      shareables: [{ _id: '1', type: 'giving' }, { _id: '2', type: 'requesting' }, { _id: '3', type: 'giving' }]
     };
 
     getUser.mockReturnValueOnce(Promise.resolve(data));

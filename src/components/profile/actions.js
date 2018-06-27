@@ -11,9 +11,9 @@ import {
 export function loadUser(id) {
   return {
     type: USER_LOAD,
-    payload: getUser(id).then(({ body }) => {
+    payload: getUser(id).then(body => {
       const { _id, firstName, lastName, pictureUrl, contact, availability, shareables } = body;
-
+      
       const shareablesMaps = shareables.reduce((maps, item) => {
         if(item.type === 'giving') maps.giving[item._id] = item;
         if(item.type === 'requesting') maps.requesting[item._id] = item;
