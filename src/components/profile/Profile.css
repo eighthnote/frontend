@@ -39,4 +39,10 @@
     width: 6em;
     height: 2em;
   }
+  .filler-image {
+    height: 10.5rem;
+    width: 10.5rem;
+    border-radius: 50%;
+    background-color: white;
+  }
 }

@@ -27,7 +27,8 @@ class Profile extends PureComponent {
       friday: false,
       saturday: false,
     },
-    notes: ''
+    notes: '',
+    imageUrl: ''
   };
  
   componentDidMount() {
@@ -56,7 +57,7 @@ class Profile extends PureComponent {
 
   render() {
     const { profile, giving, requesting } = this.props;
-    const { notes, days } = this.state;
+    const { notes, days, imageUrl } = this.state;
 
     if(!profile) return null;
 
@@ -64,7 +65,14 @@ class Profile extends PureComponent {
 
     return (
       <section className={styles.profile}>
-        <img src={pictureUrl} alt={`profile picture for ${firstName}`}/>
+        {pictureUrl ? 
+          <img src={pictureUrl} alt={`profile picture for ${firstName}`}/>
+          : <div className="filler-image"></div>}
+        <form>
+          <label>Enter an Image URL</label>
+          <input type="text" value={imageUrl}/>
+          <button>SAVE</button>
+        </form>
         <h2>{firstName} {lastName}</h2>
         <h4>Contact Info:</h4>
         <ul>
