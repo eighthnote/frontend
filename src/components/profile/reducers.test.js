@@ -1,8 +1,12 @@
 import {
   USER_LOAD,
   USER_UPDATE,
-  SHAREABLE_UPDATE,
   GIVING_ADD,
+  REQUESTING_ADD,
+  GIVING_UPDATE,
+  REQUESTING_UPDATE,
+  GIVING_REMOVE,
+  REQUESTING_REMOVE,
   user,
   getCurrentUser,
   giving,
@@ -10,8 +14,7 @@ import {
   getGivingArray,
   requesting,
   getRequesting,
-  getRequestingArray,
-  REQUESTING_ADD
+  getRequestingArray
 } from './reducers';
 
 import { LOGOUT } from '../auth/reducers';
@@ -65,13 +68,18 @@ describe('giving reducer', () => {
   it('adds a giving object', () => {
     const addition = { _id: '4', type: 'giving' };
     const state = giving(userObject.giving, { type: GIVING_ADD, payload: addition });
-    expect(state).toEqual({ ...userObject.giving, [addition._id]:addition });
+    expect(state).toEqual({ ...userObject.giving, [addition._id]: addition });
   });
 
   it('updates a giving object', () => {
     const update = { _id: '1', type: 'giving', description: 'homemade jam' };
-    const state = giving(userObject.giving, { type: SHAREABLE_UPDATE, payload: update });
-    expect(state).toEqual({ ...userObject.giving, [update._id]:update });
+    const state = giving(userObject.giving, { type: GIVING_UPDATE, payload: update });
+    expect(state).toEqual({ ...userObject.giving, [update._id]: update });
+  });
+
+  it('removes a giving object', () => {
+    const state = giving(userObject.giving, { type: GIVING_REMOVE, payload: { _id: '1' } });
+    expect(state).toEqual({ 3: { _id: '3', type: 'giving' } });
   });
 
   it('clears giving objects on logout', () => {
@@ -99,8 +107,13 @@ describe('requesting reducer', () => {
 
   it('updates a requesting object', () => {
     const update = { _id: '2', type: 'requesting', description: 'homemade jam' };
-    const state = requesting(userObject.requesting, { type: SHAREABLE_UPDATE, payload: update });
+    const state = requesting(userObject.requesting, { type: REQUESTING_UPDATE, payload: update });
     expect(state).toEqual({ ...userObject.requesting, [update._id]:update });
+  });
+
+  it('removes a requesting object', () => {
+    const state = requesting(userObject.requesting, { type: REQUESTING_REMOVE, payload: { _id: '2' } });
+    expect(state).toEqual({});
   });
 
   it('clears requesting objects on logout', () => {
