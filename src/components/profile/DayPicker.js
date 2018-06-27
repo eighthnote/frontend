@@ -13,20 +13,14 @@ export default class DayPicker extends Component {
     const dayNames = Object.keys(days);
     const capitalize = string => `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
     
-    const options = dayNames.map(day => {
-
-      return (
-        <div className="checkbox" key={day}>
-          <label>{capitalize(day)}</label>
-          <input onChange={event => handleCheckboxChange(event)} type='checkbox' name={day} 
-            checked={days[day]}/>
-        </div>
-      );
-    });
-
     return (
       <Fragment>
-        {options}
+        {dayNames.map(day => (
+          <div className="checkbox" key={day}>
+            <label>{capitalize(day)}</label>
+            <input onChange={event => handleCheckboxChange(event)} type='checkbox' name={day} checked={days[day]}/>
+          </div>
+        ))}
       </Fragment>
     );
   }
