@@ -1,23 +1,26 @@
 import {
-  USER_LOAD,
-  USER_UPDATE,
-  SHAREABLE_UPDATE,
+  PROFILE_LOAD,
+  PROFILE_UPDATE,
   GIVING_ADD,
-  user,
-  getCurrentUser,
+  REQUESTING_ADD,
+  GIVING_UPDATE,
+  REQUESTING_UPDATE,
+  GIVING_REMOVE,
+  REQUESTING_REMOVE,
+  profile,
+  getProfile,
   giving,
   getGiving,
   getGivingArray,
   requesting,
   getRequesting,
-  getRequestingArray,
-  REQUESTING_ADD
+  getRequestingArray
 } from './reducers';
 
 import { LOGOUT } from '../auth/reducers';
 
-const userObject = { 
-  user: { _id: 'a',
+const profileObject = { 
+  profile: { _id: 'a',
     firstName: 'Keli',
     lastName: 'Hansen',
     pictureUrl: 'pix.com',
@@ -28,25 +31,25 @@ const userObject = {
   requesting: { 2: { _id: '2', type: 'requesting' } }
 };
 
-describe('user reducer', () => {
+describe('profile reducer', () => {
   it('has a default value of null', () => {
-    const state = user(undefined, {});
+    const state = profile(undefined, {});
     expect(state).toBe(null);
   });
 
-  it('stores a loaded user', () => {
-    const state = user(null, { type: USER_LOAD, payload: userObject });
-    expect(state).toEqual(userObject.user);
+  it('stores a loaded profile', () => {
+    const state = profile(null, { type: PROFILE_LOAD, payload: profileObject });
+    expect(state).toEqual(profileObject.profile);
   });
 
-  it('updates a user', () => {
+  it('updates a profile', () => {
     const update = { pictureUrl: 'betterpix.com' };
-    const state = user(userObject.user, { type: USER_UPDATE, payload: update });
-    expect(state).toEqual({ ...userObject.user, ...update });
+    const state = profile(profileObject.profile, { type: PROFILE_UPDATE, payload: update });
+    expect(state).toEqual({ ...profileObject.profile, ...update });
   });
 
-  it('clears a user on logout', () => {
-    const state = user(userObject, { type: LOGOUT });
+  it('clears a profile on logout', () => {
+    const state = profile(profileObject, { type: LOGOUT });
     expect(state).toBe(null);
   });
 });
@@ -57,25 +60,30 @@ describe('giving reducer', () => {
     expect(state).toEqual({});
   });
 
-  it('loads giving objects when a user is loaded', () => {
-    const state = giving({}, { type: USER_LOAD, payload: userObject });
-    expect(state).toEqual(userObject.giving);
+  it('loads giving objects when a profile is loaded', () => {
+    const state = giving({}, { type: PROFILE_LOAD, payload: profileObject });
+    expect(state).toEqual(profileObject.giving);
   });
 
   it('adds a giving object', () => {
     const addition = { _id: '4', type: 'giving' };
-    const state = giving(userObject.giving, { type: GIVING_ADD, payload: addition });
-    expect(state).toEqual({ ...userObject.giving, [addition._id]:addition });
+    const state = giving(profileObject.giving, { type: GIVING_ADD, payload: addition });
+    expect(state).toEqual({ ...profileObject.giving, [addition._id]: addition });
   });
 
   it('updates a giving object', () => {
     const update = { _id: '1', type: 'giving', description: 'homemade jam' };
-    const state = giving(userObject.giving, { type: SHAREABLE_UPDATE, payload: update });
-    expect(state).toEqual({ ...userObject.giving, [update._id]:update });
+    const state = giving(profileObject.giving, { type: GIVING_UPDATE, payload: update });
+    expect(state).toEqual({ ...profileObject.giving, [update._id]: update });
+  });
+
+  it('removes a giving object', () => {
+    const state = giving(profileObject.giving, { type: GIVING_REMOVE, payload: { _id: '1' } });
+    expect(state).toEqual({ 3: { _id: '3', type: 'giving' } });
   });
 
   it('clears giving objects on logout', () => {
-    const state = giving(userObject.giving, { type: LOGOUT });
+    const state = giving(profileObject.giving, { type: LOGOUT });
     expect(state).toEqual({});
   });
 });
@@ -86,47 +94,52 @@ describe('requesting reducer', () => {
     expect(state).toEqual({});
   });
 
-  it('loads requesting objects when a user is loaded', () => {
-    const state = requesting({}, { type: USER_LOAD, payload: userObject });
-    expect(state).toEqual(userObject.requesting);
+  it('loads requesting objects when a profile is loaded', () => {
+    const state = requesting({}, { type: PROFILE_LOAD, payload: profileObject });
+    expect(state).toEqual(profileObject.requesting);
   });
 
   it('adds a requesting object', () => {
     const addition = { _id: '5', type: 'requesting' };
-    const state = requesting(userObject.requesting, { type: REQUESTING_ADD, payload: addition });
-    expect(state).toEqual({ ...userObject.requesting, [addition._id]:addition });
+    const state = requesting(profileObject.requesting, { type: REQUESTING_ADD, payload: addition });
+    expect(state).toEqual({ ...profileObject.requesting, [addition._id]:addition });
   });
 
   it('updates a requesting object', () => {
     const update = { _id: '2', type: 'requesting', description: 'homemade jam' };
-    const state = requesting(userObject.requesting, { type: SHAREABLE_UPDATE, payload: update });
-    expect(state).toEqual({ ...userObject.requesting, [update._id]:update });
+    const state = requesting(profileObject.requesting, { type: REQUESTING_UPDATE, payload: update });
+    expect(state).toEqual({ ...profileObject.requesting, [update._id]:update });
+  });
+
+  it('removes a requesting object', () => {
+    const state = requesting(profileObject.requesting, { type: REQUESTING_REMOVE, payload: { _id: '2' } });
+    expect(state).toEqual({});
   });
 
   it('clears requesting objects on logout', () => {
-    const state = requesting(userObject.requesting, { type: LOGOUT });
+    const state = requesting(profileObject.requesting, { type: LOGOUT });
     expect(state).toEqual({});
   });
 });
 
 describe('selectors', () => {
-  it('gets the current user object', () => {
-    expect(getCurrentUser({ user: userObject.user })).toBe(userObject.user);
+  it('gets the current profile object', () => {
+    expect(getProfile({ profile: profileObject.profile })).toBe(profileObject.profile);
   });
 
   it('gets the giving state', () => {
-    expect(getGiving({ giving: userObject.giving })).toBe(userObject.giving);
+    expect(getGiving({ giving: profileObject.giving })).toBe(profileObject.giving);
   });
 
   it('converts the giving object into an array', () => {
-    expect(getGivingArray({ giving: userObject.giving })).toEqual([{ _id: '1', type: 'giving' }, { _id: '3', type: 'giving' }]);
+    expect(getGivingArray({ giving: profileObject.giving })).toEqual([{ _id: '1', type: 'giving' }, { _id: '3', type: 'giving' }]);
   });
 
   it('gets the requesting state', () => {
-    expect(getRequesting({ requesting: userObject.requesting })).toEqual(userObject.requesting);
+    expect(getRequesting({ requesting: profileObject.requesting })).toEqual(profileObject.requesting);
   });
 
   it('converts the requesting object into an array', () => {
-    expect(getRequestingArray({ requesting: userObject.requesting })).toEqual([{ _id: '2', type: 'requesting' }]);
+    expect(getRequestingArray({ requesting: profileObject.requesting })).toEqual([{ _id: '2', type: 'requesting' }]);
   });
 });

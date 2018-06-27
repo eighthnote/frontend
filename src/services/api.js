@@ -1,29 +1,27 @@
-import { get, post, put } from './request';
+import { get, post, put, del } from './request';
 
 const URL = '/api';
-const USERS_URL = `${URL}/users`;
-const AUTH_URL = `${URL}/auth`;
+const PROFILE_URL = `${URL}/profile`;
 
 // populate shareables?
-export const getUser = id => get(`${USERS_URL}/${id}`);
-export const putUser = (id, data) => put(`${USERS_URL}/${id}`, data);
+export const getUserProfile = () => get(PROFILE_URL);
+export const putProfile = data => put(PROFILE_URL, data);
 
-export const getFriends = id => get(`${USERS_URL}/${id}/friends`);
+export const getFriends = () => get(`${PROFILE_URL}/friends`);
 // pending friends?
 // deleting friends?
 
 // return new
-export const postShareable = (id, shareable) => post(`${USERS_URL}/${id}/shareables`, shareable);
-export const putShareable = (id, shareableId, data) => put(`${USERS_URL}/${id}/shareables/${shareableId}`, data);
+export const postShareable = shareable => post(`${PROFILE_URL}/shareables`, shareable);
+export const putShareable = (shareableId, data) => put(`${PROFILE_URL}/shareables/${shareableId}`, data);
+export const deleteShareable = (shareableId) => del(`${PROFILE_URL}/shareables/${shareableId}`);
 
-export const getFeed = id => get(`${USERS_URL}/${id}/feed`);
+export const getFeed = () => get(`${PROFILE_URL}/feed`);
 
-export const postSignin = credentials => post(`${AUTH_URL}/signin`, credentials);
-export const postSignup = credentials => post(`${AUTH_URL}/signup`, credentials);
-export const getUserVerified = token => get(`${AUTH_URL}/verify`, {
+export const postSignin = credentials => post(`${URL}/signin`, credentials);
+export const postSignup = credentials => post(`${URL}/signup`, credentials);
+export const getAccountVerified = token => get(`${URL}/verify`, {
   headers: {
-    headers: {
-      Authorization: token
-    }
+    Authorization: token
   }
 });

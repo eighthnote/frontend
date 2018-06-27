@@ -1,22 +1,20 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loadUser, updateUser } from './actions';
-import { getAccount } from '../auth/reducers';
-import styles from './Profile.css';
-import { getCurrentUser, getGivingArray, getRequestingArray } from './reducers';
+import { updateProfile } from './actions';
+import { getProfile, getGivingArray, getRequestingArray } from './reducers';
 import DayPicker from './DayPicker';
-
-const _id = '5b327868cf85ff348f7775e4';
+import Shareable from './Shareable';
+import { capitalize } from '../../utils/formatters';
+import styles from './Profile.css';
 
 class Profile extends PureComponent {
   static propTypes = {
-    match: PropTypes.object.isRequired,
-    loadUser: PropTypes.func.isRequired,
-    user: PropTypes.object,
+    loadFunction: PropTypes.func.isRequired,
+    profile: PropTypes.object,
     giving: PropTypes.array,
     requesting: PropTypes.array,
-    updateUser: PropTypes.func.isRequired,
+    updateProfile: PropTypes.func.isRequired
   };
 
   state = {
@@ -33,9 +31,7 @@ class Profile extends PureComponent {
   };
  
   componentDidMount() {
-    const { match } = this.props;
-    const id = match.url === '/profile' ? _id : match.params.id;
-    this.props.loadUser(id);
+    this.props.loadFunction();
   }
 
   handleChange = ({ target }) => {
@@ -50,7 +46,7 @@ class Profile extends PureComponent {
     const { days, notes } = this.state;
     const dayArray = Object.keys(days);
     const checkedDays = dayArray.filter(day => days[day]);
-    this.props.updateUser(_id, {
+    this.props.updateProfile({
       availability: {
         days: checkedDays,
         notes
@@ -59,12 +55,12 @@ class Profile extends PureComponent {
   };
 
   render() {
-    const { user, giving, requesting } = this.props;
+    const { profile, giving, requesting } = this.props;
     const { notes, days } = this.state;
 
-    if(!user) return null;
+    if(!profile) return null;
 
-    const { firstName, lastName, pictureUrl, availability, contact } = user;
+    const { firstName, lastName, pictureUrl, availability, contact } = profile;
 
     return (
       <section className={styles.profile}>
@@ -76,23 +72,17 @@ class Profile extends PureComponent {
         </ul>
         <h4>Best Days:</h4>
         <ul>
-          {availability.days.map((item, i) => <li key={i}>{item}</li>)}
+          {availability && availability.days && availability.days.map((item, i) => <li key={i}>{capitalize(item)}</li>)}
         </ul>
-        <p>{availability.notes}</p>
+        <p>{availability && availability.notes}</p>
         <form onSubmit={this.handleSubmit}>
           <DayPicker handleCheckboxChange={this.handleChange} days={days}/>
           <label>Notes</label>
           <input onChange={this.handleChange} name="notes" type="text" value={notes}/>
           <button type="submit">save</button>
         </form>
-        <h3>giving:</h3>
-        <ul>
-          {giving.map(item => <li key={item._id}>{item.name}</li>)}
-        </ul>
-        <h3>requesting:</h3>
-        <ul>{requesting.map(item => <li key={item._id}>{item.name}</li>)}
-        </ul>
-        <button type="submit">Lets Make A Plan!</button>
+        <Shareable heading="Giving" shareableType="giving" shareable={giving}/>
+        <Shareable heading="Requesting" shareableType="requesting" shareable={requesting}/>
       </section>
     );
   }
@@ -100,10 +90,9 @@ class Profile extends PureComponent {
 
 export default connect(
   state => ({
-    account: getAccount(state),
-    user: getCurrentUser(state),
     giving: getGivingArray(state),
-    requesting: getRequestingArray(state)
+    requesting: getRequestingArray(state),
+    profile: getProfile(state)
   }),
-  { loadUser, updateUser }
+  { updateProfile }
 )(Profile);

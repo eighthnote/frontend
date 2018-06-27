@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Header from './Header';
@@ -8,38 +8,40 @@ import Profile from '../profile/Profile';
 import Feed from '../feed/Feed';
 import Friends from '../friends/Friends';
 import Plans from '../plans/Plans';
-// import PrivateRoute from './PrivateRoute';
-// import { getCheckedAuth } from '../auth/reducers';
-// import { attemptUserLoad } from '../auth/actions';
+import PrivateRoute from './PrivateRoute';
+import { getCheckedAuth } from '../auth/reducers';
+import { attemptAccountLoad } from '../auth/actions';
+import { loadUserProfile } from '../profile/actions';
 
 class App extends PureComponent {
   static propTypes = {
-    // attemptUserLoad: PropTypes.func.isRequired,
-    // checkedAuth: PropTypes.bool.isRequired
+    attemptAccountLoad: PropTypes.func.isRequired,
+    checkedAuth: PropTypes.bool.isRequired,
+    loadUserProfile: PropTypes.func.isRequired
   };
 
   componentDidMount() {
-    // this.props.attemptUserLoad();
+    this.props.attemptAccountLoad();
   }
 
   render() {
-    // const { checkedAuth } = this.props;
+    const { checkedAuth, loadUserProfile } = this.props;
 
     return (
       <Router>
         <div>
           <Route component={Header}/>
           <main>
-            {/* {checkedAuth && */}
+            {checkedAuth &&
             <Switch>
               <Route path="/auth" component={Auth}/>
-              <Route path="/feed" component={Feed}/>
-              <Route path="/profile" component={Profile}/>
-              <Route path="/friends" component={Friends}/>
-              <Route path="/plans" component={Plans}/>
-              <Redirect to="feed"/>
+              <PrivateRoute path="/profile" render={() => <Profile loadFunction={loadUserProfile}/>}/>
+              <PrivateRoute path="/feed" component={Feed}/>
+              <PrivateRoute path="/friends" component={Friends}/>
+              <PrivateRoute path="/plans" component={Plans}/>
+              <Redirect to="/profile"/>
             </Switch>
-            {/* } */}
+            }
           </main>
         </div>
       </Router>
@@ -48,8 +50,8 @@ class App extends PureComponent {
 }
 
 export default connect(
-  // state => ({
-  //   checkedAuth: getCheckedAuth(state)
-  // }),
-  // { attemptUserLoad }
+  state => ({
+    checkedAuth: getCheckedAuth(state),
+  }),
+  { attemptAccountLoad, loadUserProfile }
 )(App);
