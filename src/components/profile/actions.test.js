@@ -1,20 +1,22 @@
 jest.mock('../../services/api', () => ({
   getUser: jest.fn(),
   putUser: jest.fn(),
+  postShareable: jest.fn(),
   putShareable: jest.fn(),
-  postShareable: jest.fn()
+  deleteShareable: jest.fn()
 }));
 
 import {
   USER_LOAD,
   USER_UPDATE,
-  SHAREABLE_UPDATE,
-  GIVING_ADD
+  GIVING_ADD,
+  GIVING_UPDATE,
+  GIVING_REMOVE
 } from './reducers';
 
-import { loadUser, updateUser, updateShareable, addShareable } from './actions';
+import { loadUser, updateUser, addShareable, updateShareable, removeShareable } from './actions';
 
-import { getUser, putUser, putShareable, postShareable } from '../../services/api';
+import { getUser, putUser, postShareable, putShareable, deleteShareable } from '../../services/api';
 
 describe('action creators', () => {
   it('creates a user load action with normalized shareables', () => {
@@ -55,11 +57,11 @@ describe('action creators', () => {
   });
 
   it('creates a shareable update action', () => {
-    const data = { description: 'homemade jam' };
+    const data = { shareable: { type: 'giving', description: 'homemade jam' } };
     putShareable.mockReturnValueOnce(Promise.resolve(data));
 
     const { type, payload } = updateShareable('id', '1', data);
-    expect(type).toBe(SHAREABLE_UPDATE);
+    expect(type).toBe(GIVING_UPDATE);
     expect(payload).resolves.toEqual(data);
   });
 
@@ -70,5 +72,14 @@ describe('action creators', () => {
     const { type, payload } = addShareable('id', data);
     expect(type).toBe(GIVING_ADD);
     expect(payload).resolves.toEqual({ ...data, _id: '5' });
+  });
+
+  it('creates a shareable remove action', () => {
+    deleteShareable.mockReturnValueOnce(Promise.resolve());
+
+    const _id = '1';
+    const { type, payload } = removeShareable('id', _id, 'giving');
+    expect(type).toBe(GIVING_REMOVE);
+    expect(payload).resolves.toEqual({ _id });
   });
 });

@@ -1,4 +1,4 @@
-import { get, post, put } from './request';
+import { get, post, put, del } from './request';
 
 const URL = '/api';
 const USERS_URL = `${URL}/users`;
@@ -15,6 +15,7 @@ export const getFriends = id => get(`${USERS_URL}/${id}/friends`);
 // return new
 export const postShareable = (id, shareable) => post(`${USERS_URL}/${id}/shareables`, shareable);
 export const putShareable = (id, shareableId, data) => put(`${USERS_URL}/${id}/shareables/${shareableId}`, data);
+export const deleteShareable = (id, shareableId) => del(`${USERS_URL}/${id}/shareables/${shareableId}`);
 
 export const getFeed = id => get(`${USERS_URL}/${id}/feed`);
 

@@ -1,11 +1,14 @@
-import { getUser, putUser, putShareable, postShareable } from '../../services/api';
+import { getUser, putUser, postShareable, putShareable, deleteShareable } from '../../services/api';
 
 import {
   USER_LOAD,
   USER_UPDATE,
-  SHAREABLE_UPDATE,
   GIVING_ADD,
-  REQUESTING_ADD
+  REQUESTING_ADD,
+  GIVING_UPDATE,
+  REQUESTING_UPDATE,
+  GIVING_REMOVE,
+  REQUESTING_REMOVE
 } from './reducers';
 
 export function loadUser(id) {
@@ -45,10 +48,16 @@ export function updateUser(id, data) {
   };
 }
 
-export function updateShareable(id, shareableId, data) {
+export function updateShareable(id, shareableId, shareable) {
+  const { shareable: { type: shareableType } } = shareable;
+
+  let actionType;
+  if(shareableType === 'giving') actionType = GIVING_UPDATE;
+  if(shareableType === 'requesting') actionType = REQUESTING_UPDATE;
+
   return {
-    type: SHAREABLE_UPDATE,
-    payload: putShareable(id, shareableId, data)
+    type: actionType,
+    payload: putShareable(id, shareableId, shareable)
   };
 }
 
@@ -62,5 +71,16 @@ export function addShareable(id, shareable) {
   return {
     type: actionType,
     payload: postShareable(id, shareable)
+  };
+}
+
+export function removeShareable(userId, shareableId, shareableType) {
+  let actionType;
+  if(shareableType === 'giving') actionType = GIVING_REMOVE;
+  if(shareableType === 'requesting') actionType = REQUESTING_REMOVE;
+
+  return {
+    type: actionType,
+    payload: deleteShareable(userId, shareableId).then(() => ({ _id: shareableId }))
   };
 }
