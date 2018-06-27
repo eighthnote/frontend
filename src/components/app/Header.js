@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getAccount } from '../auth/reducers';
@@ -20,17 +20,13 @@ class Header extends Component {
         <h1>Shareable</h1>
         <nav>
           <ul>
-            {account ?
+            {account &&
               <Fragment>
                 <li><NavLink to="/feed">Feed</NavLink></li>
                 <li><NavLink to="/profile">{account.name}</NavLink></li>
                 <li><NavLink to="friends">Friends</NavLink></li>
                 <li><NavLink to="/plans">Plans</NavLink></li>
-                <li><NavLink to="/auth" onClick={logout}>Log Out</NavLink></li>
-              </Fragment>
-              : <Fragment>
-                <li><NavLink to="/auth/signin">Sign In</NavLink></li>
-                <li><NavLink to="/auth/signup">Sign Up</NavLink></li>
+                <li><Link to="/auth" onClick={logout}>Log Out</Link></li>
               </Fragment>}
           </ul>
         </nav>
