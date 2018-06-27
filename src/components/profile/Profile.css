@@ -1,11 +1,12 @@
 :local(.profile) {
+  background-color:#4a86e8ff;
   img {
     border-radius: 50%;
     height: 10.5em;
     display: block;
     margin-left: auto;
     margin-right: auto;
-    padding-top: 1em;
+    padding-top: 2em;
   }
   h2 {
     font-family: 'Roboto';
@@ -13,7 +14,29 @@
     font-size: 24pt;
   }
   h3 {
-    font-size: 20pt;
-    margin-left: 2em;
+    font-size: 18pt;
+    text-align: left;
+    margin-left: 3em;
+  }
+  h4 {
+    font-size: 16pt;
+  }
+  form {
+    display: inline-flex;
+    font-size: 14pt;
+    padding-bottom: 1em;
+  }
+  .checkbox {
+    font-size: 14pt;
+    display: inline-block;
+    padding-left: 1em;
+  }
+  input {
+    width: 70%;
+    height: 2em;
+  }
+  .submit {
+    width: 6em;
+    height: 2em;
   }
 }
