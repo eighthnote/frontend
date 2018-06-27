@@ -92,6 +92,7 @@ class Profile extends PureComponent {
         <h3>requesting:</h3>
         <ul>{requesting.map(item => <li key={item._id}>{item.name}</li>)}
         </ul>
+        <button type="submit">Lets Make A Plan!</button>
       </section>
     );
   }
