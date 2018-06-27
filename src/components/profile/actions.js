@@ -42,10 +42,10 @@ export function loadUserProfile() {
   };
 }
 
-export function updateProfile(id, data) {
+export function updateProfile(data) {
   return {
     type: PROFILE_UPDATE,
-    payload: putProfile(id, data).then(() => data)
+    payload: putProfile(data).then(() => data)
   };
 }
 
