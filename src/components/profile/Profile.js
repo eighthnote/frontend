@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loadUser, updateUser } from './actions';
+import { loadUser, updateUser, addShareable } from './actions';
 import { getAccount } from '../auth/reducers';
 import { getCurrentUser, getGivingArray, getRequestingArray } from './reducers';
 import DayPicker from './DayPicker';
+import ShareableForm from './ShareableForm';
 import capitalize from '../../utils/capitalize';
 import styles from './Profile.css';
 
@@ -18,6 +19,7 @@ class Profile extends PureComponent {
     giving: PropTypes.array,
     requesting: PropTypes.array,
     updateUser: PropTypes.func.isRequired,
+    addShareable: PropTypes.func.isRequired
   };
 
   state = {
@@ -60,7 +62,7 @@ class Profile extends PureComponent {
   };
 
   render() {
-    const { user, giving, requesting } = this.props;
+    const { user, giving, requesting, addShareable } = this.props;
     const { notes, days } = this.state;
 
     if(!user) return null;
@@ -87,6 +89,7 @@ class Profile extends PureComponent {
           <button type="submit">save</button>
         </form>
         <h3>Giving:</h3>
+        <ShareableForm shareableType="giving" action="ADD" onComplete={addShareable}/>
         <ul>
           {giving.map(item => <li key={item._id}>{item.name}</li>)}
         </ul>
@@ -105,5 +108,5 @@ export default connect(
     giving: getGivingArray(state),
     requesting: getRequestingArray(state)
   }),
-  { loadUser, updateUser }
+  { loadUser, updateUser, addShareable }
 )(Profile);
