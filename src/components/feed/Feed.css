@@ -1,0 +1,9 @@
+:local(.feed) {
+  background-color: yellow;
+  text-align: center;
+  grid-auto-rows: max-content;
+
+  p {
+    font-size: 28pt;
+  }
+}
