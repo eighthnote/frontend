@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loadUser, updateUser, addShareable } from './actions';
+import { loadUser, updateUser, addShareable, removeShareable } from './actions';
 import { getAccount } from '../auth/reducers';
 import { getCurrentUser, getGivingArray, getRequestingArray } from './reducers';
 import DayPicker from './DayPicker';
@@ -19,7 +19,8 @@ class Profile extends PureComponent {
     giving: PropTypes.array,
     requesting: PropTypes.array,
     updateUser: PropTypes.func.isRequired,
-    addShareable: PropTypes.func.isRequired
+    addShareable: PropTypes.func.isRequired,
+    removeShareable: PropTypes.func.isRequired
   };
 
   state = {
@@ -62,7 +63,7 @@ class Profile extends PureComponent {
   };
 
   render() {
-    const { user, giving, requesting, addShareable } = this.props;
+    const { user, giving, requesting, addShareable, removeShareable } = this.props;
     const { notes, days } = this.state;
 
     if(!user) return null;
@@ -91,7 +92,11 @@ class Profile extends PureComponent {
         <h3>Giving:</h3>
         <ShareableForm shareableType="giving" action="ADD" onComplete={addShareable}/>
         <ul>
-          {giving.map(item => <li key={item._id}>{item.name} {item.date && `(by ${formatDate(item.date)})`}</li>)}
+          {giving.map(item => (
+            <li key={item._id}>
+              {item.name} {item.date && `(by ${formatDate(item.date)})`} <button onClick={() => removeShareable(user._id, item._id, 'giving')}>&times;</button>
+            </li>
+          ))}
         </ul>
         <h3>Requesting:</h3>
         <ShareableForm shareableType="requesting" action="ADD" onComplete={addShareable}/>
@@ -110,5 +115,5 @@ export default connect(
     giving: getGivingArray(state),
     requesting: getRequestingArray(state)
   }),
-  { loadUser, updateUser, addShareable }
+  { loadUser, updateUser, addShareable, removeShareable }
 )(Profile);
