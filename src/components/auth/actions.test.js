@@ -49,7 +49,7 @@ describe('auth action creators', () => {
       .then(() => {
         expect(getAccountVerified.mock.calls[0][0]).toBe('123');
         expect(dispatch.mock.calls.length).toBe(2);
-        expect(clearStoredAccount.mock.calls.length).toBe(0);
+        expect(clearStoredAccount.mock.calls.length).toBe(1);
         expect(dispatch.mock.calls[0][0]).toEqual({
           type: ACCOUNT_AUTH,
           payload: account
@@ -72,7 +72,7 @@ describe('auth action creators', () => {
       .then(() => {
         expect(getAccountVerified.mock.calls[1][0]).toBe('bad');
         expect(dispatch.mock.calls.length).toBe(1);
-        expect(clearStoredAccount.mock.calls.length).toBe(1);
+        expect(clearStoredAccount.mock.calls.length).toBe(2);
         expect(dispatch.mock.calls[0][0]).toEqual({
           type: AUTH_CHECKED
         });
