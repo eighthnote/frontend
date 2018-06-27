@@ -1,58 +1,68 @@
-import { getUser, putUser, putShareable, postShareable } from '../../services/api';
+import { getUserProfile, putProfile, postShareable, putShareable, deleteShareable } from '../../services/api';
 
 import {
-  USER_LOAD,
-  USER_UPDATE,
-  SHAREABLE_UPDATE,
+  PROFILE_LOAD,
+  PROFILE_UPDATE,
   GIVING_ADD,
-  REQUESTING_ADD
+  REQUESTING_ADD,
+  GIVING_UPDATE,
+  REQUESTING_UPDATE,
+  GIVING_REMOVE,
+  REQUESTING_REMOVE
 } from './reducers';
 
-export function loadUser(id) {
-  return {
-    type: USER_LOAD,
-    payload: getUser(id).then(body => {
-      const { _id, firstName, lastName, pictureUrl, contact, availability, shareables } = body;
+function shapeProfile(response) {
+  const { _id, firstName, lastName, pictureUrl, contact, availability, shareables } = response;
       
-      const shareablesMaps = shareables.reduce((maps, item) => {
-        if(item.type === 'giving') maps.giving[item._id] = item;
-        if(item.type === 'requesting') maps.requesting[item._id] = item;
-        return maps;
-      }, { giving: {}, requesting: {} });
+  const shareablesMaps = shareables.reduce((maps, item) => {
+    if(item.type === 'giving') maps.giving[item._id] = item;
+    if(item.type === 'requesting') maps.requesting[item._id] = item;
+    return maps;
+  }, { giving: {}, requesting: {} });
 
-      const { giving, requesting } = shareablesMaps;
-      
-      return {
-        user: {
-          _id,
-          firstName,
-          lastName,
-          pictureUrl,
-          contact,
-          availability
-        },
-        giving,
-        requesting
-      };
-    })
-  };
-}
-
-export function updateUser(id, data) {
+  const { giving, requesting } = shareablesMaps;
   return {
-    type: USER_UPDATE,
-    payload: putUser(id, data).then(() => data)
+    profile: {
+      _id,
+      firstName,
+      lastName,
+      pictureUrl,
+      contact,
+      availability
+    },
+    giving,
+    requesting
   };
 }
 
-export function updateShareable(id, shareableId, data) {
+export function loadUserProfile() {
   return {
-    type: SHAREABLE_UPDATE,
-    payload: putShareable(id, shareableId, data)
+    type: PROFILE_LOAD,
+    payload: getUserProfile().then(shapeProfile)
   };
 }
 
-export function addShareable(id, shareable) {
+export function updateProfile(data) {
+  return {
+    type: PROFILE_UPDATE,
+    payload: putProfile(data).then(() => data)
+  };
+}
+
+export function updateShareable(shareableId, shareable) {
+  const { type: shareableType } = shareable;
+
+  let actionType;
+  if(shareableType === 'giving') actionType = GIVING_UPDATE;
+  if(shareableType === 'requesting') actionType = REQUESTING_UPDATE;
+
+  return {
+    type: actionType,
+    payload: putShareable(shareableId, shareable)
+  };
+}
+
+export function addShareable(shareable) {
   const { type: shareableType } = shareable;
 
   let actionType;
@@ -61,6 +71,17 @@ export function addShareable(id, shareable) {
 
   return {
     type: actionType,
-    payload: postShareable(id, shareable)
+    payload: postShareable(shareable)
+  };
+}
+
+export function removeShareable(shareableId, shareableType) {
+  let actionType;
+  if(shareableType === 'giving') actionType = GIVING_REMOVE;
+  if(shareableType === 'requesting') actionType = REQUESTING_REMOVE;
+
+  return {
+    type: actionType,
+    payload: deleteShareable(shareableId).then(() => ({ _id: shareableId }))
   };
 }
