@@ -1,7 +1,7 @@
 import { ACCOUNT_AUTH, LOGOUT, AUTH_CHECKED } from './reducers';
 
-import { postSignup, postSignin, getUserVerified } from '../../services/api';
-import { getStoredToken, clearStoredToken } from '../../services/request';
+import { postSignup, postSignin, getAccountVerified } from '../../services/api';
+import { getStoredAccount, clearStoredAccount } from '../../services/request';
 
 const makeAuth = api => {
   return credentials => ({
@@ -13,24 +13,27 @@ const makeAuth = api => {
 export const signup = makeAuth(postSignup);
 export const signin = makeAuth(postSignin);
 
-export const logout = () => ({ type: LOGOUT });
+export const logout = () => {
+  clearStoredAccount();
+  return { type: LOGOUT };
+};
 
 const authChecked = () => ({ type: AUTH_CHECKED });
 
-export const attemptUserLoad = () => {
+export const attemptAccountLoad = () => {
   return dispatch => {
-    const token = getStoredToken();
-    if(!token) {
+    const account = getStoredAccount();
+    if(!account || !account.token) {
       return dispatch(authChecked());
     }
 
-    return getUserVerified(token)
-      .then(user => dispatch({
+    return getAccountVerified(account.token)
+      .then(() => dispatch({
         type: ACCOUNT_AUTH,
-        payload: { user, token }
+        payload: account
       }))
       .catch(() => {
-        clearStoredToken();
+        clearStoredAccount();
       })
       .then(() => {
         dispatch(authChecked());

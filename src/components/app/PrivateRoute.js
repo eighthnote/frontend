@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { getCurrentUser } from '../auth/reducers';
+import { getAccount } from '../auth/reducers';
 import { Route, Redirect } from 'react-router-dom';
 
-const PrivateRoute = ({ user, component: Component, render, ...rest }) => {
+const PrivateRoute = ({ account, component: Component, render, ...rest }) => {
   return <Route {...rest} render={props => {
-    if(!user) return <Redirect
+    if(!account) return <Redirect
       to={{
         pathname: '/auth/signin',
         state: { from: props.location.pathname }
@@ -21,12 +21,13 @@ const PrivateRoute = ({ user, component: Component, render, ...rest }) => {
 };
 
 PrivateRoute.propTypes = {
-  user: PropTypes.object,
+  account: PropTypes.object,
   component: PropTypes.func,
   render: PropTypes.func,
   location: PropTypes.object
 };
 
 export default connect(
-  // state => ({ user: getCurrentUser(state) })
+  state => ({ account: getAccount(state) }),
+  null
 )(PrivateRoute);
