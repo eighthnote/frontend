@@ -6,7 +6,7 @@ import { getAccount } from '../auth/reducers';
 import { getCurrentUser, getGivingArray, getRequestingArray } from './reducers';
 import DayPicker from './DayPicker';
 import ShareableForm from './ShareableForm';
-import capitalize from '../../utils/capitalize';
+import { capitalize, formatDate } from '../../utils/formatters';
 import styles from './Profile.css';
 
 const _id = '5b327868cf85ff348f7775e4';
@@ -91,10 +91,12 @@ class Profile extends PureComponent {
         <h3>Giving:</h3>
         <ShareableForm shareableType="giving" action="ADD" onComplete={addShareable}/>
         <ul>
-          {giving.map(item => <li key={item._id}>{item.name}</li>)}
+          {giving.map(item => <li key={item._id}>{item.name} {item.date && `(by ${formatDate(item.date)})`}</li>)}
         </ul>
         <h3>Requesting:</h3>
-        <ul>{requesting.map(item => <li key={item._id}>{item.name}</li>)}
+        <ShareableForm shareableType="requesting" action="ADD" onComplete={addShareable}/>
+        <ul>
+          {requesting.map(item => <li key={item._id}>{item.name}</li>)}
         </ul>
       </section>
     );
