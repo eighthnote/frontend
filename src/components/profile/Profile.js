@@ -84,7 +84,7 @@ class Profile extends PureComponent {
           <label>Notes</label>
           <input onChange={this.handleChange} name="notes" type="text" value={notes}/>
           <button type="submit">save</button>
-        </div>
+        </form>
         <h3>giving:</h3>
         <ul>
           {giving.map(item => <li key={item._id}>{item.name}</li>)}
@@ -92,6 +92,7 @@ class Profile extends PureComponent {
         <h3>requesting:</h3>
         <ul>{requesting.map(item => <li key={item._id}>{item.name}</li>)}
         </ul>
+        <button type="submit">Lets Make A Plan!</button>
       </section>
     );
   }
