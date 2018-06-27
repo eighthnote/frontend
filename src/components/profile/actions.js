@@ -1,4 +1,4 @@
-import { getProfile, putProfile, postShareable, putShareable, deleteShareable } from '../../services/api';
+import { getUserProfile, putProfile, postShareable, putShareable, deleteShareable } from '../../services/api';
 
 import {
   PROFILE_LOAD,
@@ -11,37 +11,40 @@ import {
   REQUESTING_REMOVE
 } from './reducers';
 
-export function loadAccount(id) {
-  return {
-    type: PROFILE_LOAD,
-    payload: getProfile(id).then(body => {
-      const { _id, firstName, lastName, pictureUrl, contact, availability, shareables } = body;
+function shapeProfile(response) {
+  console.log(response);
+  const { _id, firstName, lastName, pictureUrl, contact, availability, shareables } = response;
       
-      const shareablesMaps = shareables.reduce((maps, item) => {
-        if(item.type === 'giving') maps.giving[item._id] = item;
-        if(item.type === 'requesting') maps.requesting[item._id] = item;
-        return maps;
-      }, { giving: {}, requesting: {} });
+  const shareablesMaps = shareables.reduce((maps, item) => {
+    if(item.type === 'giving') maps.giving[item._id] = item;
+    if(item.type === 'requesting') maps.requesting[item._id] = item;
+    return maps;
+  }, { giving: {}, requesting: {} });
 
-      const { giving, requesting } = shareablesMaps;
-      
-      return {
-        profile: {
-          _id,
-          firstName,
-          lastName,
-          pictureUrl,
-          contact,
-          availability
-        },
-        giving,
-        requesting
-      };
-    })
+  const { giving, requesting } = shareablesMaps;
+  console.log(firstName);
+  return {
+    profile: {
+      _id,
+      firstName,
+      lastName,
+      pictureUrl,
+      contact,
+      availability
+    },
+    giving,
+    requesting
   };
 }
 
-export function updateAccount(id, data) {
+export function loadUserProfile() {
+  return {
+    type: PROFILE_LOAD,
+    payload: getUserProfile().then(shapeProfile)
+  };
+}
+
+export function updateProfile(id, data) {
   return {
     type: PROFILE_UPDATE,
     payload: putProfile(id, data).then(() => data)
