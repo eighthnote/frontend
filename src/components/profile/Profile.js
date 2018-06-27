@@ -1,24 +1,20 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loadAccount, updateAccount } from './actions';
-import { getAccount } from '../auth/reducers';
-import { getGivingArray, getRequestingArray } from './reducers';
+import { updateProfile } from './actions';
+import { getProfile, getGivingArray, getRequestingArray } from './reducers';
 import DayPicker from './DayPicker';
 import Shareable from './Shareable';
 import { capitalize } from '../../utils/formatters';
 import styles from './Profile.css';
 
-const _id = '5b327868cf85ff348f7775e4';
-
 class Profile extends PureComponent {
   static propTypes = {
-    match: PropTypes.object.isRequired,
-    loadAccount: PropTypes.func.isRequired,
+    loadFunction: PropTypes.func.isRequired,
     profile: PropTypes.object,
     giving: PropTypes.array,
     requesting: PropTypes.array,
-    updateAccount: PropTypes.func.isRequired
+    updateProfile: PropTypes.func.isRequired
   };
 
   state = {
@@ -35,9 +31,7 @@ class Profile extends PureComponent {
   };
  
   componentDidMount() {
-    const { match } = this.props;
-    const id = match.url === '/profile' ? _id : match.params.id;
-    this.props.loadAccount(id);
+    this.props.loadFunction();
   }
 
   handleChange = ({ target }) => {
@@ -52,7 +46,7 @@ class Profile extends PureComponent {
     const { days, notes } = this.state;
     const dayArray = Object.keys(days);
     const checkedDays = dayArray.filter(day => days[day]);
-    this.props.updateAccount(_id, {
+    this.props.updateProfile({
       availability: {
         days: checkedDays,
         notes
@@ -78,9 +72,9 @@ class Profile extends PureComponent {
         </ul>
         <h4>Best Days:</h4>
         <ul>
-          {availability.days.map((item, i) => <li key={i}>{capitalize(item)}</li>)}
+          {availability && availability.days && availability.days.map((item, i) => <li key={i}>{capitalize(item)}</li>)}
         </ul>
-        <p>{availability.notes}</p>
+        <p>{availability && availability.notes}</p>
         <form onSubmit={this.handleSubmit}>
           <DayPicker handleCheckboxChange={this.handleChange} days={days}/>
           <label>Notes</label>
@@ -96,9 +90,9 @@ class Profile extends PureComponent {
 
 export default connect(
   state => ({
-    account: getAccount(state),
     giving: getGivingArray(state),
-    requesting: getRequestingArray(state)
+    requesting: getRequestingArray(state),
+    profile: getProfile(state)
   }),
-  { loadAccount, updateAccount }
+  { updateProfile }
 )(Profile);
