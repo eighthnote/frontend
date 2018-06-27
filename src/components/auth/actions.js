@@ -13,7 +13,10 @@ const makeAuth = api => {
 export const signup = makeAuth(postSignup);
 export const signin = makeAuth(postSignin);
 
-export const logout = () => ({ type: LOGOUT });
+export const logout = () => {
+  clearStoredAccount();
+  return { type: LOGOUT };
+};
 
 const authChecked = () => ({ type: AUTH_CHECKED });
 
