@@ -33,17 +33,17 @@ export default class Credentials extends PureComponent {
         {includeName &&
           <Fragment>
             <label htmlFor="firstName">First Name:</label>
-            <input type="text" id="firstName" value={firstName} onChange={this.handleChange}/>
+            <input type="text" id="firstName" value={firstName} required onChange={this.handleChange}/>
             <label htmlFor="lastName">Last Name:</label>
-            <input type="text" id="lastName" value={lastName} onChange={this.handleChange}/>
+            <input type="text" id="lastName" value={lastName} required onChange={this.handleChange}/>
           </Fragment>
         }
 
         <label htmlFor="email">Email:</label>
-        <input type="text" id="email" value={email} onChange={this.handleChange}/>
+        <input type="text" id="email" value={email} required onChange={this.handleChange}/>
 
         <label htmlFor="password">Password:</label>
-        <input type="password" id="password" value={password} onChange={this.handleChange}/>
+        <input type="password" id="password" value={password} required onChange={this.handleChange}/>
 
         <button type="submit">{action}</button>
       </form>
