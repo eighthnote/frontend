@@ -11,11 +11,13 @@ import Plans from '../plans/Plans';
 import PrivateRoute from './PrivateRoute';
 import { getCheckedAuth } from '../auth/reducers';
 import { attemptAccountLoad } from '../auth/actions';
+import { loadUserProfile } from '../profile/actions';
 
 class App extends PureComponent {
   static propTypes = {
     attemptAccountLoad: PropTypes.func.isRequired,
-    checkedAuth: PropTypes.bool.isRequired
+    checkedAuth: PropTypes.bool.isRequired,
+    loadUserProfile: PropTypes.func.isRequired
   };
 
   componentDidMount() {
@@ -23,7 +25,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const { checkedAuth } = this.props;
+    const { checkedAuth, loadUserProfile } = this.props;
 
     return (
       <Router>
@@ -33,7 +35,7 @@ class App extends PureComponent {
             {checkedAuth &&
             <Switch>
               <Route path="/auth" component={Auth}/>
-              <PrivateRoute path="/profile" component={Profile}/>
+              <PrivateRoute path="/profile" render={() => <Profile loadFunction={loadUserProfile}/>}/>
               <PrivateRoute path="/feed" component={Feed}/>
               <PrivateRoute path="/friends" component={Friends}/>
               <PrivateRoute path="/plans" component={Plans}/>
@@ -49,7 +51,7 @@ class App extends PureComponent {
 
 export default connect(
   state => ({
-    checkedAuth: getCheckedAuth(state)
+    checkedAuth: getCheckedAuth(state),
   }),
-  { attemptAccountLoad }
+  { attemptAccountLoad, loadUserProfile }
 )(App);
