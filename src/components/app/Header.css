@@ -1,18 +1,13 @@
 :local(.header) {
-  background-color:#4a86e8ff;
+  //background-color:#4a86e8ff;
+  background-color: #ff9900ff;
   text-align: center;
   font-family: Lobster;
   font-size: 2em;
   padding-top: .5em;
-  .nav {
-    width: 80%;
-    display: inline-flex;
-    margin: 0 auto;
-    justify-content: space-around;
-    font-family: Roboto;
-    font-size: 1em;
-  }
+  
   a {
+    font-size: 20pt;
     text-decoration: none;
     color: black;
   }
