@@ -86,11 +86,11 @@ class Profile extends PureComponent {
           <input onChange={this.handleChange} name="notes" type="text" value={notes}/>
           <button type="submit">save</button>
         </form>
-        <h3>giving:</h3>
+        <h3>Giving:</h3>
         <ul>
           {giving.map(item => <li key={item._id}>{item.name}</li>)}
         </ul>
-        <h3>requesting:</h3>
+        <h3>Requesting:</h3>
         <ul>{requesting.map(item => <li key={item._id}>{item.name}</li>)}
         </ul>
       </section>
