@@ -1,13 +1,14 @@
 :local(.header) {
-  background-color:#4a86e8ff;
+  //background-color:#4a86e8ff;
+  //background-color: #ff9900ff;
+  //background-color: violet;
   text-align: center;
-  //font-family: Lobster;
-  padding-top: 2em;
-  
-  ul {
-    width: 80%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-around;
+  font-family: Lobster;
+  font-size: 2em;
+  padding-top: .5em;
+  a {
+    font-size: 20pt;
+    text-decoration: none;
+    color: black;
   }
 }
