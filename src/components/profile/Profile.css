@@ -1,6 +1,19 @@
 :local(.profile) {
   img {
     border-radius: 50%;
-    height: 50px;
+    height: 10.5em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 1em;
+  }
+  h2 {
+    font-family: 'Roboto';
+    text-align: center;
+    font-size: 24pt;
+  }
+  h3 {
+    font-size: 20pt;
+    margin-left: 2em;
   }
 }
