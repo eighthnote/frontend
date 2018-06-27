@@ -48,7 +48,7 @@ class Profile extends PureComponent {
       <section className={styles.profile}>
         <img src={pictureUrl} alt={`profile picture for ${firstName}`}/>
         <h2>{firstName} {lastName}</h2>
-        <h3>contact info:</h3>
+        <h4>contact info:</h4>
         <ul>
           {
             contact.map(item => {
@@ -58,14 +58,16 @@ class Profile extends PureComponent {
             })
           }
         </ul>
-        <h3>availability:</h3>
+        <h4>availability:</h4>
         <span>{availability.days}</span>
         <form onSubmit={this.handleSubmit}>
           <Checkbox/>
+        </form>
+        <div className="notes">
           <label>Notes</label>
           <input onChange={this.handleChange} type="text" value={notes}/>
           <button type="submit">save</button>
-        </form>
+        </div>
         <h3>giving:</h3>
         <ul>
           {
