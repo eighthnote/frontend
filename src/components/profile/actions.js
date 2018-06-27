@@ -62,7 +62,7 @@ export function updateShareable(id, shareableId, shareable) {
   };
 }
 
-export function addShareable(id, shareable) {
+export function addShareable(shareable) {
   const { type: shareableType } = shareable;
 
   let actionType;
@@ -71,7 +71,7 @@ export function addShareable(id, shareable) {
 
   return {
     type: actionType,
-    payload: postShareable(id, shareable)
+    payload: postShareable(shareable)
   };
 }
 

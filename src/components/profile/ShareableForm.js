@@ -21,7 +21,7 @@ export default class ShareableForm extends PureComponent {
     event.preventDefault();
     const { shareableType, onComplete } = this.props;
     const submission = { ...this.state, type: shareableType };
-    onComplete('5b327868cf85ff348f7775e4', { shareable: submission });
+    onComplete(submission);
     this.setState({
       name: '',
       date: ''
