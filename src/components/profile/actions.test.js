@@ -1,5 +1,5 @@
 jest.mock('../../services/api', () => ({
-  getProfile: jest.fn(),
+  getUserProfile: jest.fn(),
   putProfile: jest.fn(),
   postShareable: jest.fn(),
   putShareable: jest.fn(),
@@ -14,9 +14,8 @@ import {
   GIVING_REMOVE
 } from './reducers';
 
-import { loadAccount, updateAccount, addShareable, updateShareable, removeShareable } from './actions';
-
-import { getProfile, putProfile, postShareable, putShareable, deleteShareable } from '../../services/api';
+import { loadUserProfile, updateProfile, addShareable, updateShareable, removeShareable } from './actions';
+import { getUserProfile, putProfile, postShareable, putShareable, deleteShareable } from '../../services/api';
 
 describe('action creators', () => {
   it('creates a profile load action with normalized shareables', () => {
@@ -30,9 +29,9 @@ describe('action creators', () => {
       shareables: [{ _id: '1', type: 'giving' }, { _id: '2', type: 'requesting' }, { _id: '3', type: 'giving' }]
     };
 
-    getProfile.mockReturnValueOnce(Promise.resolve(data));
+    getUserProfile.mockReturnValueOnce(Promise.resolve(data));
 
-    const { type, payload } = loadAccount('a');
+    const { type, payload } = loadUserProfile('a');
     expect(type).toBe(PROFILE_LOAD);
     expect(payload).resolves.toEqual({ 
       profile: { _id: 'a',
@@ -51,7 +50,7 @@ describe('action creators', () => {
     putProfile.mockReturnValueOnce(Promise.resolve());
 
     const update = { pictureUrl: 'betterpix.com' };
-    const { type, payload } = updateAccount('id', update);
+    const { type, payload } = updateProfile('id', update);
     expect(type).toBe(PROFILE_UPDATE);
     expect(payload).resolves.toEqual(update);
   });
