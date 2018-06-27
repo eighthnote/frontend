@@ -5,14 +5,14 @@ jest.mock('../../services/api', () => ({
 }));
 
 jest.mock('../../services/request', () => ({
-  getStoredToken: jest.fn(),
-  clearStoredToken: jest.fn()
+  getStoredAccount: jest.fn(),
+  clearStoredAccount: jest.fn()
 }));
 
 import { signup, signin, logout, attemptAccountLoad } from './actions';
 import { ACCOUNT_AUTH, AUTH_CHECKED, LOGOUT } from './reducers';
 import { postSignup, postSignin, getAccountVerified } from '../../services/api';
-import { getStoredToken, clearStoredToken } from '../../services/request';
+import { getStoredAccount, clearStoredAccount } from '../../services/request';
 
 describe('auth action creators', () => {
   function testAuth(actionType, mockService, actionCreator) {
@@ -41,20 +41,18 @@ describe('auth action creators', () => {
     const thunk = attemptAccountLoad();
     const dispatch = jest.fn();
 
-    const token = '123';
-    getStoredToken.mockReturnValueOnce(token);
-    const account = { name: 'me' };
-    const verifiedResponse = Promise.resolve(account);
-    getAccountVerified.mockReturnValueOnce(verifiedResponse);
+    const account = { name: 'me', token: '123' };
+    getStoredAccount.mockReturnValueOnce(account);
+    getAccountVerified.mockReturnValueOnce(Promise.resolve());
 
     thunk(dispatch)
       .then(() => {
         expect(getAccountVerified.mock.calls[0][0]).toBe('123');
         expect(dispatch.mock.calls.length).toBe(2);
-        expect(clearStoredToken.mock.calls.length).toBe(0);
+        expect(clearStoredAccount.mock.calls.length).toBe(0);
         expect(dispatch.mock.calls[0][0]).toEqual({
           type: ACCOUNT_AUTH,
-          payload: { account, token }
+          payload: account
         });
         expect(dispatch.mock.calls[1][0]).toEqual({
           type: AUTH_CHECKED
@@ -66,16 +64,15 @@ describe('auth action creators', () => {
     const thunk = attemptAccountLoad();
     const dispatch = jest.fn();
 
-    const token = 'bad';
-    getStoredToken.mockReturnValueOnce(token);
-    const verifiedResponse = Promise.reject();
-    getAccountVerified.mockReturnValueOnce(verifiedResponse);
+    const account = { token: 'bad' };
+    getStoredAccount.mockReturnValueOnce(account);
+    getAccountVerified.mockReturnValueOnce(Promise.reject());
 
     thunk(dispatch)
       .then(() => {
         expect(getAccountVerified.mock.calls[1][0]).toBe('bad');
         expect(dispatch.mock.calls.length).toBe(1);
-        expect(clearStoredToken.mock.calls.length).toBe(1);
+        expect(clearStoredAccount.mock.calls.length).toBe(1);
         expect(dispatch.mock.calls[0][0]).toEqual({
           type: AUTH_CHECKED
         });
