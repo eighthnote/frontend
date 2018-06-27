@@ -53,7 +53,7 @@ export function updateShareable(id, shareableId, data) {
 }
 
 export function addShareable(id, shareable) {
-  const { type: shareableType } = shareable;
+  const { shareable: { type: shareableType } } = shareable;
 
   let actionType;
   if(shareableType === 'giving') actionType = GIVING_ADD;
