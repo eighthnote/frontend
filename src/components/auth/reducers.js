@@ -3,6 +3,7 @@ export const AUTH_CHECKED = 'AUTH_CHECKED';
 export const LOGOUT = 'LOGOUT';
 
 export const getAccount = state => state.account;
+export const getAccountName = state => getAccount(state) ? getAccount(state).name : '';
 export const getCheckedAuth = state => state.checkedAuth;
 
 export function account(state = null, { type, payload }) {

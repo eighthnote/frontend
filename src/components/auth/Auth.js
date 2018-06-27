@@ -2,24 +2,24 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { getAccount } from '../auth/reducers';
 import { signin, signup } from './actions';
-import { getCurrentUser } from './reducers';
 import Credentials from './Credentials';
 
 class Auth extends PureComponent {
   static propTypes = {
-    user: PropTypes.object,
+    account: PropTypes.object,
     signin: PropTypes.func.isRequired,
     signup: PropTypes.func.isRequired,
     location: PropTypes.object
   };
 
   render() {
-    const { user, signin, signup, location } = this.props;
+    const { account, signin, signup, location } = this.props;
     
     const redirect = location.state ? location.state.from : '/';
 
-    if(user) return <Redirect to={redirect}/>;
+    if(account) return <Redirect to={redirect}/>;
 
     return (
       <section>
@@ -43,6 +43,6 @@ class Auth extends PureComponent {
 }
 
 export default connect(
-  state => ({ user: getCurrentUser(state) }),
+  state => ({ account: getAccount(state) }),
   { signin, signup }
 )(Auth);

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loadUser, updateUser } from './actions';
 import { getAccount } from '../auth/reducers';
-import { getCurrentUser, getGivingArray, getRequestingArray } from './reducers';
+import { getGivingArray, getRequestingArray } from './reducers';
 import DayPicker from './DayPicker';
 import Shareable from './Shareable';
 import { capitalize } from '../../utils/formatters';
@@ -97,7 +97,6 @@ class Profile extends PureComponent {
 export default connect(
   state => ({
     account: getAccount(state),
-    user: getCurrentUser(state),
     giving: getGivingArray(state),
     requesting: getRequestingArray(state)
   }),
