@@ -64,7 +64,7 @@ describe('action creators', () => {
   });
 
   it('creates a shareable add action', () => {
-    const data = { type: 'giving', description: 'woodworking' };
+    const data = { shareable: { type: 'giving', description: 'woodworking' } };
     postShareable.mockReturnValueOnce(Promise.resolve({ ...data, _id: '5' }));
 
     const { type, payload } = addShareable('id', data);
