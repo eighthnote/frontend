@@ -1,0 +1,62 @@
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { updateProfile } from './actions';
+import DayPicker from './DayPicker';
+
+class AvailabilityForm extends PureComponent {
+  static propTypes = {
+    updateProfile: PropTypes.func.isRequired
+  };
+
+  state = {
+    days: { 
+      sunday: false,
+      monday: false,
+      tuesday: false,
+      wednesday: false,
+      thursday: false,
+      friday: false,
+      saturday: false,
+    },
+    notes: ''
+  };
+
+  handleChange = ({ target }) => {
+    const { type, name, checked, value } = target;
+    type === 'checkbox' ?
+      this.setState(prevState => ({ days: { ...prevState.days, [name]: checked } }))
+      : this.setState({ [name]: value });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    const { days, notes } = this.state;
+    const dayArray = Object.keys(days);
+    const checkedDays = dayArray.filter(day => days[day]);
+    this.props.updateProfile({
+      availability: {
+        days: checkedDays,
+        notes
+      }
+    });
+  };
+
+  render() {
+    const { notes, days } = this.state;
+
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <DayPicker handleCheckboxChange={this.handleChange} days={days}/>
+        <label>Notes</label>
+        <input onChange={this.handleChange} name="notes" type="text" value={notes}/>
+        <button type="submit">save</button>
+      </form>
+    );
+  }
+}
+
+export default connect(
+  null,
+  { updateProfile }
+)(AvailabilityForm);

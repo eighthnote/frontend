@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updateProfile } from './actions';
 import { getProfile, getGivingArray, getRequestingArray } from './reducers';
-import DayPicker from './DayPicker';
 import Shareable from './Shareable';
 import { capitalize } from '../../utils/formatters';
 import styles from './Profile.css';
+import AvailabilityForm from './AvailabilityForm';
 
 class Profile extends PureComponent {
   static propTypes = {
@@ -18,16 +18,6 @@ class Profile extends PureComponent {
   };
 
   state = {
-    days: { 
-      sunday: false,
-      monday: false,
-      tuesday: false,
-      wednesday: false,
-      thursday: false,
-      friday: false,
-      saturday: false,
-    },
-    notes: '',
     imageUrl: ''
   };
  
@@ -35,29 +25,9 @@ class Profile extends PureComponent {
     this.props.loadFunction();
   }
 
-  handleChange = ({ target }) => {
-    const { type, name, checked, value } = target;
-    type === 'checkbox' ?
-      this.setState(prevState => ({ days: { ...prevState.days, [name]: checked } }))
-      : this.setState({ [name]: value });
-  };
-
-  handleSubmit = event => {
-    event.preventDefault();
-    const { days, notes } = this.state;
-    const dayArray = Object.keys(days);
-    const checkedDays = dayArray.filter(day => days[day]);
-    this.props.updateProfile({
-      availability: {
-        days: checkedDays,
-        notes
-      }
-    });
-  };
-
   render() {
     const { profile, giving, requesting } = this.props;
-    const { notes, days, imageUrl } = this.state;
+    const { imageUrl } = this.state;
 
     if(!profile) return null;
 
@@ -83,12 +53,7 @@ class Profile extends PureComponent {
           {availability && availability.days && availability.days.map((item, i) => <li key={i}>{capitalize(item)}</li>)}
         </ul>
         <p>{availability && availability.notes}</p>
-        <form onSubmit={this.handleSubmit}>
-          <DayPicker handleCheckboxChange={this.handleChange} days={days}/>
-          <label>Notes</label>
-          <input onChange={this.handleChange} name="notes" type="text" value={notes}/>
-          <button type="submit">save</button>
-        </form>
+        <AvailabilityForm/>
         <Shareable heading="Giving" shareableType="giving" shareable={giving}/>
         <Shareable heading="Requesting" shareableType="requesting" shareable={requesting}/>
       </section>
