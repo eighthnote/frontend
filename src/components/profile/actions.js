@@ -12,7 +12,6 @@ import {
 } from './reducers';
 
 function shapeProfile(response) {
-  console.log(response);
   const { _id, firstName, lastName, pictureUrl, contact, availability, shareables } = response;
       
   const shareablesMaps = shareables.reduce((maps, item) => {
@@ -22,7 +21,6 @@ function shapeProfile(response) {
   }, { giving: {}, requesting: {} });
 
   const { giving, requesting } = shareablesMaps;
-  console.log(firstName);
   return {
     profile: {
       _id,
