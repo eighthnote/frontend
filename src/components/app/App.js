@@ -10,16 +10,16 @@ import Friends from '../friends/Friends';
 import Plans from '../plans/Plans';
 import PrivateRoute from './PrivateRoute';
 import { getCheckedAuth } from '../auth/reducers';
-import { attemptUserLoad } from '../auth/actions';
+import { attemptAccountLoad } from '../auth/actions';
 
 class App extends PureComponent {
   static propTypes = {
-    attemptUserLoad: PropTypes.func.isRequired,
+    attemptAccountLoad: PropTypes.func.isRequired,
     checkedAuth: PropTypes.bool.isRequired
   };
 
   componentDidMount() {
-    this.props.attemptUserLoad();
+    this.props.attemptAccountLoad();
   }
 
   render() {
@@ -51,5 +51,5 @@ export default connect(
   state => ({
     checkedAuth: getCheckedAuth(state)
   }),
-  { attemptUserLoad }
+  { attemptAccountLoad }
 )(App);

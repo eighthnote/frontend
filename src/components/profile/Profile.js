@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loadUser, updateUser } from './actions';
+import { loadAccount, updateAccount } from './actions';
 import { getAccount } from '../auth/reducers';
 import { getGivingArray, getRequestingArray } from './reducers';
 import DayPicker from './DayPicker';
@@ -14,11 +14,11 @@ const _id = '5b327868cf85ff348f7775e4';
 class Profile extends PureComponent {
   static propTypes = {
     match: PropTypes.object.isRequired,
-    loadUser: PropTypes.func.isRequired,
-    user: PropTypes.object,
+    loadAccount: PropTypes.func.isRequired,
+    profile: PropTypes.object,
     giving: PropTypes.array,
     requesting: PropTypes.array,
-    updateUser: PropTypes.func.isRequired
+    updateAccount: PropTypes.func.isRequired
   };
 
   state = {
@@ -37,7 +37,7 @@ class Profile extends PureComponent {
   componentDidMount() {
     const { match } = this.props;
     const id = match.url === '/profile' ? _id : match.params.id;
-    this.props.loadUser(id);
+    this.props.loadAccount(id);
   }
 
   handleChange = ({ target }) => {
@@ -52,7 +52,7 @@ class Profile extends PureComponent {
     const { days, notes } = this.state;
     const dayArray = Object.keys(days);
     const checkedDays = dayArray.filter(day => days[day]);
-    this.props.updateUser(_id, {
+    this.props.updateAccount(_id, {
       availability: {
         days: checkedDays,
         notes
@@ -61,12 +61,12 @@ class Profile extends PureComponent {
   };
 
   render() {
-    const { user, giving, requesting } = this.props;
+    const { profile, giving, requesting } = this.props;
     const { notes, days } = this.state;
 
-    if(!user) return null;
+    if(!profile) return null;
 
-    const { firstName, lastName, pictureUrl, availability, contact } = user;
+    const { firstName, lastName, pictureUrl, availability, contact } = profile;
 
     return (
       <section className={styles.profile}>
@@ -100,5 +100,5 @@ export default connect(
     giving: getGivingArray(state),
     requesting: getRequestingArray(state)
   }),
-  { loadUser, updateUser }
+  { loadAccount, updateAccount }
 )(Profile);

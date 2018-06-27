@@ -1,7 +1,7 @@
 jest.mock('../../services/api', () => ({
   postSignup: jest.fn(),
   postSignin: jest.fn(),
-  getUserVerified: jest.fn()
+  getAccountVerified: jest.fn()
 }));
 
 jest.mock('../../services/request', () => ({
@@ -9,9 +9,9 @@ jest.mock('../../services/request', () => ({
   clearStoredToken: jest.fn()
 }));
 
-import { signup, signin, logout, attemptUserLoad } from './actions';
+import { signup, signin, logout, attemptAccountLoad } from './actions';
 import { ACCOUNT_AUTH, AUTH_CHECKED, LOGOUT } from './reducers';
-import { postSignup, postSignin, getUserVerified } from '../../services/api';
+import { postSignup, postSignin, getAccountVerified } from '../../services/api';
 import { getStoredToken, clearStoredToken } from '../../services/request';
 
 describe('auth action creators', () => {
@@ -37,24 +37,24 @@ describe('auth action creators', () => {
     expect(type).toBe(LOGOUT);
   });
 
-  it('creates an action that loads a verified user, if possible', () => {
-    const thunk = attemptUserLoad();
+  it('creates an action that loads a verified account, if possible', () => {
+    const thunk = attemptAccountLoad();
     const dispatch = jest.fn();
 
     const token = '123';
     getStoredToken.mockReturnValueOnce(token);
-    const user = { name: 'me' };
-    const verifiedResponse = Promise.resolve(user);
-    getUserVerified.mockReturnValueOnce(verifiedResponse);
+    const account = { name: 'me' };
+    const verifiedResponse = Promise.resolve(account);
+    getAccountVerified.mockReturnValueOnce(verifiedResponse);
 
     thunk(dispatch)
       .then(() => {
-        expect(getUserVerified.mock.calls[0][0]).toBe('123');
+        expect(getAccountVerified.mock.calls[0][0]).toBe('123');
         expect(dispatch.mock.calls.length).toBe(2);
         expect(clearStoredToken.mock.calls.length).toBe(0);
         expect(dispatch.mock.calls[0][0]).toEqual({
           type: ACCOUNT_AUTH,
-          payload: { user, token }
+          payload: { account, token }
         });
         expect(dispatch.mock.calls[1][0]).toEqual({
           type: AUTH_CHECKED
@@ -62,18 +62,18 @@ describe('auth action creators', () => {
       });
   });
 
-  it('creates an action that clears a stored user if they can not be verified', () => {
-    const thunk = attemptUserLoad();
+  it('creates an action that clears a stored account if they can not be verified', () => {
+    const thunk = attemptAccountLoad();
     const dispatch = jest.fn();
 
     const token = 'bad';
     getStoredToken.mockReturnValueOnce(token);
     const verifiedResponse = Promise.reject();
-    getUserVerified.mockReturnValueOnce(verifiedResponse);
+    getAccountVerified.mockReturnValueOnce(verifiedResponse);
 
     thunk(dispatch)
       .then(() => {
-        expect(getUserVerified.mock.calls[1][0]).toBe('bad');
+        expect(getAccountVerified.mock.calls[1][0]).toBe('bad');
         expect(dispatch.mock.calls.length).toBe(1);
         expect(clearStoredToken.mock.calls.length).toBe(1);
         expect(dispatch.mock.calls[0][0]).toEqual({

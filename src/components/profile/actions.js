@@ -1,8 +1,8 @@
-import { getUser, putUser, postShareable, putShareable, deleteShareable } from '../../services/api';
+import { getProfile, putProfile, postShareable, putShareable, deleteShareable } from '../../services/api';
 
 import {
-  USER_LOAD,
-  USER_UPDATE,
+  PROFILE_LOAD,
+  PROFILE_UPDATE,
   GIVING_ADD,
   REQUESTING_ADD,
   GIVING_UPDATE,
@@ -11,10 +11,10 @@ import {
   REQUESTING_REMOVE
 } from './reducers';
 
-export function loadUser(id) {
+export function loadAccount(id) {
   return {
-    type: USER_LOAD,
-    payload: getUser(id).then(body => {
+    type: PROFILE_LOAD,
+    payload: getProfile(id).then(body => {
       const { _id, firstName, lastName, pictureUrl, contact, availability, shareables } = body;
       
       const shareablesMaps = shareables.reduce((maps, item) => {
@@ -26,7 +26,7 @@ export function loadUser(id) {
       const { giving, requesting } = shareablesMaps;
       
       return {
-        user: {
+        profile: {
           _id,
           firstName,
           lastName,
@@ -41,10 +41,10 @@ export function loadUser(id) {
   };
 }
 
-export function updateUser(id, data) {
+export function updateAccount(id, data) {
   return {
-    type: USER_UPDATE,
-    payload: putUser(id, data).then(() => data)
+    type: PROFILE_UPDATE,
+    payload: putProfile(id, data).then(() => data)
   };
 }
 

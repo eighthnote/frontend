@@ -1,25 +1,25 @@
 jest.mock('../../services/api', () => ({
-  getUser: jest.fn(),
-  putUser: jest.fn(),
+  getProfile: jest.fn(),
+  putProfile: jest.fn(),
   postShareable: jest.fn(),
   putShareable: jest.fn(),
   deleteShareable: jest.fn()
 }));
 
 import {
-  USER_LOAD,
-  USER_UPDATE,
+  PROFILE_LOAD,
+  PROFILE_UPDATE,
   GIVING_ADD,
   GIVING_UPDATE,
   GIVING_REMOVE
 } from './reducers';
 
-import { loadUser, updateUser, addShareable, updateShareable, removeShareable } from './actions';
+import { loadAccount, updateAccount, addShareable, updateShareable, removeShareable } from './actions';
 
-import { getUser, putUser, postShareable, putShareable, deleteShareable } from '../../services/api';
+import { getProfile, putProfile, postShareable, putShareable, deleteShareable } from '../../services/api';
 
 describe('action creators', () => {
-  it('creates a user load action with normalized shareables', () => {
+  it('creates a profile load action with normalized shareables', () => {
     const data = {
       _id: 'a',
       firstName: 'Keli',
@@ -30,12 +30,12 @@ describe('action creators', () => {
       shareables: [{ _id: '1', type: 'giving' }, { _id: '2', type: 'requesting' }, { _id: '3', type: 'giving' }]
     };
 
-    getUser.mockReturnValueOnce(Promise.resolve(data));
+    getProfile.mockReturnValueOnce(Promise.resolve(data));
 
-    const { type, payload } = loadUser('a');
-    expect(type).toBe(USER_LOAD);
+    const { type, payload } = loadAccount('a');
+    expect(type).toBe(PROFILE_LOAD);
     expect(payload).resolves.toEqual({ 
-      user: { _id: 'a',
+      profile: { _id: 'a',
         firstName: 'Keli',
         lastName: 'Hansen',
         pictureUrl: 'pix.com',
@@ -47,12 +47,12 @@ describe('action creators', () => {
     });
   });
 
-  it('creates a user update action', () => {
-    putUser.mockReturnValueOnce(Promise.resolve());
+  it('creates a profile update action', () => {
+    putProfile.mockReturnValueOnce(Promise.resolve());
 
     const update = { pictureUrl: 'betterpix.com' };
-    const { type, payload } = updateUser('id', update);
-    expect(type).toBe(USER_UPDATE);
+    const { type, payload } = updateAccount('id', update);
+    expect(type).toBe(PROFILE_UPDATE);
     expect(payload).resolves.toEqual(update);
   });
 
