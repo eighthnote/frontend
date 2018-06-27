@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import capitalize from '../../utils/capitalize';
+import { capitalize } from '../../utils/formatters';
 
 export default class DayPicker extends Component {
   static propTypes = {
