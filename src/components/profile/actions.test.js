@@ -31,7 +31,7 @@ describe('action creators', () => {
 
     getUserProfile.mockReturnValueOnce(Promise.resolve(data));
 
-    const { type, payload } = loadUserProfile('a');
+    const { type, payload } = loadUserProfile();
     expect(type).toBe(PROFILE_LOAD);
     expect(payload).resolves.toEqual({ 
       profile: { _id: 'a',
@@ -50,7 +50,7 @@ describe('action creators', () => {
     putProfile.mockReturnValueOnce(Promise.resolve());
 
     const update = { pictureUrl: 'betterpix.com' };
-    const { type, payload } = updateProfile('id', update);
+    const { type, payload } = updateProfile(update);
     expect(type).toBe(PROFILE_UPDATE);
     expect(payload).resolves.toEqual(update);
   });
@@ -59,7 +59,7 @@ describe('action creators', () => {
     const data = { type: 'giving', description: 'homemade jam' };
     putShareable.mockReturnValueOnce(Promise.resolve(data));
 
-    const { type, payload } = updateShareable('id', '1', data);
+    const { type, payload } = updateShareable('1', data);
     expect(type).toBe(GIVING_UPDATE);
     expect(payload).resolves.toEqual(data);
   });
@@ -68,7 +68,7 @@ describe('action creators', () => {
     const data = { type: 'giving', description: 'woodworking' };
     postShareable.mockReturnValueOnce(Promise.resolve({ ...data, _id: '5' }));
 
-    const { type, payload } = addShareable('id', data);
+    const { type, payload } = addShareable(data);
     expect(type).toBe(GIVING_ADD);
     expect(payload).resolves.toEqual({ ...data, _id: '5' });
   });
@@ -77,7 +77,7 @@ describe('action creators', () => {
     deleteShareable.mockReturnValueOnce(Promise.resolve());
 
     const _id = '1';
-    const { type, payload } = removeShareable('id', _id, 'giving');
+    const { type, payload } = removeShareable(_id, 'giving');
     expect(type).toBe(GIVING_REMOVE);
     expect(payload).resolves.toEqual({ _id });
   });

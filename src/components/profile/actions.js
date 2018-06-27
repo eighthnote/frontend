@@ -49,7 +49,7 @@ export function updateProfile(data) {
   };
 }
 
-export function updateShareable(id, shareableId, shareable) {
+export function updateShareable(shareableId, shareable) {
   const { type: shareableType } = shareable;
 
   let actionType;
@@ -58,7 +58,7 @@ export function updateShareable(id, shareableId, shareable) {
 
   return {
     type: actionType,
-    payload: putShareable(id, shareableId, shareable)
+    payload: putShareable(shareableId, shareable)
   };
 }
 
