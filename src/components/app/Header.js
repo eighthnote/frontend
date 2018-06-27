@@ -16,7 +16,7 @@ class Header extends Component {
 
     return (
       <header className={styles.header}>
-        <h1>Together</h1>
+        <h1>Shareable</h1>
         <ul className="nav">
           <NavLink to="/feed">Feed</NavLink>
           <NavLink to="/profile">Profile</NavLink>
