@@ -5,7 +5,8 @@ import { updateProfile } from './actions';
 
 class PictureForm extends PureComponent {
   static propTypes = {
-    updateProfile: PropTypes.func.isRequired
+    updateProfile: PropTypes.func.isRequired,
+    onDone: PropTypes.func.isRequired
   };
 
   state = {
@@ -19,6 +20,7 @@ class PictureForm extends PureComponent {
   handleSubmit = event => {
     event.preventDefault();
     this.props.updateProfile(this.state);
+    this.props.onDone('editingPicture');
   };
 
   render() {
