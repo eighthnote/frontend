@@ -6,6 +6,7 @@ import { updateProfile } from './actions';
 class ContactForm extends PureComponent {
   static propTypes = {
     updateProfile: PropTypes.func.isRequired,
+    onDone: PropTypes.func.isRequired
   };
 
   state = {
@@ -13,12 +14,13 @@ class ContactForm extends PureComponent {
   };
  
   handleChange = ({ target }) => {
-    this.setState({ contact: [target.value] });
+    this.setState({ contact: target.value });
   };
 
   handleSubmit = event => {
     event.preventDefault();
     this.props.updateProfile(this.state);
+    this.props.onDone('editingContact');
   };
 
   render() {
@@ -26,8 +28,8 @@ class ContactForm extends PureComponent {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <label>Enter Your Preferred Contact Info:</label>
-        <input type="text" value={contact} onChange={this.handleChange}/>
+        <label htmlFor="contact">Enter Your Preferred Contact Info:</label>
+        <input id="contact" type="text" value={contact} onChange={this.handleChange}/>
         <button type="submit">SAVE</button>
       </form>
     );
