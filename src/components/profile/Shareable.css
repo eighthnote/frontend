@@ -1,4 +1,5 @@
 :local(.shareable) {
+  position: relative;
   .remove {
     font-size: 1.5em;
     border: none;
@@ -6,5 +7,12 @@
     &:hover {
       color: white;
     }
+  }
+  .high-priority {
+    color: white;
+  }
+  .accessible-priority {
+    position:absolute;
+    left:-10000px;
   }
 }

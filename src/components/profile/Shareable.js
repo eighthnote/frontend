@@ -25,7 +25,7 @@ class Shareable extends PureComponent {
   };
 
   handleClick = (id, shareableType) => {
-    if(confirm('Are you sure?')) this.props.removeShareable(id, shareableType);
+    if(confirm('Are you sure you\'d like to delete this shareable?')) this.props.removeShareable(id, shareableType);
   };
 
   render() {
@@ -39,8 +39,9 @@ class Shareable extends PureComponent {
         {isUser && editing && <ShareableForm shareableType={shareableType} action="ADD" onComplete={addShareable}/>}
         <ul>
           {shareable.map(item => (
-            <li key={item._id}>
+            <li key={item._id} className={item.priority ? 'high-priority' : 'regular-priority'}>
               {item.name}
+              {item.priority && <span className="accessible-priority">high priority</span>}
               {item.date && ` (by ${formatDate(item.date)})`}
               {isUser && <button className="remove" onClick={() => this.handleClick(item._id, shareableType)}>&times;</button>}
             </li>
