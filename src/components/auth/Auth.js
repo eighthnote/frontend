@@ -24,7 +24,7 @@ class Auth extends PureComponent {
     if(account) return <Redirect to={redirect}/>;
 
     return (
-      <section className={styles.auth}>
+      <section>
         <ul className="auth-nav">
           <li><NavLink activeClassName="signin" to="/auth/signin">Sign In</NavLink></li>
           <li><NavLink activeClassName="signup" to="/auth/signup">Sign Up</NavLink></li>
