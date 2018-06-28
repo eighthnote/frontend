@@ -7,9 +7,9 @@ import { getFriends } from './reducers';
 class Friends extends PureComponent {
   static propTypes = {
     friends: PropTypes.array,
-    loadFunction: PropTypes.func.isRequired,
     sendFriendRequest: PropTypes.func.isRequired,
-    acceptFriendRequest: PropTypes.func.isRequired
+    acceptFriendRequest: PropTypes.func.isRequired,
+    loadFriends: PropTypes.func.isRequired
   };
 
   state = {
@@ -17,7 +17,7 @@ class Friends extends PureComponent {
   };
 
   componentDidMount() {
-    this.props.loadFunction();
+    this.props.loadFriends();
   }
 
   handleChange = ({ target }) => {

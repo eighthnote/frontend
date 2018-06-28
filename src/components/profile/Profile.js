@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getProfile, getGivingArray, getRequestingArray } from './reducers';
+import { loadProfile } from './actions';
 import PictureForm from './PictureForm';
 import ContactForm from './ContactForm';
 import AvailabilityForm from './AvailabilityForm';
@@ -11,8 +12,9 @@ import styles from './Profile.css';
 
 class Profile extends PureComponent {
   static propTypes = {
+    match: PropTypes.object,
     isUser: PropTypes.bool,
-    loadFunction: PropTypes.func.isRequired,
+    loadProfile: PropTypes.func.isRequired,
     profile: PropTypes.object,
     giving: PropTypes.array,
     requesting: PropTypes.array
@@ -25,7 +27,8 @@ class Profile extends PureComponent {
   };
  
   componentDidMount() {
-    this.props.loadFunction();
+    const { match, isUser, loadProfile } = this.props;
+    isUser ? loadProfile() : loadProfile(match.params.id);
   }
 
   handleFormToggle = key => {
@@ -71,5 +74,6 @@ export default connect(
     giving: getGivingArray(state),
     requesting: getRequestingArray(state),
     profile: getProfile(state)
-  })
+  }),
+  { loadProfile }
 )(Profile);
