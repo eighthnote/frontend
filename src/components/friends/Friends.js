@@ -1,6 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+import Friend from './Friend';
+
 import { loadFriends, sendFriendRequest, acceptFriendRequest } from './actions';
 import { getFriends } from './reducers';
 
@@ -27,6 +30,7 @@ class Friends extends PureComponent {
   handleSubmit = event => {
     event.preventDefault();
     this.props.sendFriendRequest();
+    this.setState({ addFriendForm: '' });
   };
 
   handleAcceptFriend = event => {
@@ -54,7 +58,11 @@ class Friends extends PureComponent {
         <h3>Friends</h3>
         <ul>
           {friends[0] && friends[0].map((friend, i) => (
-            <li key={i}>{friend.firstName}</li>
+            <Friend key={i}
+              firstName={friend.firstName}
+              lastName={friend.lastName}
+              imageUrl={friend.imageUrl}
+            />
           ))}
         </ul>
       </div>
