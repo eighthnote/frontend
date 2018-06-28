@@ -1,10 +1,20 @@
-.nav {
+h1 {
+  font-family: Roboto;
+  font-size: 38pt;
+}
+nav ul {
+  list-style: none;
   width: 90%;
   display: inline-flex;
   margin: 0 auto;
   justify-content: space-around;
+  justify-content: space-between;
+  justify-content: space-evenly;
   font-family: Roboto;
   background-color: #6aa84fff;
+}
+.a {
+  font-size: 2pt;
 }
 
 
