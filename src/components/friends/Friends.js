@@ -29,7 +29,7 @@ class Friends extends PureComponent {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.sendFriendRequest();
+    this.props.sendFriendRequest({ email: `${this.state.addFriendForm}` });
     this.setState({ addFriendForm: '' });
   };
 
