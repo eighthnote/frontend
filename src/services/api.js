@@ -9,7 +9,7 @@ export const putProfile = data => put(PROFILE_URL, data);
 
 export const getFriends = () => get(`${PROFILE_URL}/friends`);
 export const putFriends = email => put(`${PROFILE_URL}/friends/`, email);
-// pending friends?
+export const putFriendsAccept = id => put(`${PROFILE_URL}/friends/confirm/${id}`);
 // deleting friends?
 
 // return new

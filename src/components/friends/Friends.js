@@ -1,14 +1,15 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loadFriends, sendFriendRequest } from './actions';
+import { loadFriends, sendFriendRequest, acceptFriendRequest } from './actions';
 import { getFriends } from './reducers';
 
 class Friends extends PureComponent {
   static propTypes = {
     friends: PropTypes.array,
     loadFunction: PropTypes.func.isRequired,
-    sendFriendRequest: PropTypes.func.isRequired
+    sendFriendRequest: PropTypes.func.isRequired,
+    acceptFriendRequest: PropTypes.func.isRequired
   };
 
   state = {
@@ -25,7 +26,12 @@ class Friends extends PureComponent {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.sendFriendRequest({});
+    this.props.sendFriendRequest();
+  };
+
+  handleAcceptFriend = event => {
+    this.props.acceptFriendRequest(event.target.id);
+    window.location.reload();
   };
 
   render() {
@@ -42,7 +48,7 @@ class Friends extends PureComponent {
         <h3>Pending Friend Requests</h3>
         <ul>
           {friends[1] && friends[1].map((friend, i) => (
-            <li key={i}>{friend.firstName}</li>
+            <li key={i}>{friend.firstName}<button id={friend._id} onClick={this.handleAcceptFriend}>Accept</button></li>
           ))}
         </ul>
         <h3>Friends</h3>
@@ -60,5 +66,5 @@ export default connect(
   state => ({
     friends: getFriends(state)
   }),
-  { loadFriends, sendFriendRequest }
+  { loadFriends, sendFriendRequest, acceptFriendRequest }
 )(Friends);
