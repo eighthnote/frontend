@@ -1,56 +1,46 @@
-import React, { Component } from 'react';
-import styles from './Feed.css';
-import starMan from '../images/starMan.png';
-import twoHearts from '../images/twoHearts.png';
-import groupPlan from '../images/groupPlan.png';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
+import FeedShareable from './FeedShareable';
 
-class Feed extends Component {
+import { loadFeed } from './actions';
+import { getFeed } from './reducers';
+
+class Feed extends PureComponent {
+  static propTypes = {
+    feed: PropTypes.array.isRequired,
+    loadFeed: PropTypes.func.isRequired
+  };
+
+  componentDidMount() {
+    this.props.loadFeed();
+  }
+
   render() {
+    const { feed } = this.props;
+
+    if(!feed) return null;
+
     return (
-      <div className={styles.feed}>
-        {/* <h2>My feed!</h2> */}
-        <section className="planOne">
-          <p>Plan 1</p>
-          <img src={starMan} alt="man with star"/>
-          <img src={twoHearts} alt="two people icons sharing a heart"/>
-          <img src={groupPlan} alt="group icon"/>
-        </section>
-        <section className="planTwo">
-          <p>Plan 2</p>
-          <img src={starMan} alt="man with star"/>
-          <img src={twoHearts} alt="two people icons sharing a heart"/>
-          <img src={groupPlan} alt="group icon"/>
-        </section>
-        <section className="planThree">
-          <p>Plan 3</p>
-          <img src={starMan} alt="man with star"/>
-          <img src={twoHearts} alt="two people icons sharing a heart"/>
-          <img src={groupPlan} alt="group icon"/>
-        </section>
-        <section className="planFour">
-          <p>Plan 4</p>
-          <img src={twoHearts} alt="two people icons sharing a heart"/>
-          <img src={groupPlan} alt="group icon"/>
-        </section>
-        <section className="planFive">
-          <p>Plan 5</p>
-          <img src={twoHearts} alt="two people icons sharing a heart"/>
-          <img src={groupPlan} alt="group icon"/>
-        </section>
-        <section className="planSix">
-          <p>Plan 6</p>
-          <img src={twoHearts} alt="two people icons sharing a heart"/>
-          <img src={groupPlan} alt="group icon"/>
-        </section>
-        <section className="planSeven">
-          <p>Plan 7</p>
-          <img src={twoHearts} alt="two people icons sharing a heart"/>
-          <img src={groupPlan} alt="group icon"/>
-        </section>
+      <div>
+        <h1>TEST</h1>
+        <ul>
+          {feed && feed.map((shareable, i) => {
+            <FeedShareable
+              key={i}
+              {...shareable}
+            />;
+          })}
+        </ul>
       </div>
     );
   }
 }
 
-export default Feed;
+export default connect(
+  state => ({
+    feed: getFeed(state)
+  }),
+  { loadFeed, getFeed }
+)(Feed);

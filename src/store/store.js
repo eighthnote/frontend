@@ -5,6 +5,7 @@ import { loading, error } from '../components/app/reducers';
 import { account, checkedAuth } from '../components/auth/reducers';
 import { profile, giving, requesting } from '../components/profile/reducers';
 import { friends } from '../components/friends/reducers';
+import { feed } from '../components/feed/reducers';
 
 const rootReducer = combineReducers({
   loading,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   giving,
   requesting,
   friends,
-  checkedAuth
+  checkedAuth,
+  feed
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
