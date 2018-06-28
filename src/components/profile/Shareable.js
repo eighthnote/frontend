@@ -11,20 +11,21 @@ class Shareable extends PureComponent {
     shareableType: PropTypes.string.isRequired,
     shareable: PropTypes.array.isRequired,
     addShareable: PropTypes.func.isRequired,
-    removeShareable: PropTypes.func.isRequired
+    removeShareable: PropTypes.func.isRequired,
+    isUser: PropTypes.bool
   };
 
   render() {
-    const { heading, shareableType, shareable, addShareable, removeShareable } = this.props;
+    const { heading, shareableType, shareable, addShareable, removeShareable, isUser } = this.props;
 
     return (
       <section>
         <h3>{heading}:</h3>
-        <ShareableForm shareableType={shareableType} action="ADD" onComplete={addShareable}/>
+        {isUser && <ShareableForm shareableType={shareableType} action="ADD" onComplete={addShareable}/>}
         <ul>
           {shareable.map(item => (
             <li key={item._id}>
-              {item.name} {item.date && `(by ${formatDate(item.date)})`} <button onClick={() => removeShareable(item._id, shareableType)}>&times;</button>
+              {item.name} {item.date && `(by ${formatDate(item.date)})`} {isUser && <button onClick={() => removeShareable(item._id, shareableType)}>&times;</button>}
             </li>
           ))}
         </ul>

@@ -11,6 +11,7 @@ import styles from './Profile.css';
 
 class Profile extends PureComponent {
   static propTypes = {
+    isUser: PropTypes.bool,
     loadFunction: PropTypes.func.isRequired,
     profile: PropTypes.object,
     giving: PropTypes.array,
@@ -22,7 +23,7 @@ class Profile extends PureComponent {
   }
 
   render() {
-    const { profile, giving, requesting } = this.props;
+    const { profile, giving, requesting, isUser } = this.props;
 
     if(!profile) return null;
 
@@ -33,21 +34,21 @@ class Profile extends PureComponent {
         {pictureUrl ? 
           <img src={pictureUrl} alt={`profile picture for ${firstName}`}/>
           : <div className="filler-image">:)</div>}
-        <PictureForm/>
+        {isUser && <PictureForm/>}
         <h2>{firstName} {lastName}</h2>
         <h4>Best Way to Contact:</h4>
         <ul>
           {!!contact.length && contact.map((item, i) => <li key={i}>{item}</li>)}
         </ul>
-        <BasicProfileForm stateKey="contact" label="Enter Your Preferred Contact Info"/>
+        {isUser && <BasicProfileForm stateKey="contact" label="Enter Your Preferred Contact Info"/>}
         <h4>Best Days:</h4>
         <ul>
           {availability && availability.days && availability.days.map((item, i) => <li key={i}>{capitalize(item)}</li>)}
         </ul>
         <p>{availability && availability.notes}</p>
-        <AvailabilityForm/>
-        <Shareable heading="Giving" shareableType="giving" shareable={giving}/>
-        <Shareable heading="Requesting" shareableType="requesting" shareable={requesting}/>
+        {isUser && <AvailabilityForm/>}
+        <Shareable isUser={isUser} heading="Giving" shareableType="giving" shareable={giving}/>
+        <Shareable isUser={isUser} heading="Requesting" shareableType="requesting" shareable={requesting}/>
       </section>
     );
   }

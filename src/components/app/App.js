@@ -35,7 +35,7 @@ class App extends PureComponent {
             {checkedAuth &&
             <Switch>
               <Route path="/auth" component={Auth}/>
-              <PrivateRoute path="/profile" render={() => <Profile loadFunction={loadUserProfile}/>}/>
+              <PrivateRoute path="/profile" render={() => <Profile loadFunction={loadUserProfile} isUser={true}/>}/>
               <PrivateRoute path="/feed" component={Feed}/>
               <PrivateRoute path="/friends" component={Friends}/>
               <PrivateRoute path="/friends/:id" render={({ match }) => {
