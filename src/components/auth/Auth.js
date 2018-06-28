@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { getAccount } from '../auth/reducers';
 import { signin, signup } from './actions';
 import Credentials from './Credentials';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 class Auth extends PureComponent {
   static propTypes = {
@@ -22,23 +23,27 @@ class Auth extends PureComponent {
     if(account) return <Redirect to={redirect}/>;
 
     return (
-      <section>
-        <li><Link to="/auth/signin">Sign In</Link></li>
-        <li><Link to="/auth/signup">Sign Up</Link></li>
-        <Switch>
-          <Route path='/auth/signin' render={() => (
-            <div>
-              <Credentials action="SIGN IN" submitCredentials={signin}/>
-              <p>No account? <Link to="/auth/signup">Sign up instead.</Link></p>
-            </div>
-          )}/>
-          <Route path="/auth/signup" render={() => (
-            <div>
-              <Credentials action="SIGN UP" submitCredentials={signup} includeName={true}/>
-            </div>
-          )}/>
-          <Redirect to="/auth/signin"/>
-        </Switch>
+      <section className="tabs">
+        <Tabs>
+          <TabList>
+            <Tab>Sign In</Tab>
+            <Tab><Link to="/auth/signup">Sign Up</Link></Tab>
+          </TabList>
+          <Switch>
+            <Route path='/auth/signin' render={() => (
+              <TabPanel>
+                <Credentials action="SIGN IN" submitCredentials={signin}/>
+                <p>No account? <Link to="/auth/signup">Sign up instead.</Link></p>
+              </TabPanel>
+            )}/>
+            <Route path="/auth/signup" render={() => (
+              <TabPanel>
+                <Credentials action="SIGN UP" submitCredentials={signup} includeName={true}/>
+              </TabPanel>
+            )}/>
+            <Redirect to="/auth/signin"/>
+          </Switch>
+        </Tabs>
       </section>
     );
   }
