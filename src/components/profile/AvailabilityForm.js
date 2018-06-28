@@ -6,7 +6,8 @@ import DayPicker from './DayPicker';
 
 class AvailabilityForm extends PureComponent {
   static propTypes = {
-    updateProfile: PropTypes.func.isRequired
+    updateProfile: PropTypes.func.isRequired,
+    onDone: PropTypes.func.isRequired
   };
 
   state = {
@@ -40,6 +41,7 @@ class AvailabilityForm extends PureComponent {
         notes
       }
     });
+    this.props.onDone('editingAvailability');
   };
 
   render() {

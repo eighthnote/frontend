@@ -28,6 +28,10 @@ class Profile extends PureComponent {
     this.props.loadFunction();
   }
 
+  handleFormToggle = key => {
+    this.setState(prevState => ({ [key]: !prevState[key] }));
+  };
+
   render() {
     const { profile, giving, requesting, isUser } = this.props;
     const { editingPicture, editingContact, editingAvailability } = this.state;
@@ -53,7 +57,8 @@ class Profile extends PureComponent {
           {availability && availability.days && availability.days.map((item, i) => <li key={i}>{capitalize(item)}</li>)}
         </ul>
         <p>{availability && availability.notes}</p>
-        {isUser && editingAvailability && <AvailabilityForm/>}
+        <button onClick={() => this.handleFormToggle('editingAvailability')}>{editingAvailability ? 'CLOSE' : 'EDIT'}</button>
+        {isUser && editingAvailability && <AvailabilityForm onDone={this.handleFormToggle}/>}
         <Shareable isUser={isUser} heading="Giving" shareableType="giving" shareable={giving}/>
         <Shareable isUser={isUser} heading="Requesting" shareableType="requesting" shareable={requesting}/>
       </section>
