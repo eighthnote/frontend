@@ -12,6 +12,7 @@ import PrivateRoute from './PrivateRoute';
 import { getCheckedAuth } from '../auth/reducers';
 import { attemptAccountLoad } from '../auth/actions';
 import { loadUserProfile } from '../profile/actions';
+import { loadFriends } from '../friends/actions';
 
 class App extends PureComponent {
   static propTypes = {
@@ -37,7 +38,7 @@ class App extends PureComponent {
               <Route path="/auth" component={Auth}/>
               <PrivateRoute path="/profile" render={() => <Profile loadFunction={loadUserProfile}/>}/>
               <PrivateRoute path="/feed" component={Feed}/>
-              <PrivateRoute path="/friends" component={Friends}/>
+              <PrivateRoute path="/friends" render={() => <Friends loadFunction={loadFriends}/>}/>
               <PrivateRoute path="/plans" component={Plans}/>
               <Redirect to="/profile"/>
             </Switch>

@@ -68,7 +68,7 @@ class Profile extends PureComponent {
         <h2>{firstName} {lastName}</h2>
         <h4>Contact Info:</h4>
         <ul>
-          {contact.map((item, i) => <li key={i}>{item}</li>)}
+          {contact && contact.map((item, i) => <li key={i}>{item}</li>)}
         </ul>
         <h4>Best Days:</h4>
         <ul>

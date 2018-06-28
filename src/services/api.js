@@ -8,6 +8,7 @@ export const getUserProfile = () => get(PROFILE_URL);
 export const putProfile = data => put(PROFILE_URL, data);
 
 export const getFriends = () => get(`${PROFILE_URL}/friends`);
+export const putFriends = email => put(`${PROFILE_URL}/friends/`, email);
 // pending friends?
 // deleting friends?
 
