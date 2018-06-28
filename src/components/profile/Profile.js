@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getProfile, getGivingArray, getRequestingArray } from './reducers';
-import { loadProfile } from './actions';
+import { loadProfile, clearProfile } from './actions';
 import PictureForm from './PictureForm';
 import ContactForm from './ContactForm';
 import AvailabilityForm from './AvailabilityForm';
@@ -16,6 +16,7 @@ class Profile extends PureComponent {
     location: PropTypes.object.isRequired,
     isUser: PropTypes.bool,
     loadProfile: PropTypes.func.isRequired,
+    clearProfile: PropTypes.func.isRequired,
     profile: PropTypes.object,
     giving: PropTypes.array,
     requesting: PropTypes.array
@@ -46,6 +47,10 @@ class Profile extends PureComponent {
   handleFormToggle = key => {
     this.setState(prevState => ({ [key]: !prevState[key] }));
   };
+
+  componentWillUnmount() {
+    this.props.clearProfile();
+  }
 
   render() {
     const { profile, giving, requesting, isUser } = this.props;
@@ -87,5 +92,5 @@ export default connect(
     requesting: getRequestingArray(state),
     profile: getProfile(state)
   }),
-  { loadProfile }
+  { loadProfile, clearProfile }
 )(Profile);
