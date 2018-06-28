@@ -27,7 +27,7 @@ If you run into any issues, please refer to the reference docs for the dependenc
 
 ## Authors:
 
-* Keli Hansen - https://github.com/kelihansen
-* Katlyn Tucker - https://github.com/katlyn75 
-* Victor Bofill - https://github.com/victorbofill
+* **Keli Hansen** - https://github.com/kelihansen
+* **Katlyn Tucker** - https://github.com/katlyn75 
+* **Victor Bofill** - https://github.com/victorbofill
 
