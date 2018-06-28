@@ -7,7 +7,7 @@ import Auth from '../auth/Auth';
 import Profile from '../profile/Profile';
 import Feed from '../feed/Feed';
 import Friends from '../friends/Friends';
-import Plans from '../plans/Plans';
+import About from '../about/About';
 import PrivateRoute from './PrivateRoute';
 import { getCheckedAuth } from '../auth/reducers';
 import { attemptAccountLoad } from '../auth/actions';
@@ -39,11 +39,9 @@ class App extends PureComponent {
               <Route path="/auth" component={Auth}/>
               <PrivateRoute path="/profile" render={() => <Profile loadFunction={loadUserProfile} isUser={true}/>}/>
               <PrivateRoute path="/feed" component={Feed}/>
-              <PrivateRoute path="/friends" render={() => <Friends loadFunction={loadFriends}/>}/>
-              <PrivateRoute path="/friends/:id" render={({ match }) => {
-                return <Profile loadFunction={() => loadFriendProfile(match.params.id)}/>;
-              }}/>
-              <PrivateRoute path="/plans" component={Plans}/>
+
+              <PrivateRoute path="/friends" component={Friends}/>
+              <Route path="/about" component={About}/>
               <Redirect to="/profile"/>
             </Switch>
             }
