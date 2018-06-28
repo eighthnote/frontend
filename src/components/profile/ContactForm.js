@@ -13,7 +13,7 @@ class ContactForm extends PureComponent {
   };
  
   handleChange = ({ target }) => {
-    this.setState({ contact: [target.value] });
+    this.setState({ contact: target.value });
   };
 
   handleSubmit = event => {

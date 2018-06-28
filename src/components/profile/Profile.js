@@ -49,9 +49,7 @@ class Profile extends PureComponent {
         {isUser && editingPicture && <PictureForm/>}
         <h2>{firstName} {lastName}</h2>
         <h4>Preferred Contact Info:</h4>
-        <ul>
-          {contact && !!contact.length && contact.map((item, i) => <li key={i}>{item}</li>)}
-        </ul>
+        <p>{contact}</p>
         {isUser && <button onClick={() => this.handleFormToggle('editingContact')}>{editingContact ? 'CLOSE' : 'EDIT'}</button>}
         {isUser && editingContact && <ContactForm stateKey="contact" label="Enter Your Preferred Contact Info"/>}
         <h4>Best Availability:</h4>
