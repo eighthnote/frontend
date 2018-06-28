@@ -1,0 +1,10 @@
+:local(.shareable) {
+  .remove {
+    font-size: 1.5em;
+    border: none;
+    background-color: transparent;
+    &:hover {
+      color: white;
+    }
+  }
+}
