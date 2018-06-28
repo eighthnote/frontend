@@ -20,6 +20,10 @@ class Shareable extends PureComponent {
     editing: false
   };
 
+  handleFormToggle = () => {
+    this.setState(prevState => ({ editing: !prevState.editing }));
+  };
+
   handleClick = (id, shareableType) => {
     if(confirm('Are you sure?')) this.props.removeShareable(id, shareableType);
   };
@@ -31,6 +35,7 @@ class Shareable extends PureComponent {
     return (
       <section className={styles.shareable}>
         <h3>{heading}:</h3>
+        {isUser && <button onClick={this.handleFormToggle}>{editing ? 'CLOSE' : '+'}</button>}     
         {isUser && editing && <ShareableForm shareableType={shareableType} action="ADD" onComplete={addShareable}/>}
         <ul>
           {shareable.map(item => (

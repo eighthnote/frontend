@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getProfile, getGivingArray, getRequestingArray } from './reducers';
 import PictureForm from './PictureForm';
-import BasicProfileForm from './BasicProfileForm';
+import ContactForm from './ContactForm';
 import AvailabilityForm from './AvailabilityForm';
 import Shareable from './Shareable';
 import { capitalize } from '../../utils/formatters';
@@ -45,19 +45,21 @@ class Profile extends PureComponent {
         {pictureUrl ? 
           <img src={pictureUrl} alt={`profile picture for ${firstName}`}/>
           : <div className="filler-image">:)</div>}
+        {isUser && <button onClick={() => this.handleFormToggle('editingPicture')}>{editingPicture ? 'CLOSE' : 'EDIT'}</button>}
         {isUser && editingPicture && <PictureForm/>}
         <h2>{firstName} {lastName}</h2>
-        <h4>Best Way to Contact:</h4>
+        <h4>Preferred Contact Info:</h4>
         <ul>
-          {!!contact.length && contact.map((item, i) => <li key={i}>{item}</li>)}
+          {contact && !!contact.length && contact.map((item, i) => <li key={i}>{item}</li>)}
         </ul>
-        {isUser && editingContact && <BasicProfileForm stateKey="contact" label="Enter Your Preferred Contact Info"/>}
-        <h4>Best Days:</h4>
+        {isUser && <button onClick={() => this.handleFormToggle('editingContact')}>{editingContact ? 'CLOSE' : 'EDIT'}</button>}
+        {isUser && editingContact && <ContactForm stateKey="contact" label="Enter Your Preferred Contact Info"/>}
+        <h4>Best Availability:</h4>
         <ul>
           {availability && availability.days && availability.days.map((item, i) => <li key={i}>{capitalize(item)}</li>)}
         </ul>
         <p>{availability && availability.notes}</p>
-        <button onClick={() => this.handleFormToggle('editingAvailability')}>{editingAvailability ? 'CLOSE' : 'EDIT'}</button>
+        {isUser && <button onClick={() => this.handleFormToggle('editingAvailability')}>{editingAvailability ? 'CLOSE' : 'EDIT'}</button>}
         {isUser && editingAvailability && <AvailabilityForm onDone={this.handleFormToggle}/>}
         <Shareable isUser={isUser} heading="Giving" shareableType="giving" shareable={giving}/>
         <Shareable isUser={isUser} heading="Requesting" shareableType="requesting" shareable={requesting}/>
