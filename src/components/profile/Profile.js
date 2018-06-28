@@ -2,10 +2,11 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getProfile, getGivingArray, getRequestingArray } from './reducers';
+import PictureForm from './PictureForm';
+import AvailabilityForm from './AvailabilityForm';
 import Shareable from './Shareable';
 import { capitalize } from '../../utils/formatters';
 import styles from './Profile.css';
-import AvailabilityForm from './AvailabilityForm';
 
 class Profile extends PureComponent {
   static propTypes = {
@@ -14,10 +15,6 @@ class Profile extends PureComponent {
     giving: PropTypes.array,
     requesting: PropTypes.array
   };
-
-  state = {
-    imageUrl: ''
-  };
  
   componentDidMount() {
     this.props.loadFunction();
@@ -25,7 +22,6 @@ class Profile extends PureComponent {
 
   render() {
     const { profile, giving, requesting } = this.props;
-    const { imageUrl } = this.state;
 
     if(!profile) return null;
 
@@ -36,11 +32,7 @@ class Profile extends PureComponent {
         {pictureUrl ? 
           <img src={pictureUrl} alt={`profile picture for ${firstName}`}/>
           : <div className="filler-image">:)</div>}
-        <form>
-          <label>Enter an Image URL</label>
-          <input type="text" value={imageUrl}/>
-          <button>SAVE</button>
-        </form>
+        <PictureForm/>
         <h2>{firstName} {lastName}</h2>
         <h4>Contact Info:</h4>
         <ul>
