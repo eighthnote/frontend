@@ -6,6 +6,7 @@ import { getError } from '../app/reducers';
 import { getAccount } from '../auth/reducers';
 import { signin, signup } from './actions';
 import Credentials from './Credentials';
+import styles from './Auth.css';
 
 class Auth extends PureComponent {
   static propTypes = {
@@ -24,7 +25,7 @@ class Auth extends PureComponent {
     if(account) return <Redirect to={redirect}/>;
 
     return (
-      <section>
+      <section className={styles.auth}>
         <ul className="auth-nav">
           <li><NavLink activeClassName="signin" to="/auth/signin">Sign In</NavLink></li>
           <li><NavLink activeClassName="signup" to="/auth/signup">Sign Up</NavLink></li>

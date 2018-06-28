@@ -1,20 +1,34 @@
-h1 {
-  font-family: Roboto;
-  font-size: 38pt;
+:root {
+  --soft-black: #141414;
+  --dark-gray: #3a3a3a;
+  --mid-gray: #8d8d8d;
+  --pale-gray: #ebebeb;
+  --magenta: #c41e5a;
+  --saffron: #fc9815;
 }
-nav ul {
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: Montserrat, sans-serif;
+  color: var(--soft-black);
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
   list-style: none;
-  width: 90%;
-  display: inline-flex;
-  margin: 0 auto;
-  justify-content: space-around;
-  justify-content: space-between;
-  justify-content: space-evenly;
-  font-family: Roboto;
-  background-color: #6aa84fff;
-}
-.a {
-  font-size: 2pt;
 }
 
 
