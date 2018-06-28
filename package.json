@@ -6,7 +6,7 @@
   "scripts": {
     "build:prod": "npm run build && npm run copy",
     "build": "webpack --mode production",
-    "copy": "rm -rf ../server/public && cp -R ./docs ../server/public",
+    "copy": "rm -rf ../backend/public && cp -R ./docs ../backend/public",
     "start": "webpack-dev-server --hot --mode development",
     "lint": "eslint .",
     "pretest": "npm run lint",
@@ -18,7 +18,7 @@
     "type": "git",
     "url": "git+https://github.com/eighthnote/frontend.git"
   },
-  "author": "Victor Bofill <victorm.bofill@gmail.com>, Keli Hansen, Katlyn Tucker",
+  "author": "Victor Bofill <victorm.bofill@gmail.com>, Keli Hansen <keli.p.hansen@gmail.com>, Katlyn Tucker <studioquirk@yahoo.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/eighthnote/frontend/issues"

@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { localizeDate } from '../../utils/formatters';
 
 export default class ShareableForm extends PureComponent {
   static propTypes = {
@@ -10,7 +11,8 @@ export default class ShareableForm extends PureComponent {
 
   state = {
     name: '',
-    date: ''
+    date: '',
+    priority: false
   };
 
   handleChange = ({ target }) => {
@@ -20,22 +22,34 @@ export default class ShareableForm extends PureComponent {
   handleSubmit = event => {
     event.preventDefault();
     const { shareableType, onComplete } = this.props;
-    const submission = { ...this.state, type: shareableType };
+    let { name, date, priority } = this.state;
+    if(priority) {
+      priority = 2;
+    }
+    if(date) {
+      date = localizeDate(date);
+    }
+    const submission = { name, date, priority, type: shareableType };
     onComplete(submission);
     this.setState({
       name: '',
-      date: ''
+      date: '',
+      priority: false
     });
   };
 
   render() {
-    const { action } = this.props;
-    const { name, date } = this.state;
+    const { action, shareableType } = this.props;
+    const { name, date, priority } = this.state;
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <input type="text" name="name" value={name} required onChange={this.handleChange}/>
-        <input type="date" name="date" value={date} onChange={this.handleChange}/>
+        <label htmlFor={`${shareableType}-name`}>Description:</label>
+        <input id={`${shareableType}-name`} type="text" name="name" value={name} required onChange={this.handleChange}/>
+        <label htmlFor={`${shareableType}-date`}>By: (optional)</label>
+        <input id={`${shareableType}-date`} type="date" name="date" value={date} onChange={this.handleChange}/>
+        <label htmlFor={`${shareableType}-priority`}>Mark as High Priority</label>
+        <input id={`${shareableType}-priority`} type="checkbox" name="priority" checked={priority} onChange={this.handleChange}/>
         <button type="submit">{action}</button>
       </form>
     );

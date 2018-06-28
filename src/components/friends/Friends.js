@@ -1,79 +1,70 @@
-// import React, { PureComponent } from 'react';
-// import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
-// import { loadUser, loadFriends, updateFriends } from './actions';
-// import { getAccount } from '../auth/reducers';
-// //import { getCurrentUser } from './reducers';
-// import styles from './Friends.css';
-// import { getCurrentUser } from '../profile/reducers';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { loadFriends, sendFriendRequest, acceptFriendRequest } from './actions';
+import { getFriends } from './reducers';
 
-// const _id = '5b327868cf85ff348f7775e4';
+class Friends extends PureComponent {
+  static propTypes = {
+    friends: PropTypes.array,
+    loadFunction: PropTypes.func.isRequired,
+    sendFriendRequest: PropTypes.func.isRequired,
+    acceptFriendRequest: PropTypes.func.isRequired
+  };
 
-// class Friends extends PureComponent {
-//   static propTypes = {
-//     match: PropTypes.object.isRequired,
-//     user: PropTypes.object,
-//     loadUser: PropTypes.func.isRequired,
-//     loadFriends: PropTypes.object.isRequired,
-//     updateFriends: PropTypes.func.isRequired,
-//   };
+  state = {
+    addFriendForm: ''
+  };
 
-//   state = {
-//     requests: [],
-//     pending: []
+  componentDidMount() {
+    this.props.loadFunction();
+  }
 
-//   };
-//   componentDidMount() {
-//     const { match } = this.props;
-//     const id = match.url === '/profile' ? _id : match.params.id;
-//     this.props.loadUser(id);
-//   }
+  handleChange = ({ target }) => {
+    this.setState({ addFriendForm: target.value });
+  };
 
-//   // handleChange = ({ target }) => {
-//   //   const { name } = target;
-//   // };
+  handleSubmit = event => {
+    event.preventDefault();
+    this.props.sendFriendRequest();
+  };
 
-//   handleSubmit = event => {
-//     event.preventDefault();
-//     const { requests, pending } = this.state;
+  handleAcceptFriend = event => {
+    this.props.acceptFriendRequest(event.target.id);
+    window.location.reload();
+  };
 
-//   };
+  render() {
+    const { friends } = this.props;
+    const { addFriendForm } = this.state;
 
-//   render() {
-//     const { user, friends, loadFriends, updateFriends } = this.props;
+    return (
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <label>Add a Friend</label>
+          <input onChange={this.handleChange} name="addFriendForm" type="text" value={addFriendForm}/>
+          <button type="submit">Send Request</button>
+        </form>
+        <h3>Pending Friend Requests</h3>
+        <ul>
+          {friends[1] && friends[1].map((friend, i) => (
+            <li key={i}>{friend.firstName}<button id={friend._id} onClick={this.handleAcceptFriend}>Accept</button></li>
+          ))}
+        </ul>
+        <h3>Friends</h3>
+        <ul>
+          {friends[0] && friends[0].map((friend, i) => (
+            <li key={i}>{friend.firstName}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
 
-//     const { requests, pending  } = this.state;
-
-//     if(!friends) return null;
-
-//     const { firstName, lastName, pictureUrl } = friends;
-
-//     return (
-//       <section className={styles.friends}>
-//         <h1>This is where friends go.</h1>
-//         <section className="requests"></section>
-//         <h4>Friend Requests</h4>
-//         <img src={pictureUrl} alt={`profile picture for ${firstName}`}/>
-//         <h2>{firstName}</h2>
-//         <section className="add"></section>
-//         <label>Add Friend</label>
-//         <input onChange={this.handleChange} name="add friend" type="text" value={friends}/>
-//         <button type="submit">add</button>
-//         {/* <input className="email"/></input> */}
-//         <section className="myFriends"></section>
-//         <h4>My Friends</h4>
-//         <img src={pictureUrl} alt={`profile picture for ${firstName}`}/>
-//         <section className="pending"></section>
-//         <h4>pending friends</h4>
-//         <img src={pictureUrl} alt={`profile picture for ${firstName}`}/>
-//       </section>
-//     );
-//   }
-// }
-
-// export default connect(
-//   state => ({
-//     user: getCurrentUser(state),
-//   }),
-//   { loadUser, LoadFriends, UpdateFriends }
-// )(Friends);
+export default connect(
+  state => ({
+    friends: getFriends(state)
+  }),
+  { loadFriends, sendFriendRequest, acceptFriendRequest }
+)(Friends);
