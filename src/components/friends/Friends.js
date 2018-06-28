@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { loadFriends, sendFriendRequest, acceptFriendRequest } from './actions';
 import { getFriends } from './reducers';
 
@@ -47,14 +48,19 @@ class Friends extends PureComponent {
         </form>
         <h3>Pending Friend Requests</h3>
         <ul>
-          {friends[1] && friends[1].map((friend, i) => (
-            <li key={i}>{friend.firstName}<button id={friend._id} onClick={this.handleAcceptFriend}>Accept</button></li>
+          {friends[1] && friends[1].map(friend => (
+            <li key={friend._id}>
+              {friend.firstName}<button id={friend._id} onClick={this.handleAcceptFriend}>Accept</button>
+            </li>
           ))}
         </ul>
         <h3>Friends</h3>
         <ul>
-          {friends[0] && friends[0].map((friend, i) => (
-            <li key={i}>{friend.firstName}</li>
+          {friends[0] && friends[0].map(friend => (
+            <li key={friend._id}>
+              {friend.pictureUrl && <img src={friend.pictureUrl} alt={`profile picture for ${friend.firstName}`}/>}
+              <Link to={`/friends/${friend._id}`}>{friend.firstName}</Link>
+            </li>
           ))}
         </ul>
       </div>
