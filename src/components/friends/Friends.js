@@ -4,15 +4,16 @@ import { connect } from 'react-redux';
 
 import Friend from './Friend';
 
+import { Link } from 'react-router-dom';
 import { loadFriends, sendFriendRequest, acceptFriendRequest } from './actions';
 import { getFriends } from './reducers';
 
 class Friends extends PureComponent {
   static propTypes = {
     friends: PropTypes.array,
-    loadFunction: PropTypes.func.isRequired,
     sendFriendRequest: PropTypes.func.isRequired,
-    acceptFriendRequest: PropTypes.func.isRequired
+    acceptFriendRequest: PropTypes.func.isRequired,
+    loadFriends: PropTypes.func.isRequired
   };
 
   state = {
@@ -20,7 +21,7 @@ class Friends extends PureComponent {
   };
 
   componentDidMount() {
-    this.props.loadFunction();
+    this.props.loadFriends();
   }
 
   handleChange = ({ target }) => {
@@ -51,18 +52,22 @@ class Friends extends PureComponent {
         </form>
         <h3>Pending Friend Requests</h3>
         <ul>
-          {friends[1] && friends[1].map((friend, i) => (
-            <li key={i}>{friend.firstName}<button id={friend._id} onClick={this.handleAcceptFriend}>Accept</button></li>
+          {friends[1] && friends[1].map(friend => (
+            <li key={friend._id}>
+              {friend.firstName}<button id={friend._id} onClick={this.handleAcceptFriend}>Accept</button>
+            </li>
           ))}
         </ul>
         <h3>Friends</h3>
         <ul>
           {friends[0] && friends[0].map((friend, i) => (
-            <Friend key={i}
-              firstName={friend.firstName}
-              lastName={friend.lastName}
-              imageUrl={friend.imageUrl}
-            />
+            <Link key={i} to={`/friends/${friend._id}`}>
+              <Friend
+                firstName={friend.firstName}
+                lastName={friend.lastName}
+                imageUrl={friend.imageUrl}
+              />
+            </Link>
           ))}
         </ul>
       </div>

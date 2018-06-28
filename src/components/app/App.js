@@ -7,19 +7,15 @@ import Auth from '../auth/Auth';
 import Profile from '../profile/Profile';
 import Feed from '../feed/Feed';
 import Friends from '../friends/Friends';
-import Plans from '../plans/Plans';
+import About from '../about/About';
 import PrivateRoute from './PrivateRoute';
 import { getCheckedAuth } from '../auth/reducers';
 import { attemptAccountLoad } from '../auth/actions';
-import { loadUserProfile, loadFriendProfile } from '../profile/actions';
-import { loadFriends } from '../friends/actions';
 
 class App extends PureComponent {
   static propTypes = {
     attemptAccountLoad: PropTypes.func.isRequired,
     checkedAuth: PropTypes.bool.isRequired,
-    loadUserProfile: PropTypes.func.isRequired,
-    loadFriends: PropTypes.func.isRequired
   };
 
   componentDidMount() {
@@ -27,7 +23,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const { checkedAuth, loadUserProfile, loadFriends } = this.props;
+    const { checkedAuth } = this.props;
 
     return (
       <Router>
@@ -37,13 +33,11 @@ class App extends PureComponent {
             {checkedAuth &&
             <Switch>
               <Route path="/auth" component={Auth}/>
-              <PrivateRoute path="/profile" render={() => <Profile loadFunction={loadUserProfile} isUser={true}/>}/>
+              <PrivateRoute path="/profile" render={() => <Profile isUser={true}/>}/>
               <PrivateRoute path="/feed" component={Feed}/>
-              <PrivateRoute path="/friends" render={() => <Friends loadFunction={loadFriends}/>}/>
-              <PrivateRoute path="/friends/:id" render={({ match }) => {
-                return <Profile loadFunction={() => loadFriendProfile(match.params.id)}/>;
-              }}/>
-              <PrivateRoute path="/plans" component={Plans}/>
+              <PrivateRoute exact path="/friends"  component={Friends}/>
+              <PrivateRoute path="/friends/:id" component={Profile}/>
+              <Route path="/about" component={About}/>
               <Redirect to="/profile"/>
             </Switch>
             }
@@ -58,5 +52,5 @@ export default connect(
   state => ({
     checkedAuth: getCheckedAuth(state),
   }),
-  { attemptAccountLoad, loadUserProfile, loadFriends, loadFriendProfile }
+  { attemptAccountLoad }
 )(App);
