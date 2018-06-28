@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getProfile, getGivingArray, getRequestingArray } from './reducers';
 import PictureForm from './PictureForm';
+import BasicProfileForm from './BasicProfileForm';
 import AvailabilityForm from './AvailabilityForm';
 import Shareable from './Shareable';
 import { capitalize } from '../../utils/formatters';
@@ -34,10 +35,11 @@ class Profile extends PureComponent {
           : <div className="filler-image">:)</div>}
         <PictureForm/>
         <h2>{firstName} {lastName}</h2>
-        <h4>Contact Info:</h4>
+        <h4>Best Way to Contact:</h4>
         <ul>
-          {contact.map((item, i) => <li key={i}>{item}</li>)}
+          {!!contact.length && contact.map((item, i) => <li key={i}>{item}</li>)}
         </ul>
+        <BasicProfileForm stateKey="contact" label="Enter Your Preferred Contact Info"/>
         <h4>Best Days:</h4>
         <ul>
           {availability && availability.days && availability.days.map((item, i) => <li key={i}>{capitalize(item)}</li>)}
