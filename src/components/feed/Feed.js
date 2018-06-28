@@ -26,12 +26,12 @@ class Feed extends PureComponent {
       <div>
         <h1>TEST</h1>
         <ul>
-          {feed && feed.map((shareable, i) => {
+          {feed && feed.map((shareable, i) => (
             <FeedShareable
               key={i}
               {...shareable}
-            />;
-          })}
+            />
+          ))}
         </ul>
       </div>
     );

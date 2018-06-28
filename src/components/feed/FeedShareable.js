@@ -20,15 +20,15 @@ export default class FeedShareable extends Component {
     return (
       <li>
         <div>
-          <p>{name}</p>
-          <p>{date}</p>
-          <p>{expiration}</p>
-          <p>{priority}</p>
-          <p>{type}</p>
-          <p>{repeats}</p>
-          <p>{participants}</p>
-          <p>{groupSize}</p>
-          <p>{confirmed}</p>
+          <h3>{name || 'N/A'}</h3>
+          <p>Date: {date || 'N/A'}</p>
+          <p>Expiration: {expiration || 'N/A'}</p>
+          <p>Priority: {priority || 'N/A'}</p>
+          <p>Type: {type || 'N/A'}</p>
+          <p>Repeats?: {repeats || 'N/A'}</p>
+          <p>Participants: {participants || 'N/A'}</p>
+          <p>Group Size: {groupSize || 'N/A'}</p>
+          <p>Confirmed?: {confirmed || 'N/A'}</p>
         </div>
       </li>
     );
