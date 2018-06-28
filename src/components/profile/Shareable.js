@@ -5,8 +5,6 @@ import { addShareable, removeShareable } from './actions';
 import ShareableForm from './ShareableForm';
 import { formatDate } from '../../utils/formatters';
 
-const _id = '5b327868cf85ff348f7775e4';
-
 class Shareable extends PureComponent {
   static propTypes = {
     heading: PropTypes.string.isRequired,
