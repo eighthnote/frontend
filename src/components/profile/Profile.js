@@ -13,6 +13,7 @@ import styles from './Profile.css';
 class Profile extends PureComponent {
   static propTypes = {
     match: PropTypes.object,
+    location: PropTypes.object.isRequired,
     isUser: PropTypes.bool,
     loadProfile: PropTypes.func.isRequired,
     profile: PropTypes.object,
@@ -25,10 +26,21 @@ class Profile extends PureComponent {
     editingContact: false,
     editingAvailability: false
   };
- 
-  componentDidMount() {
+
+  handleProfileLoad = () => {
     const { match, isUser, loadProfile } = this.props;
     isUser ? loadProfile() : loadProfile(match.params.id);
+  };
+ 
+  componentDidMount() {
+    this.handleProfileLoad();
+  }
+
+  componentDidUpdate({ location }) {
+    const locationPreUpdate = location.pathname;
+    const locationPostUpdate = this.props.location.pathname;
+    if(locationPreUpdate === locationPostUpdate) return;
+    this.handleProfileLoad();
   }
 
   handleFormToggle = key => {
