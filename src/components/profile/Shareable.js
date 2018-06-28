@@ -25,7 +25,7 @@ class Shareable extends PureComponent {
   };
 
   handleClick = (id, shareableType) => {
-    if(confirm('Are you sure?')) this.props.removeShareable(id, shareableType);
+    if(confirm('Are you sure you\'d like to delete this shareable?')) this.props.removeShareable(id, shareableType);
   };
 
   render() {
