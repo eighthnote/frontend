@@ -5,7 +5,13 @@ import { connect } from 'react-redux';
 import Friend from './Friend';
 
 import { Link } from 'react-router-dom';
-import { loadFriends, sendFriendRequest, acceptFriendRequest } from './actions';
+
+import { loadFriends,
+  sendFriendRequest,
+  acceptFriendRequest,
+  removeFriend
+} from './actions';
+
 import { getFriends } from './reducers';
 
 class Friends extends PureComponent {
@@ -13,7 +19,8 @@ class Friends extends PureComponent {
     friends: PropTypes.array,
     sendFriendRequest: PropTypes.func.isRequired,
     acceptFriendRequest: PropTypes.func.isRequired,
-    loadFriends: PropTypes.func.isRequired
+    loadFriends: PropTypes.func.isRequired,
+    removeFriend: PropTypes.func.isRequired
   };
 
   state = {
@@ -39,6 +46,13 @@ class Friends extends PureComponent {
     window.location.reload();
   };
 
+  handleRemoveFriend = event => {
+    if(confirm('This will remove your friend, and remove you from their friends list. Are you sure you want to do this?')) {
+      this.props.removeFriend(event.target.id);
+      window.location.reload();
+    }
+  };
+
   render() {
     const { friends } = this.props;
     const { addFriendForm } = this.state;
@@ -61,13 +75,16 @@ class Friends extends PureComponent {
         <h3>Friends</h3>
         <ul>
           {friends[0] && friends[0].map((friend, i) => (
-            <Link key={i} to={`/friends/${friend._id}`}>
-              <Friend
-                firstName={friend.firstName}
-                lastName={friend.lastName}
-                imageUrl={friend.imageUrl}
-              />
-            </Link>
+            <fragment key={i}>
+              <Link to={`/friends/${friend._id}`}>
+                <Friend
+                  firstName={friend.firstName}
+                  lastName={friend.lastName}
+                  imageUrl={friend.imageUrl}
+                />
+              </Link>
+              <button id={friend._id} onClick={this.handleRemoveFriend}>X</button>
+            </fragment>
           ))}
         </ul>
       </div>
@@ -79,5 +96,9 @@ export default connect(
   state => ({
     friends: getFriends(state)
   }),
-  { loadFriends, sendFriendRequest, acceptFriendRequest }
+  { loadFriends,
+    sendFriendRequest,
+    acceptFriendRequest,
+    removeFriend
+  }
 )(Friends);

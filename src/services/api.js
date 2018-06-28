@@ -10,6 +10,7 @@ export const getFriends = () => get(`${PROFILE_URL}/friends`);
 export const putFriends = email => put(`${PROFILE_URL}/friends/`, email);
 export const putFriendsAccept = id => put(`${PROFILE_URL}/friends/confirm/${id}`);
 export const getFriendProfile = friendId => get(`${PROFILE_URL}/friends/${friendId}`);
+export const deleteFriend = id => del(`${PROFILE_URL}/friends/${id}`);
 
 export const postShareable = shareable => post(`${PROFILE_URL}/shareables`, shareable);
 export const putShareable = (shareableId, data) => put(`${PROFILE_URL}/shareables/${shareableId}`, data);
