@@ -1,12 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getError } from '../app/reducers';
 import { getAccount } from '../auth/reducers';
 import { signin, signup } from './actions';
 import Credentials from './Credentials';
-import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
 
 class Auth extends PureComponent {
   static propTypes = {
@@ -25,25 +24,34 @@ class Auth extends PureComponent {
     if(account) return <Redirect to={redirect}/>;
 
     return (
-      <section className="tabs">
-        <Tabs>
-          <TabLink to="tab1">Sign In</TabLink>
-          <TabLink to="tab2" default>Sign Up</TabLink>
-          <TabContent for="tab1">
-            <Credentials action="SIGN IN" submitCredentials={signin}/>
-            <p>No account? Sign up instead.</p>
-          </TabContent>
-          <TabContent for="tab2">
-            <Credentials action="SIGN UP" submitCredentials={signup} includeName={true}/>
-            {!!error && <p>{error.error}</p>}
-          </TabContent>
-        </Tabs>
+      <section className={styles.auth}>
+        <ul className="auth-nav">
+          <li><NavLink activeClassName="signin" to="/auth/signin">Sign In</NavLink></li>
+          <li><NavLink activeClassName="signup" to="/auth/signup">Sign Up</NavLink></li>
+        </ul>
+        <Switch>
+          <Route path='/auth/signin' render={() => (
+            <div className="auth-form signin">
+              <Credentials action="SIGN IN" submitCredentials={signin}/>
+            </div>
+          )}/>
+          <Route path="/auth/signup" render={() => (
+            <div className="auth-form">
+              <Credentials action="SIGN UP" submitCredentials={signup} includeName={true}/>
+              {!!error && <p>{error.error}</p>}
+            </div>
+          )}/>
+          <Redirect to="/auth/signin"/>
+        </Switch>
       </section>
     );
   }
 }
 
 export default connect(
-  state => ({ account: getAccount(state), error: getError(state) }),
+  state => ({
+    account: getAccount(state),
+    error: getError(state)
+  }),
   { signin, signup }
 )(Auth);
