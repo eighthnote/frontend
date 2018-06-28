@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { localizeDate } from '../../utils/formatters';
 
 export default class ShareableForm extends PureComponent {
   static propTypes = {
@@ -20,7 +21,11 @@ export default class ShareableForm extends PureComponent {
   handleSubmit = event => {
     event.preventDefault();
     const { shareableType, onComplete } = this.props;
-    const submission = { ...this.state, type: shareableType };
+    let { name, date } = this.state;
+    if(date) {
+      date = localizeDate(date);
+    }
+    const submission = { name, date, type: shareableType };
     onComplete(submission);
     this.setState({
       name: '',

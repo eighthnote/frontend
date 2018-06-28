@@ -1,4 +1,4 @@
-import { getUserProfile, putProfile, postShareable, putShareable, deleteShareable } from '../../services/api';
+import { getUserProfile, putProfile, postShareable, putShareable, deleteShareable, getFriendProfile } from '../../services/api';
 
 import {
   PROFILE_LOAD,
@@ -39,6 +39,13 @@ export function loadUserProfile() {
   return {
     type: PROFILE_LOAD,
     payload: getUserProfile().then(shapeProfile)
+  };
+}
+
+export function loadFriendProfile() {
+  return {
+    type: PROFILE_LOAD,
+    payload: getFriendProfile().then(shapeProfile)
   };
 }
 
