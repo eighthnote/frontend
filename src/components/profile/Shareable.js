@@ -36,7 +36,7 @@ class Shareable extends PureComponent {
           {shareable.map(item => (
             <li key={item._id}>
               {item.name}
-              {item.date && `(by ${formatDate(item.date)})`}
+              {item.date && ` (by ${formatDate(item.date)})`}
               {isUser && <button className="remove" onClick={() => this.handleClick(item._id, shareableType)}>&times;</button>}
             </li>
           ))}
