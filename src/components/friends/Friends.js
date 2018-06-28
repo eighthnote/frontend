@@ -39,9 +39,16 @@ class Friends extends PureComponent {
           <input onChange={this.handleChange} name="addFriendForm" type="text" value={addFriendForm}/>
           <button type="submit">Send Request</button>
         </form>
+        <h3>Pending Friend Requests</h3>
         <ul>
-          {friends.map((friend, i) => (
-            <li key={i}>{friend}</li>
+          {friends[1] && friends[1].map((friend, i) => (
+            <li key={i}>{friend.firstName}</li>
+          ))}
+        </ul>
+        <h3>Friends</h3>
+        <ul>
+          {friends[0] && friends[0].map((friend, i) => (
+            <li key={i}>{friend.firstName}</li>
           ))}
         </ul>
       </div>

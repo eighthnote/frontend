@@ -5,10 +5,10 @@ import {
   FRIEND_REQUEST
 } from './reducers';
 
-export function loadFriends(id) {
+export function loadFriends() {
   return {
     type: FRIENDS_LOAD,
-    payload: getFriends(id)
+    payload: getFriends()
   };
 }
 

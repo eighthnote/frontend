@@ -18,7 +18,8 @@ class App extends PureComponent {
   static propTypes = {
     attemptAccountLoad: PropTypes.func.isRequired,
     checkedAuth: PropTypes.bool.isRequired,
-    loadUserProfile: PropTypes.func.isRequired
+    loadUserProfile: PropTypes.func.isRequired,
+    loadFriends: PropTypes.func.isRequired
   };
 
   componentDidMount() {
@@ -26,7 +27,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const { checkedAuth, loadUserProfile } = this.props;
+    const { checkedAuth, loadUserProfile, loadFriends } = this.props;
 
     return (
       <Router>
@@ -54,5 +55,5 @@ export default connect(
   state => ({
     checkedAuth: getCheckedAuth(state),
   }),
-  { attemptAccountLoad, loadUserProfile }
+  { attemptAccountLoad, loadUserProfile, loadFriends }
 )(App);

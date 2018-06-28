@@ -4,6 +4,7 @@ export const FRIENDS_LOAD = 'FRIENDS_LOAD';
 export const FRIEND_REQUEST = 'FRIEND_REQUEST';
 
 export const getFriends = state => state.friends;
+export const getFriendRequest = state => state.friendRequest;
 
 export function friends(state = [], { type, payload }) {
   switch(type) {
