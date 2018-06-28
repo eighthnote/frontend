@@ -11,7 +11,8 @@ import Plans from '../plans/Plans';
 import PrivateRoute from './PrivateRoute';
 import { getCheckedAuth } from '../auth/reducers';
 import { attemptAccountLoad } from '../auth/actions';
-import { loadUserProfile, loadFriendProfile, loadFriends } from '../profile/actions';
+import { loadUserProfile, loadFriendProfile } from '../profile/actions';
+import { loadFriends } from '../friends/actions';
 
 class App extends PureComponent {
   static propTypes = {
@@ -38,7 +39,8 @@ class App extends PureComponent {
               <Route path="/auth" component={Auth}/>
               <PrivateRoute path="/profile" render={() => <Profile loadFunction={loadUserProfile} isUser={true}/>}/>
               <PrivateRoute path="/feed" component={Feed}/>
-              <PrivateRoute path="/friends" render={() => <Friends loadFunction={loadFriends}/>}/>              <PrivateRoute path="/friends/:id" render={({ match }) => {
+              <PrivateRoute path="/friends" render={() => <Friends loadFunction={loadFriends}/>}/>
+              <PrivateRoute path="/friends/:id" render={({ match }) => {
                 return <Profile loadFunction={() => loadFriendProfile(match.params.id)}/>;
               }}/>
               <PrivateRoute path="/plans" component={Plans}/>
