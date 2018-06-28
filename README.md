@@ -1,5 +1,8 @@
-![Image of Shareable logo](https://contattafiles.s3.us-west-1.amazonaws.com/tnt9084/dYzTjb43YpnK9ls/Screen%20Shot%202018-06-28%20at%202.47.20%20PM.png)
-<!-- (https://github.com/eighthnote/frontend/src/components/images/logo.png) -->
+![Image of Shareable logo]
+<p align="center">
+  <img width="auto" height="auto" src="https://contattafiles.s3.us-west-1.amazonaws.com/tnt9084/dYzTjb43YpnK9ls/Screen%20Shot%202018-06-28%20at%202.47.20%20PM.png">
+</p>
+<!--(https://contattafiles.s3.us-west-1.amazonaws.com/tnt9084/dYzTjb43YpnK9ls/Screen%20Shot%202018-06-28%20at%202.47.20%20PM.png) -->
 
 # Overview
 
