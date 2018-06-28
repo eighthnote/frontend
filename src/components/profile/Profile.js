@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { updateProfile } from './actions';
 import { getProfile, getGivingArray, getRequestingArray } from './reducers';
 import Shareable from './Shareable';
 import { capitalize } from '../../utils/formatters';
@@ -13,8 +12,7 @@ class Profile extends PureComponent {
     loadFunction: PropTypes.func.isRequired,
     profile: PropTypes.object,
     giving: PropTypes.array,
-    requesting: PropTypes.array,
-    updateProfile: PropTypes.func.isRequired
+    requesting: PropTypes.array
   };
 
   state = {
@@ -37,7 +35,7 @@ class Profile extends PureComponent {
       <section className={styles.profile}>
         {pictureUrl ? 
           <img src={pictureUrl} alt={`profile picture for ${firstName}`}/>
-          : <div className="filler-image"></div>}
+          : <div className="filler-image">:)</div>}
         <form>
           <label>Enter an Image URL</label>
           <input type="text" value={imageUrl}/>
@@ -66,6 +64,5 @@ export default connect(
     giving: getGivingArray(state),
     requesting: getRequestingArray(state),
     profile: getProfile(state)
-  }),
-  { updateProfile }
+  })
 )(Profile);

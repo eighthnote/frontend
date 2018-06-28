@@ -40,9 +40,12 @@
     height: 2em;
   }
   .filler-image {
+    font-size: 8em;
+    color: white;
+    text-align: center;
     height: 10.5rem;
     width: 10.5rem;
     border-radius: 50%;
-    background-color: white;
+    background-color: gray;
   }
 }
