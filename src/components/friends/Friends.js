@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -75,7 +75,7 @@ class Friends extends PureComponent {
         <h3>Friends</h3>
         <ul>
           {friends[0] && friends[0].map((friend, i) => (
-            <fragment key={i}>
+            <Fragment key={i}>
               <Link to={`/friends/${friend._id}`}>
                 <Friend
                   firstName={friend.firstName}
@@ -84,7 +84,7 @@ class Friends extends PureComponent {
                 />
               </Link>
               <button id={friend._id} onClick={this.handleRemoveFriend}>X</button>
-            </fragment>
+            </Fragment>
           ))}
         </ul>
       </div>

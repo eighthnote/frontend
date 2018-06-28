@@ -49,6 +49,13 @@ export function updateProfile(data) {
   };
 }
 
+export function clearProfile() {
+  return {
+    type: PROFILE_LOAD,
+    payload: { profile: null, giving: [], requesting: [] }
+  };
+}
+
 export function updateShareable(shareableId, shareable) {
   const { type: shareableType } = shareable;
 
