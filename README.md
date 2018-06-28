@@ -1,4 +1,5 @@
-![Img Shareable logo](https://raw.githubusercontent.com/eighthnote/frontend/src/components/images/logo.png)
+![Image of Shareable logo](https://contattafiles.s3.us-west-1.amazonaws.com/tnt9084/dYzTjb43YpnK9ls/Screen%20Shot%202018-06-28%20at%202.47.20%20PM.png)
+<!-- (https://github.com/eighthnote/frontend/src/components/images/logo.png) -->
 
 # Overview
 
@@ -19,7 +20,7 @@ If you would like to suggest code for **Shareable**, feel free. This project inc
 4. Push to the branch (git push origin branchname).
 5. Create a new Pull Request.
 
-(In the future, we hope to add a Plans route, which will include the ability to make a plan with your friend from their profile page, take you to a calendar to schedule the event, then notify your friend of the pending arrangement. Much of that will depend on what life throws at us after this class is complete!)
+(In the future, we hope to add a Plans route, which will include the ability to make a plan with your friend from their profile page, take you to a calendar to schedule the event, then notify your friend of the pending arrangement. Much of this will depend on what life throws at us after class is complete!)
 
 ## HELP!
 
