@@ -3,16 +3,14 @@ import { get, post, put, del } from './request';
 const URL = '/api';
 const PROFILE_URL = `${URL}/profile`;
 
-// populate shareables?
 export const getUserProfile = () => get(PROFILE_URL);
 export const putProfile = data => put(PROFILE_URL, data);
 
 export const getFriends = () => get(`${PROFILE_URL}/friends`);
 export const putFriends = email => put(`${PROFILE_URL}/friends/`, email);
 export const putFriendsAccept = id => put(`${PROFILE_URL}/friends/confirm/${id}`);
-// deleting friends?
+export const getFriendProfile = friendId => get(`${PROFILE_URL}/friends/${friendId}`);
 
-// return new
 export const postShareable = shareable => post(`${PROFILE_URL}/shareables`, shareable);
 export const putShareable = (shareableId, data) => put(`${PROFILE_URL}/shareables/${shareableId}`, data);
 export const deleteShareable = (shareableId) => del(`${PROFILE_URL}/shareables/${shareableId}`);

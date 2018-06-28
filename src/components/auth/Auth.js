@@ -23,6 +23,8 @@ class Auth extends PureComponent {
 
     return (
       <section>
+        <li><Link to="/auth/signin">Sign In</Link></li>
+        <li><Link to="/auth/signup">Sign Up</Link></li>
         <Switch>
           <Route path='/auth/signin' render={() => (
             <div>

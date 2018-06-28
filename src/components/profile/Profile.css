@@ -1,12 +1,12 @@
 :local(.profile) {
   background-color:#4a86e8ff;
+  padding-top: 2em;
   img {
     border-radius: 50%;
     height: 10.5em;
     display: block;
     margin-left: auto;
     margin-right: auto;
-    padding-top: 2em;
   }
   h2 {
     font-family: 'Roboto';
@@ -38,5 +38,14 @@
   .submit {
     width: 6em;
     height: 2em;
+  }
+  .filler-image {
+    font-size: 8em;
+    color: white;
+    text-align: center;
+    height: 10.5rem;
+    width: 10.5rem;
+    border-radius: 50%;
+    background-color: gray;
   }
 }

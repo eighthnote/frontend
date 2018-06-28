@@ -1,62 +1,40 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { updateProfile } from './actions';
 import { getProfile, getGivingArray, getRequestingArray } from './reducers';
-import DayPicker from './DayPicker';
+import PictureForm from './PictureForm';
+import ContactForm from './ContactForm';
+import AvailabilityForm from './AvailabilityForm';
 import Shareable from './Shareable';
 import { capitalize } from '../../utils/formatters';
 import styles from './Profile.css';
 
 class Profile extends PureComponent {
   static propTypes = {
+    isUser: PropTypes.bool,
     loadFunction: PropTypes.func.isRequired,
     profile: PropTypes.object,
     giving: PropTypes.array,
-    requesting: PropTypes.array,
-    updateProfile: PropTypes.func.isRequired
+    requesting: PropTypes.array
   };
 
   state = {
-    days: { 
-      sunday: false,
-      monday: false,
-      tuesday: false,
-      wednesday: false,
-      thursday: false,
-      friday: false,
-      saturday: false,
-    },
-    notes: ''
+    editingPicture: false,
+    editingContact: false,
+    editingAvailability: false
   };
  
   componentDidMount() {
     this.props.loadFunction();
   }
 
-  handleChange = ({ target }) => {
-    const { type, name, checked, value } = target;
-    type === 'checkbox' ?
-      this.setState(prevState => ({ days: { ...prevState.days, [name]: checked } }))
-      : this.setState({ [name]: value });
-  };
-
-  handleSubmit = event => {
-    event.preventDefault();
-    const { days, notes } = this.state;
-    const dayArray = Object.keys(days);
-    const checkedDays = dayArray.filter(day => days[day]);
-    this.props.updateProfile({
-      availability: {
-        days: checkedDays,
-        notes
-      }
-    });
+  handleFormToggle = key => {
+    this.setState(prevState => ({ [key]: !prevState[key] }));
   };
 
   render() {
-    const { profile, giving, requesting } = this.props;
-    const { notes, days } = this.state;
+    const { profile, giving, requesting, isUser } = this.props;
+    const { editingPicture, editingContact, editingAvailability } = this.state;
 
     if(!profile) return null;
 
@@ -64,25 +42,27 @@ class Profile extends PureComponent {
 
     return (
       <section className={styles.profile}>
-        <img src={pictureUrl} alt={`profile picture for ${firstName}`}/>
+        {pictureUrl ? 
+          <img src={pictureUrl} alt={`profile picture for ${firstName}`}/>
+          : <div className="filler-image">:)</div>}
+        {isUser && <button onClick={() => this.handleFormToggle('editingPicture')}>{editingPicture ? 'CLOSE' : 'EDIT'}</button>}
+        {isUser && editingPicture && <PictureForm/>}
         <h2>{firstName} {lastName}</h2>
-        <h4>Contact Info:</h4>
+        <h4>Preferred Contact Info:</h4>
         <ul>
-          {contact && contact.map((item, i) => <li key={i}>{item}</li>)}
+          {contact && !!contact.length && contact.map((item, i) => <li key={i}>{item}</li>)}
         </ul>
-        <h4>Best Days:</h4>
+        {isUser && <button onClick={() => this.handleFormToggle('editingContact')}>{editingContact ? 'CLOSE' : 'EDIT'}</button>}
+        {isUser && editingContact && <ContactForm stateKey="contact" label="Enter Your Preferred Contact Info"/>}
+        <h4>Best Availability:</h4>
         <ul>
           {availability && availability.days && availability.days.map((item, i) => <li key={i}>{capitalize(item)}</li>)}
         </ul>
         <p>{availability && availability.notes}</p>
-        <form onSubmit={this.handleSubmit}>
-          <DayPicker handleCheckboxChange={this.handleChange} days={days}/>
-          <label>Notes</label>
-          <input onChange={this.handleChange} name="notes" type="text" value={notes}/>
-          <button type="submit">save</button>
-        </form>
-        <Shareable heading="Giving" shareableType="giving" shareable={giving}/>
-        <Shareable heading="Requesting" shareableType="requesting" shareable={requesting}/>
+        {isUser && <button onClick={() => this.handleFormToggle('editingAvailability')}>{editingAvailability ? 'CLOSE' : 'EDIT'}</button>}
+        {isUser && editingAvailability && <AvailabilityForm onDone={this.handleFormToggle}/>}
+        <Shareable isUser={isUser} heading="Giving" shareableType="giving" shareable={giving}/>
+        <Shareable isUser={isUser} heading="Requesting" shareableType="requesting" shareable={requesting}/>
       </section>
     );
   }
@@ -93,6 +73,5 @@ export default connect(
     giving: getGivingArray(state),
     requesting: getRequestingArray(state),
     profile: getProfile(state)
-  }),
-  { updateProfile }
+  })
 )(Profile);
