@@ -39,7 +39,7 @@ class Shareable extends PureComponent {
         {isUser && editing && <ShareableForm shareableType={shareableType} action="ADD" onComplete={addShareable}/>}
         <ul>
           {shareable.map(item => (
-            <li key={item._id}>
+            <li key={item._id} className={item.priority ? 'high-priority' : 'regular-priority'}>
               {item.name}
               {item.date && ` (by ${formatDate(item.date)})`}
               {isUser && <button className="remove" onClick={() => this.handleClick(item._id, shareableType)}>&times;</button>}
