@@ -1,20 +1,28 @@
 :local(.feed) {
-  background-color:#4a86e8ff;
+  background-color: #4a86e8ff;
   text-align: auto;
   text-indent: 2em;
   grid-auto-rows: 30%;
-  
   h2 {
     font-size: 24pt;
     text-align: center;
+    background-color: #6aa84fff; 
+  }
+  img {
+    height: 5em;
+    display: inline-block;
+    justify-content: space-between;
+  }
+  p {
+    font-size: 1.5em;
   }
   .planOne, .planThree, .planFive, .planSeven {
     //background-color: #ff9900ff;
-    //background-color: violet;
+    background-color: violet;
     height: 7em;
   }
   .planTwo, .planFour, .planSix {
-    background-color: #6aa84fff;
+    background-color: #4a86e8ff;
     height: 7em;
   }
 }
