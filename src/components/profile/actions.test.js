@@ -14,7 +14,7 @@ import {
   GIVING_REMOVE
 } from './reducers';
 
-import { loadUserProfile, updateProfile, addShareable, updateShareable, removeShareable } from './actions';
+import { loadProfile, updateProfile, addShareable, updateShareable, removeShareable } from './actions';
 import { getUserProfile, putProfile, postShareable, putShareable, deleteShareable } from '../../services/api';
 
 describe('action creators', () => {
@@ -31,7 +31,7 @@ describe('action creators', () => {
 
     getUserProfile.mockReturnValueOnce(Promise.resolve(data));
 
-    const { type, payload } = loadUserProfile();
+    const { type, payload } = loadProfile();
     expect(type).toBe(PROFILE_LOAD);
     expect(payload).resolves.toEqual({ 
       profile: { _id: 'a',

@@ -35,17 +35,10 @@ function shapeProfile(response) {
   };
 }
 
-export function loadUserProfile() {
+export function loadProfile(friendId) {
   return {
     type: PROFILE_LOAD,
-    payload: getUserProfile().then(shapeProfile)
-  };
-}
-
-export function loadFriendProfile() {
-  return {
-    type: PROFILE_LOAD,
-    payload: getFriendProfile().then(shapeProfile)
+    payload: (friendId ? getFriendProfile(friendId) : getUserProfile()).then(shapeProfile)
   };
 }
 
