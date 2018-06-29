@@ -1,51 +1,68 @@
 :local(.profile) {
-  padding-top: 2em;
+  margin: 8.5rem auto 0 auto;
+  background-color: var(--pale-gray);
+  position: relative;
+  padding: 4.5rem 7%;
+  .name-and-picture {
+    position: absolute;
+    top: -100px;
+    display: flex;
+    align-items: center;
+    .picture-button {
+      background-color: var(--soft-black);
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      border: none;
+      width: 2rem;
+      height: 2rem;
+      color: white;
+      font-size: 1.5em;
+      align-self: flex-end;
+      &:hover {
+        background-color: var(--magenta);
+      }
+    }
+    .editing {
+      background-color: var(--magenta);
+    }
+  }
   .profile-picture {
-    margin-left: 10%;
+    position: relative;
     height: 150px;
     width: 150px;
     border-radius: 50%;
     background: url("https://user-images.githubusercontent.com/35273043/42075792-670034be-7b27-11e8-9950-1f88efc4902a.png") 50% 50% no-repeat;
   }
-  h2 {
-    font-family: 'Roboto';
-    text-align: center;
-    font-size: 24pt;
+  .name {
+    margin: 0.5rem 0 0 0.6rem;
   }
-  h3 {
-    font-size: 18pt;
-    text-align: left;
-    margin-left: 3em;
-  }
-  h4 {
-    font-size: 16pt;
+  .save-button {
+    background-color: var(--mid-gray);
+    font-size: 0.8em;
+    color: white;
+    height: 1.5rem;
+    padding: 0 0.3rem;
+    &:hover {
+      background-color: var(--soft-black);
+    }
   }
   form {
-    display: inline-flex;
-    font-size: 14pt;
-    padding-bottom: 1em;
-  }
-  .checkbox {
-    font-size: 14pt;
-    display: inline-block;
-    padding-left: 1em;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
   }
   input {
-    width: 70%;
-    height: 2em;
-  }
-  .submit {
-    width: 6em;
-    height: 2em;
+    width: 12rem;
+    height: 1.5rem;
+    border: 1px solid var(--mid-gray);
+    font-size: 1em;
+    margin: 0 0.5rem;
   }
   @media (min-width: 730px) {
-    .profile-picture {
-      margin-left: 20%;
-    }
+    width: 75%;
   }
   @media (min-width: 900px) {
-    .profile-picture {
-      margin-left: 30%;
-    }
+    width: 675px;
   }
 }
