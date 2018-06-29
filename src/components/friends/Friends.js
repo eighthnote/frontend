@@ -43,13 +43,13 @@ class Friends extends PureComponent {
 
   handleAcceptFriend = event => {
     this.props.acceptFriendRequest(event.target.id);
-    window.location.reload();
+    this.props.loadFriends();
   };
 
   handleRemoveFriend = event => {
     if(confirm('This will remove your friend, and remove you from their friends list. Are you sure you want to do this?')) {
       this.props.removeFriend(event.target.id);
-      window.location.reload();
+      this.props.loadFriends();
     }
   };
 
