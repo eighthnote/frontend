@@ -6,7 +6,7 @@
     .owner {
       background-color: var(--soft-black);
       padding: 0.5rem;
-      color:var(--mid-gray);
+      color: var(--mid-gray);
       font-weight: 400;
       a {
         color: white;
@@ -15,6 +15,10 @@
     }
     .content {
       padding: 1rem;
+    }
+    .feed-date {
+      font-weight: 400;
+      margin-top: 0.5rem;
     }
   }
   .giving {
