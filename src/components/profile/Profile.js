@@ -41,6 +41,7 @@ class Profile extends PureComponent {
     const locationPreUpdate = location.pathname;
     const locationPostUpdate = this.props.location.pathname;
     if(locationPreUpdate === locationPostUpdate) return;
+    this.props.clearProfile();
     this.handleProfileLoad();
   }
 
@@ -62,36 +63,38 @@ class Profile extends PureComponent {
 
     return (
       <section className={styles.profile}>
-
-        <div className="name-and-picture">
-          <div className="profile-picture" style={pictureUrl && { background: `url(${pictureUrl}) 50% 50% no-repeat` }}>
-            {isUser && <button className={editingPicture ? 'editing picture-button' : 'picture-button'} onClick={() => this.handleFormToggle('editingPicture')}>✎</button>}
+        <div className="wrapper">
+          <div className="name-and-picture">
+            <div className="profile-picture" style={pictureUrl && { background: `url(${pictureUrl}) 50% 50% no-repeat` }}>
+              {isUser && <button className={editingPicture ? 'editing picture-button' : 'picture-button'} onClick={() => this.handleFormToggle('editingPicture')}>✎</button>}
+            </div>
+            <h2 className="name">{firstName} {lastName}</h2>
           </div>
-          <h2 className="name">{firstName} {lastName}</h2>
-        </div>
-        {isUser && editingPicture && <PictureForm onDone={this.handleFormToggle}/>}
+          {isUser && editingPicture && <PictureForm onDone={this.handleFormToggle}/>}
 
-        <div className="button-and-heading">
-          {isUser && <button className={editingContact ? 'editing' : undefined} onClick={() => this.handleFormToggle('editingContact')}>✎</button>}
-          <h4>Preferred Contact Info:</h4>
-        </div>
-        {isUser && editingContact && <ContactForm onDone={this.handleFormToggle}/>}
-        <p className="contact-info">{contact}</p>
+          <div className="button-and-heading">
+            {isUser && <button className={editingContact ? 'editing' : undefined} onClick={() => this.handleFormToggle('editingContact')}>✎</button>}
+            <h4>Reachable at:</h4>
+          </div>
+          {isUser && editingContact && <ContactForm onDone={this.handleFormToggle}/>}
+          <p className="contact-info">{contact}</p>
         
-        <div className="button-and-heading">
-          {isUser && <button className={editingAvailability ? 'editing' : undefined} onClick={() => this.handleFormToggle('editingAvailability')}>✎</button>}
-          <h4>Best Availability:</h4>
-        </div>
-        {isUser && editingAvailability && <AvailabilityForm onDone={this.handleFormToggle}/>}
-        <div className="availability-info">
-          <ul>
-            {availability && availability.days && availability.days.map((item, i) => <li key={i}>{capitalize(item)}</li>)}
-          </ul>
-          <p><span className="notes-heading">Notes: </span>{availability && availability.notes}</p>
-        </div>
+          <div className="button-and-heading">
+            {isUser && <button className={editingAvailability ? 'editing' : undefined} onClick={() => this.handleFormToggle('editingAvailability')}>✎</button>}
+            <h4>Most Likely to Be Available:</h4>
+          </div>
+          {isUser && editingAvailability && <AvailabilityForm onDone={this.handleFormToggle}/>}
+          <div className="availability-info">
+            <ul>
+              {availability && availability.days && availability.days.map((item, i) => <li key={i}>{capitalize(item)}</li>)}
+            </ul>
+            <p><span className="notes-heading">Notes: </span>{availability && availability.notes}</p>
+          </div>
 
-        <Shareable isUser={isUser} heading="Giving" shareableType="giving" shareable={giving}/>
-        <Shareable isUser={isUser} heading="Requesting" shareableType="requesting" shareable={requesting}/>
+          <Shareable isUser={isUser} heading="Giving" shareableType="giving" shareable={giving}/>
+          <Shareable isUser={isUser} heading="Requesting" shareableType="requesting" shareable={requesting}/>
+        
+        </div>
       </section>
     );
   }

@@ -34,15 +34,17 @@ class Shareable extends PureComponent {
 
     return (
       <section className={styles.shareable}>
-        <h3>{heading}:</h3>
-        {isUser && <button onClick={this.handleFormToggle}>{editing ? 'CLOSE' : '+'}</button>}     
+        <div className="button-and-heading">
+          {isUser && <button className={editing ? 'editing add-button' : 'add-button'} onClick={this.handleFormToggle}>&#65291;</button>}     
+          <h4>{heading}:</h4>
+        </div>
         {isUser && editing && <ShareableForm shareableType={shareableType} action="ADD" onComplete={addShareable}/>}
         <ul>
           {shareable.map(item => (
             <li key={item._id} className={item.priority ? 'high-priority' : 'regular-priority'}>
-              {item.name}
+              {item.name}&nbsp;
               {!!item.priority && <span className="accessible-priority">high priority</span>}
-              {item.date && ` (by ${formatDate(item.date)})`}
+              {item.date && `(by ${formatDate(item.date)})`}
               {isUser && <button className="remove" onClick={() => this.handleClick(item._id, shareableType)}>&times;</button>}
             </li>
           ))}
