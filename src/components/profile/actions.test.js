@@ -18,7 +18,7 @@ import { loadProfile, updateProfile, addShareable, updateShareable, removeSharea
 import { getUserProfile, putProfile, postShareable, putShareable, deleteShareable } from '../../services/api';
 
 describe('action creators', () => {
-  it('creates a profile load action with normalized shareables', () => {
+  it('creates a profile load action with shareables sorted into objects', () => {
     const data = {
       _id: 'a',
       firstName: 'Keli',
