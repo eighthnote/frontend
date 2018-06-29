@@ -60,8 +60,8 @@ class Friends extends PureComponent {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <label>Add a Friend</label>
-          <input onChange={this.handleChange} name="addFriendForm" type="text" value={addFriendForm}/>
+          <label htmlFor="add-friend">Add a Friend</label>
+          <input onChange={this.handleChange} id="add-friend" name="addFriendForm" type="text" required value={addFriendForm}/>
           <button type="submit">Send Request</button>
         </form>
         <h3>Pending Friend Requests</h3>

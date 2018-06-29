@@ -29,7 +29,7 @@ class PictureForm extends PureComponent {
     return (
       <form onSubmit={this.handleSubmit}>
         <label htmlFor="picture">Enter an Image URL</label>
-        <input id="picture" type="text" value={pictureUrl} onChange={this.handleChange}/>
+        <input id="picture" type="text" required value={pictureUrl} onChange={this.handleChange}/>
         <button type="submit">SAVE</button>
       </form>
     );
