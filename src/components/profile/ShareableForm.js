@@ -55,7 +55,7 @@ export default class ShareableForm extends PureComponent {
         </div>
     
         <div className="priority">
-          <label htmlFor={`${shareableType}-priority`}>High Priority?</label>
+          <label htmlFor={`${shareableType}-priority`}>Urgent?</label>
           <input id={`${shareableType}-priority`} type="checkbox" name="priority" checked={priority} onChange={this.handleChange}/>
         </div>
 
