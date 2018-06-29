@@ -1,11 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import FeedShareable from './FeedShareable';
-
 import { loadFeed } from './actions';
 import { getFeed } from './reducers';
+import styles from './Feed.css';
 
 class Feed extends PureComponent {
   static propTypes = {
@@ -23,8 +22,7 @@ class Feed extends PureComponent {
     if(!feed) return null;
 
     return (
-      <div>
-        <h2>High-Priority Shareables</h2>
+      <div className={styles.feed}>
         <ul>
           {feed && feed.map((shareable, i) => (
             <FeedShareable

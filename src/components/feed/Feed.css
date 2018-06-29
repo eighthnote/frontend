@@ -1,28 +1,30 @@
 :local(.feed) {
-  background-color: #4a86e8ff;
-  text-align: auto;
-  text-indent: 2em;
-  grid-auto-rows: 30%;
-  h2 {
-    font-size: 24pt;
-    text-align: center;
-    background-color: #6aa84fff; 
+  padding: 2rem 1rem;
+  li {
+    border: 1rem solid var(--mid-gray);
+    margin-bottom: 2rem;
+    .owner {
+      background-color: var(--soft-black);
+      padding: 0.5rem;
+      color:var(--mid-gray);
+      font-weight: 400;
+      a {
+        color: white;
+        font-weight: 500;
+      }
+    }
+    .content {
+      padding: 1rem;
+    }
   }
-  img {
-    height: 5em;
-    display: inline-block;
-    justify-content: space-between;
+  .giving {
+    border-color: var(--magenta);
   }
-  p {
-    font-size: 1.5em;
+  .requesting {
+    border-color: var(--dark-saffron);
   }
-  .planOne, .planThree, .planFive, .planSeven {
-    //background-color: #ff9900ff;
-    background-color: violet;
-    height: 7em;
-  }
-  .planTwo, .planFour, .planSix {
-    background-color: #4a86e8ff;
-    height: 7em;
+  @media (min-width: 730px) {
+    margin: 0 auto;
+    width: 550px;
   }
 }
