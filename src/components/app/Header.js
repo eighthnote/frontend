@@ -27,7 +27,7 @@ class Header extends Component {
               <li><NavLink className="navigation" activeClassName="current" to="/profile">{account.name}</NavLink></li>
               <li><NavLink className="navigation" activeClassName="current" to="/feed">Feed</NavLink></li>
               <li><NavLink className="navigation" activeClassName="current" to="/friends">Friends</NavLink></li>
-              <li><Link to="/auth" className="logout" onClick={logout}>Log Out</Link></li>
+              <li className="logout"><Link to="/auth" onClick={logout}>Log Out</Link></li>
             </Fragment>}
           </ul>
         </nav>
