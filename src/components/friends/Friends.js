@@ -23,7 +23,8 @@ class Friends extends PureComponent {
   };
 
   state = {
-    addFriendForm: ''
+    addFriendForm: '',
+    friendMessage: null
   };
 
   componentDidMount() {
@@ -36,25 +37,27 @@ class Friends extends PureComponent {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.sendFriendRequest({ email: `${this.state.addFriendForm}` });
+    this.props.sendFriendRequest({ email: `${this.state.addFriendForm}` }).then((res) => {
+      this.setState({ friendMessage: res.payload });
+    });
     this.setState({ addFriendForm: '' });
   };
 
   handleAcceptFriend = event => {
     this.props.acceptFriendRequest(event.target.id);
-    window.location.reload();
+    this.props.loadFriends();
   };
 
   handleRemoveFriend = event => {
     if(confirm('This will remove your friend, and remove you from their friends list. Are you sure you want to do this?')) {
       this.props.removeFriend(event.target.id);
-      window.location.reload();
+      this.props.loadFriends();
     }
   };
 
   render() {
     const { friends } = this.props;
-    const { addFriendForm } = this.state;
+    const { addFriendForm, friendMessage } = this.state;
 
     return (
       <div className={styles.friends}>
@@ -65,6 +68,7 @@ class Friends extends PureComponent {
             <input onChange={this.handleChange} id="add-friend" name="addFriendForm" type="text" required value={addFriendForm}/>
           </div>
           <button type="submit">SEND REQUEST</button>
+          {friendMessage && <p>{friendMessage}</p>}
         </form>
 
         <div className="friend-list">
