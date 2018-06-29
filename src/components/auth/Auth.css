@@ -19,9 +19,15 @@
   }
   .auth-link {
     background-color: var(--mid-gray);
+    &:hover {
+      background-color: var(--soft-black);
+    }
   }
   .signin {
     background-color: var(--dark-saffron);
+    &:hover {
+      background-color: var(--dark-saffron);
+    }
   }
   a {
     &.signin {
@@ -33,6 +39,9 @@
   }
   .signup {
     background-color: var(--magenta);
+    &:hover {
+      background-color: var(--magenta);
+    }
   }
   .auth-form {
     width: 100%;
