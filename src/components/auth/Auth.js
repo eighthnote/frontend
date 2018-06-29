@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getError } from '../app/reducers';
+import { clearError } from '../app/actions';
 import { getAccount } from '../auth/reducers';
 import { signin, signup } from './actions';
 import Credentials from './Credentials';
@@ -14,8 +15,13 @@ class Auth extends PureComponent {
     signin: PropTypes.func.isRequired,
     signup: PropTypes.func.isRequired,
     location: PropTypes.object,
-    error: PropTypes.any
+    error: PropTypes.any,
+    clearError: PropTypes.func.isRequired
   };
+
+  componentWillUnmount() {
+    this.props.clearError();
+  }
 
   render() {
     const { account, signin, signup, location, error } = this.props;
@@ -57,5 +63,5 @@ export default connect(
     account: getAccount(state),
     error: getError(state)
   }),
-  { signin, signup }
+  { signin, signup, clearError }
 )(Auth);
