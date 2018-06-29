@@ -22,7 +22,8 @@
       padding: 0.5rem 0 0.5rem 0;
       .navigation {
         font-size: 1.2em;
-        color: var(--pale-gray);
+        font-weight: 500;
+        color: white;
         padding: 0.5rem;
         position: relative;
       &::after {
@@ -35,27 +36,27 @@
         transition: all 0.3s ease;
       }
       &:hover::after {
-        border-bottom: 0.2rem solid var(--pale-gray);
+        border-bottom: 0.2rem solid white;
         left: 0;
         right: 0;
         transition: all 0.3s ease;
       }
       &.current {
-        color: var(--saffron);
+        color: var(--dark-saffron);
       }
       &.current::after {
         position: absolute;
         bottom: 0;
         left: 0;
         right: 0;
-        border-bottom: 0.2rem solid var(--saffron);
+        border-bottom: 0.2rem solid var(--dark-saffron);
       }
       }
       .logout {
         color: var(--soft-black);
         background-color: var(--mid-gray);
         font-size: 1em;
-        font-weight: 600;
+        font-weight: 500;
         padding: 0.2rem;
         &:hover {
           background-color: var(--magenta);

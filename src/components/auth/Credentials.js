@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import styles from './Credentials.css';
 
 export default class Credentials extends PureComponent {
   static propTypes = {
@@ -29,15 +30,15 @@ export default class Credentials extends PureComponent {
     const { firstName, lastName, email, password } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} className={styles.credentials}>
+      <div className="input-wrapper">
         {includeName &&
-          <Fragment>
-            <label htmlFor="firstName">First Name:</label>
-            <input type="text" id="firstName" value={firstName} required onChange={this.handleChange}/>
-            <label htmlFor="lastName">Last Name:</label>
-            <input type="text" id="lastName" value={lastName} required onChange={this.handleChange}/>
-          </Fragment>
-        }
+        <Fragment>
+          <label htmlFor="firstName">First Name:</label>
+          <input type="text" id="firstName" value={firstName} required onChange={this.handleChange}/>
+          <label htmlFor="lastName">Last Name:</label>
+          <input type="text" id="lastName" value={lastName} required onChange={this.handleChange}/>
+        </Fragment>}
 
         <label htmlFor="email">Email:</label>
         <input type="text" id="email" value={email} required onChange={this.handleChange}/>
@@ -46,6 +47,7 @@ export default class Credentials extends PureComponent {
         <input type="password" id="password" value={password} required onChange={this.handleChange}/>
 
         <button type="submit">{action}</button>
+        </div>
       </form>
     );
   }

@@ -27,8 +27,8 @@ class Auth extends PureComponent {
     return (
       <section className={styles.auth}>
         <ul className="auth-nav">
-          <li><NavLink activeClassName="signin" to="/auth/signin">Sign In</NavLink></li>
-          <li><NavLink activeClassName="signup" to="/auth/signup">Sign Up</NavLink></li>
+          <li><NavLink activeClassName="signin" className="auth-link" to="/auth/signin">Sign In</NavLink></li>
+          <li><NavLink activeClassName="signup" className="auth-link" to="/auth/signup">Sign Up</NavLink></li>
         </ul>
         <Switch>
           <Route path='/auth/signin' render={() => (
@@ -37,7 +37,7 @@ class Auth extends PureComponent {
             </div>
           )}/>
           <Route path="/auth/signup" render={() => (
-            <div className="auth-form">
+            <div className="auth-form signup">
               <Credentials action="SIGN UP" submitCredentials={signup} includeName={true}/>
               {!!error && <p>{error.error}</p>}
             </div>
