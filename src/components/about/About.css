@@ -1,0 +1,16 @@
+:local(.about) {
+  width: 75%;
+  margin: 2.5rem auto;
+  :first-child {
+    color: var(--magenta);
+    font-weight: 500;
+    margin-top: 0;
+  }
+  p {
+    margin-top: 1.5rem;
+    line-height: 1.4rem;
+  }
+  @media (min-width: 730px) {
+    width: 550px;
+  }
+}

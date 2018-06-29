@@ -1,51 +1,134 @@
 :local(.profile) {
-  background-color:#4a86e8ff;
-  padding-top: 2em;
-  img {
-    border-radius: 50%;
-    height: 10.5em;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  h2 {
-    font-family: 'Roboto';
-    text-align: center;
-    font-size: 24pt;
-  }
-  h3 {
-    font-size: 18pt;
-    text-align: left;
-    margin-left: 3em;
+  margin: 9rem auto;
+  background: linear-gradient(330deg,var(--saffron), var(--magenta));
+  position: relative;
+  padding: 1rem;
+  .wrapper {
+    padding: 4rem 7% 2rem 7%;
+    background-color: white;
   }
   h4 {
-    font-size: 16pt;
+    font-size: 1.5em;
+    margin-bottom: 1rem;
+  }
+  .contact-info {
+    margin: 0 0 1rem 3rem;
+  }
+  .name-and-picture {
+    position: absolute;
+    top: -110px;
+    display: flex;
+    align-items: center;
+    .picture-button {
+      background-color: var(--soft-black);
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      border: none;
+      width: 2rem;
+      height: 2rem;
+      color: white;
+      font-size: 1.5em;
+      align-self: flex-end;
+      &:hover {
+        background-color: var(--dark-saffron);
+      }
+    }
+    .editing {
+      background-color: var(--dark-saffron);
+    }
+  }
+  .profile-picture {
+    position: relative;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background: url("https://user-images.githubusercontent.com/35273043/42075792-670034be-7b27-11e8-9950-1f88efc4902a.png") 50% 50% no-repeat;
+  }
+  .name {
+    margin: 1.3rem 0 0 0.6rem;
+    font-size: 2em;
+  }
+  .save-button {
+    background-color: var(--mid-gray);
+    font-size: 0.8em;
+    color: white;
+    height: 1.5rem;
+    padding: 0 0.3rem;
+    &:hover {
+      background-color: var(--soft-black);
+    }
+  }
+  .button-and-heading {
+    display: flex;
+    align-items: center;
+    button {
+      background-color: var(--soft-black);
+      border: none;
+      width: 2rem;
+      height: 2rem;
+      color: white;
+      font-size: 1.5em;
+      margin: 0 0.5rem 1rem 0;
+      &:hover {
+        background-color: var(--dark-saffron);
+      }
+    }
+    .add-button {
+      font-size: 1.8rem;
+      line-height: 1.8rem;
+      font-weight: 500;
+    }
+    .editing {
+      background-color: var(--dark-saffron);
+    }
   }
   form {
-    display: inline-flex;
-    font-size: 14pt;
-    padding-bottom: 1em;
-  }
-  .checkbox {
-    font-size: 14pt;
-    display: inline-block;
-    padding-left: 1em;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
   }
   input {
-    width: 70%;
-    height: 2em;
+    width: 12rem;
+    height: 1.5rem;
+    padding: 0 0.2rem;
+    border: 1px solid var(--mid-gray);
+    font-size: 1em;
+    margin: 0 0.5rem;
   }
-  .submit {
-    width: 6em;
-    height: 2em;
+  .availability-form {
+    display: block;
+    input[type="checkbox"] {
+      width: fit-content;
+      display: block;
+      margin: 0 0.5rem 0 0;
+    }
+    input[type="text"] {
+      width: 60%;
+    }
+    .checkbox {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    button {
+      margin: 0.5rem 0;
+    }
   }
-  .filler-image {
-    font-size: 8em;
-    color: white;
-    text-align: center;
-    height: 10.5rem;
-    width: 10.5rem;
-    border-radius: 50%;
-    background-color: gray;
+  .availability-info {
+    margin: 0 0 1rem 3rem;
+    p {
+      margin-top: 1rem;
+    }
+  }
+  .notes-heading {
+    font-weight: 500;
+    font-size: 1.2em;
+  }
+  @media (min-width: 730px) {
+    width: 75%;
+  }
+  @media (min-width: 900px) {
+    width: 675px;
   }
 }

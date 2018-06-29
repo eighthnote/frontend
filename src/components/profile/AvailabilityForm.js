@@ -48,11 +48,11 @@ class AvailabilityForm extends PureComponent {
     const { notes, days } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form className="availability-form" onSubmit={this.handleSubmit}>
         <DayPicker handleCheckboxChange={this.handleChange} days={days}/>
-        <label htmlFor="notes">Notes</label>
+        <label htmlFor="notes">Notes:</label>
         <input onChange={this.handleChange} id="notes" name="notes" type="text" value={notes}/>
-        <button type="submit">save</button>
+        <button className="save-button" type="submit">SAVE</button>
       </form>
     );
   }

@@ -17,17 +17,18 @@ class Header extends Component {
 
     return (
       <header className={styles.header}>
-        <h1>Shareable</h1>
+        <Link to="/profile" className="logo">Shareable</Link>
         <nav>
+          
           <ul>
+            <li><NavLink className="navigation" activeClassName="current" to="/about">About</NavLink></li>
             {account &&
-              <Fragment>
-                <li><NavLink to="/feed">Feed</NavLink></li>
-                <li><NavLink to="/profile">{account.name}</NavLink></li>
-                <li><NavLink to="/friends">Friends</NavLink></li>
-                <li><NavLink to="/about">About</NavLink></li>
-                <li><Link to="/auth" onClick={logout}>Log Out</Link></li>
-              </Fragment>}
+            <Fragment>
+              <li><NavLink className="navigation" activeClassName="current" to="/profile">{account.name}</NavLink></li>
+              <li><NavLink className="navigation" activeClassName="current" to="/feed">Feed</NavLink></li>
+              <li><NavLink className="navigation" activeClassName="current" to="/friends">Friends</NavLink></li>
+              <li className="logout"><Link to="/auth" onClick={logout}>Log Out</Link></li>
+            </Fragment>}
           </ul>
         </nav>
       </header>

@@ -41,6 +41,7 @@ class Profile extends PureComponent {
     const locationPreUpdate = location.pathname;
     const locationPostUpdate = this.props.location.pathname;
     if(locationPreUpdate === locationPostUpdate) return;
+    this.props.clearProfile();
     this.handleProfileLoad();
   }
 
@@ -62,25 +63,38 @@ class Profile extends PureComponent {
 
     return (
       <section className={styles.profile}>
-        {pictureUrl ? 
-          <img src={pictureUrl} alt={`profile picture for ${firstName}`}/>
-          : <div className="filler-image">:)</div>}
-        {isUser && <button onClick={() => this.handleFormToggle('editingPicture')}>{editingPicture ? 'CLOSE' : 'EDIT'}</button>}
-        {isUser && editingPicture && <PictureForm onDone={this.handleFormToggle}/>}
-        <h2>{firstName} {lastName}</h2>
-        <h4>Preferred Contact Info:</h4>
-        <p>{contact}</p>
-        {isUser && <button onClick={() => this.handleFormToggle('editingContact')}>{editingContact ? 'CLOSE' : 'EDIT'}</button>}
-        {isUser && editingContact && <ContactForm onDone={this.handleFormToggle}/>}
-        <h4>Best Availability:</h4>
-        <ul>
-          {availability && availability.days && availability.days.map((item, i) => <li key={i}>{capitalize(item)}</li>)}
-        </ul>
-        <p>{availability && availability.notes}</p>
-        {isUser && <button onClick={() => this.handleFormToggle('editingAvailability')}>{editingAvailability ? 'CLOSE' : 'EDIT'}</button>}
-        {isUser && editingAvailability && <AvailabilityForm onDone={this.handleFormToggle}/>}
-        <Shareable isUser={isUser} heading="Giving" shareableType="giving" shareable={giving}/>
-        <Shareable isUser={isUser} heading="Requesting" shareableType="requesting" shareable={requesting}/>
+        <div className="wrapper">
+          <div className="name-and-picture">
+            <div className="profile-picture" style={pictureUrl && { background: `url(${pictureUrl}) 50% 50% no-repeat` }}>
+              {isUser && <button className={editingPicture ? 'editing picture-button' : 'picture-button'} onClick={() => this.handleFormToggle('editingPicture')}>✎</button>}
+            </div>
+            <h2 className="name">{firstName} {lastName}</h2>
+          </div>
+          {isUser && editingPicture && <PictureForm onDone={this.handleFormToggle}/>}
+
+          <div className="button-and-heading">
+            {isUser && <button className={editingContact ? 'editing' : undefined} onClick={() => this.handleFormToggle('editingContact')}>✎</button>}
+            <h4>Reachable at:</h4>
+          </div>
+          {isUser && editingContact && <ContactForm onDone={this.handleFormToggle}/>}
+          <p className="contact-info">{contact}</p>
+        
+          <div className="button-and-heading">
+            {isUser && <button className={editingAvailability ? 'editing' : undefined} onClick={() => this.handleFormToggle('editingAvailability')}>✎</button>}
+            <h4>Most Likely to Be Available:</h4>
+          </div>
+          {isUser && editingAvailability && <AvailabilityForm onDone={this.handleFormToggle}/>}
+          <div className="availability-info">
+            <ul>
+              {availability && availability.days && availability.days.map((item, i) => <li key={i}>{capitalize(item)}</li>)}
+            </ul>
+            {availability && availability.notes && <p><span className="notes-heading">Notes: </span>{availability.notes}</p>}
+          </div>
+
+          <Shareable isUser={isUser} heading="Giving" shareableType="giving" shareable={giving}/>
+          <Shareable isUser={isUser} heading="Requesting" shareableType="requesting" shareable={requesting}/>
+        
+        </div>
       </section>
     );
   }

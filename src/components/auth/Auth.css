@@ -1,0 +1,62 @@
+:local(.auth) {
+  width: 75%;
+  margin: 2rem auto 0 auto;
+  .auth-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    li {
+      width: 50%;
+    }
+    a {
+      text-align: center;
+      font-size: 1.2em;
+      padding: 0.5rem 2rem;
+      font-weight: 500;
+      color: white;
+      display: block;
+    }
+  }
+  .auth-link {
+    background-color: var(--mid-gray);
+    &:hover {
+      background-color: var(--soft-black);
+    }
+  }
+  .signin {
+    background-color: var(--dark-saffron);
+    &:hover {
+      background-color: var(--dark-saffron);
+    }
+  }
+  a {
+    &.signin {
+      padding-top: 1rem;
+    } 
+    &.signup {
+      padding-top: 1rem;
+    } 
+  }
+  .signup {
+    background-color: var(--magenta);
+    &:hover {
+      background-color: var(--magenta);
+    }
+  }
+  .auth-form {
+    width: 100%;
+    padding: 1rem;
+    form {
+      width: 100%;
+      background-color: white;
+    }
+  }
+  .auth-error {
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: 500;
+  }
+  @media (min-width: 470px) {
+    width: 350px;
+  }
+}

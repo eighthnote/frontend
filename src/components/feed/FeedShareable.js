@@ -16,9 +16,12 @@ export default class FeedShareable extends Component {
     const { name, date, type, owner, ownerId } = this.props;
 
     return (
-      <li>
-        <h3><Link to={`/friends/${ownerId}`}>{owner}</Link> is {type}:</h3>
-        <h3>{name} by {formatDate(date)}</h3>
+      <li className={type}>
+        <h3 className="owner"><Link to={`/friends/${ownerId}`}>{owner}</Link> is {type}:</h3>
+        <div className="content">
+          <h3>{name}</h3>
+          <h3 className="feed-date">by {formatDate(date)}</h3>
+        </div>
       </li>
     );
   }

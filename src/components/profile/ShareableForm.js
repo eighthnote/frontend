@@ -43,14 +43,23 @@ export default class ShareableForm extends PureComponent {
     const { name, date, priority } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label htmlFor={`${shareableType}-name`}>Description:</label>
-        <input id={`${shareableType}-name`} type="text" name="name" value={name} required onChange={this.handleChange}/>
-        <label htmlFor={`${shareableType}-date`}>By: (optional)</label>
-        <input id={`${shareableType}-date`} type="date" name="date" value={date} onChange={this.handleChange}/>
-        <label htmlFor={`${shareableType}-priority`}>Mark as High Priority</label>
-        <input id={`${shareableType}-priority`} type="checkbox" name="priority" checked={priority} onChange={this.handleChange}/>
-        <button type="submit">{action}</button>
+      <form className="shareable-form" onSubmit={this.handleSubmit}>
+        <div className="description">
+          <label htmlFor={`${shareableType}-name`}>Description:</label>
+          <input id={`${shareableType}-name`} type="text" name="name" value={name} required onChange={this.handleChange}/>
+        </div>
+
+        <div className="date">
+          <label htmlFor={`${shareableType}-date`}>By (optional):</label>
+          <input id={`${shareableType}-date`} type="date" name="date" value={date} onChange={this.handleChange}/>
+        </div>
+    
+        <div className="priority">
+          <label htmlFor={`${shareableType}-priority`}>Urgent?</label>
+          <input id={`${shareableType}-priority`} type="checkbox" name="priority" checked={priority} onChange={this.handleChange}/>
+        </div>
+
+        <button className="save-button" type="submit">{action}</button>
       </form>
     );
   }

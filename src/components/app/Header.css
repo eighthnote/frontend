@@ -1,17 +1,92 @@
 :local(.header) {
-  //background-color:#4a86e8ff;
-  background-color: #ff9900ff;
-  //background-color: violet;
-  text-align: center;
-  font-family: Lobster;
-  font-size: 2em;
-  padding-top: .5em;
-  a {
-    font-size: 20pt;
-    text-decoration: none;
-    color: black;
+  .logo {
+    text-align: center;
+    font-family: Lobster, sans-serif;
+    font-size: 4em;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    background: linear-gradient(150deg,var(--saffron), var(--magenta));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
   }
-  ul {
-    display: inline-flex;
+  nav {
+    width: 100%;
+    background-color: var(--soft-black);
+    padding: 0 0.5rem;
+    ul {
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0.5rem 0 0.5rem 0;
+      .navigation {
+        font-size: 0.9em;
+        font-weight: 500;
+        color: white;
+        padding: 0.5rem;
+        position: relative;
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        border-bottom: 0.2rem solid var(--soft-black);
+        left: 50%;
+        right: 50%;
+        transition: all 0.3s ease;
+      }
+      &:hover::after {
+        border-bottom: 0.2rem solid white;
+        left: 0;
+        right: 0;
+        transition: all 0.3s ease;
+      }
+      &.current {
+        color: var(--dark-saffron);
+      }
+      &.current::after {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-bottom: 0.2rem solid var(--dark-saffron);
+      }
+      }
+      .logout {
+        padding: 0.15rem;
+        background-color: var(--mid-gray);
+        font-size: 0.7em;
+        font-weight: 500;
+        a {
+          color: var(--soft-black);
+        }
+        &:hover {
+          background-color: var(--magenta);
+        }
+      }
+    }
+  }
+  @media (min-width: 400px) {
+    nav {
+      ul {
+        .navigation {
+          font-size: 1.2em;
+        }
+        .logout {
+          font-size: 1em;
+          padding: 0.2rem;
+        }
+      }
+    }
+  }
+  @media (min-width: 700px) {
+    nav {
+      ul {
+        width: 700px;
+      }
+    }
   }
 }
