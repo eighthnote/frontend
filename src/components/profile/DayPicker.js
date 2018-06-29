@@ -17,8 +17,8 @@ export default class DayPicker extends Component {
       <Fragment>
         {dayNames.map(day => (
           <div className="checkbox" key={day}>
-            <label htmlFor={day}>{capitalize(day)}</label>
             <input onChange={event => handleCheckboxChange(event)} id={day} type='checkbox' name={day} checked={days[day]}/>
+            <label htmlFor={day}>{capitalize(day)}</label>
           </div>
         ))}
       </Fragment>

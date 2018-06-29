@@ -71,18 +71,24 @@ class Profile extends PureComponent {
         </div>
         {isUser && editingPicture && <PictureForm onDone={this.handleFormToggle}/>}
 
-        <h4>Preferred Contact Info:</h4>
-        <p>{contact}</p>
-        {isUser && <button onClick={() => this.handleFormToggle('editingContact')}>✎</button>}
+        <div className="button-and-heading">
+          {isUser && <button className={editingContact ? 'editing' : undefined} onClick={() => this.handleFormToggle('editingContact')}>✎</button>}
+          <h4>Preferred Contact Info:</h4>
+        </div>
         {isUser && editingContact && <ContactForm onDone={this.handleFormToggle}/>}
+        <p className="contact-info">{contact}</p>
         
-        <h4>Best Availability:</h4>
-        <ul>
-          {availability && availability.days && availability.days.map((item, i) => <li key={i}>{capitalize(item)}</li>)}
-        </ul>
-        <p>{availability && availability.notes}</p>
-        {isUser && <button onClick={() => this.handleFormToggle('editingAvailability')}>✎</button>}
+        <div className="button-and-heading">
+          {isUser && <button className={editingAvailability ? 'editing' : undefined} onClick={() => this.handleFormToggle('editingAvailability')}>✎</button>}
+          <h4>Best Availability:</h4>
+        </div>
         {isUser && editingAvailability && <AvailabilityForm onDone={this.handleFormToggle}/>}
+        <div className="availability-info">
+          <ul>
+            {availability && availability.days && availability.days.map((item, i) => <li key={i}>{capitalize(item)}</li>)}
+          </ul>
+          <p><span className="notes-heading">Notes: </span>{availability && availability.notes}</p>
+        </div>
 
         <Shareable isUser={isUser} heading="Giving" shareableType="giving" shareable={giving}/>
         <Shareable isUser={isUser} heading="Requesting" shareableType="requesting" shareable={requesting}/>
