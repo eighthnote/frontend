@@ -19,16 +19,17 @@ class Header extends Component {
       <header className={styles.header}>
         <Link to="/profile" className="logo">Shareable</Link>
         <nav>
-          {account &&
+          
           <ul>
+            <li><NavLink className="navigation" activeClassName="current" to="/about">About</NavLink></li>
+            {account &&
             <Fragment>
               <li><NavLink className="navigation" activeClassName="current" to="/profile">{account.name}</NavLink></li>
               <li><NavLink className="navigation" activeClassName="current" to="/feed">Feed</NavLink></li>
               <li><NavLink className="navigation" activeClassName="current" to="/friends">Friends</NavLink></li>
-              <li><NavLink className="navigation" activeClassName="current" to="/about">About</NavLink></li>
               <li><Link to="/auth" className="logout" onClick={logout}>Log Out</Link></li>
-            </Fragment>
-          </ul>}
+            </Fragment>}
+          </ul>
         </nav>
       </header>
     );
