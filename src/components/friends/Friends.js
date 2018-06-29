@@ -24,7 +24,8 @@ class Friends extends PureComponent {
   };
 
   state = {
-    addFriendForm: ''
+    addFriendForm: '',
+    friendMessage: null
   };
 
   componentDidMount() {
@@ -38,6 +39,7 @@ class Friends extends PureComponent {
   handleSubmit = event => {
     event.preventDefault();
     this.props.sendFriendRequest({ email: `${this.state.addFriendForm}` });
+    this.setState({ friendMessage: 'Friend request sent! If your friend does not receive a request, check the spelling of their email address.' });
     this.setState({ addFriendForm: '' });
   };
 
@@ -55,7 +57,7 @@ class Friends extends PureComponent {
 
   render() {
     const { friends } = this.props;
-    const { addFriendForm } = this.state;
+    const { addFriendForm, friendMessage } = this.state;
 
     return (
       <div>
@@ -63,6 +65,7 @@ class Friends extends PureComponent {
           <label>Add a Friend</label>
           <input onChange={this.handleChange} name="addFriendForm" type="text" value={addFriendForm}/>
           <button type="submit">Send Request</button>
+          {friendMessage && <p>{friendMessage}</p>}
         </form>
         <h3>Pending Friend Requests</h3>
         <ul>
