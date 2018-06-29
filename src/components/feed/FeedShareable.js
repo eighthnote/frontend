@@ -20,7 +20,7 @@ export default class FeedShareable extends Component {
         <h3 className="owner"><Link to={`/friends/${ownerId}`}>{owner}</Link> is {type}:</h3>
         <div className="content">
           <h3>{name}</h3>
-          <h3 className="feed-date">by {formatDate(date)}</h3>
+          {date && <h3 className="feed-date">by {formatDate(date)}</h3>}
         </div>
       </li>
     );
