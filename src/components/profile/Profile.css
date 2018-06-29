@@ -1,11 +1,11 @@
 :local(.profile) {
   padding-top: 2em;
-  img {
+  .profile-picture {
+    margin-left: 10%;
+    height: 150px;
+    width: 150px;
     border-radius: 50%;
-    height: 10.5em;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    background: url("https://user-images.githubusercontent.com/35273043/42075792-670034be-7b27-11e8-9950-1f88efc4902a.png") 50% 50% no-repeat;
   }
   h2 {
     font-family: 'Roboto';
@@ -38,13 +38,14 @@
     width: 6em;
     height: 2em;
   }
-  .filler-image {
-    font-size: 8em;
-    color: white;
-    text-align: center;
-    height: 10.5rem;
-    width: 10.5rem;
-    border-radius: 50%;
-    background-color: gray;
+  @media (min-width: 730px) {
+    .profile-picture {
+      margin-left: 20%;
+    }
+  }
+  @media (min-width: 900px) {
+    .profile-picture {
+      margin-left: 30%;
+    }
   }
 }

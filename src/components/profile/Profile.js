@@ -62,16 +62,18 @@ class Profile extends PureComponent {
 
     return (
       <section className={styles.profile}>
-        {pictureUrl ? 
-          <img src={pictureUrl} alt={`profile picture for ${firstName}`}/>
-          : <div className="filler-image">:)</div>}
+
+        <div className="profile-picture" style={pictureUrl && { background: `url(${pictureUrl}) 50% 50% no-repeat` }}></div>
         {isUser && <button onClick={() => this.handleFormToggle('editingPicture')}>{editingPicture ? 'CLOSE' : 'EDIT'}</button>}
         {isUser && editingPicture && <PictureForm onDone={this.handleFormToggle}/>}
+
         <h2>{firstName} {lastName}</h2>
+
         <h4>Preferred Contact Info:</h4>
         <p>{contact}</p>
         {isUser && <button onClick={() => this.handleFormToggle('editingContact')}>{editingContact ? 'CLOSE' : 'EDIT'}</button>}
         {isUser && editingContact && <ContactForm onDone={this.handleFormToggle}/>}
+        
         <h4>Best Availability:</h4>
         <ul>
           {availability && availability.days && availability.days.map((item, i) => <li key={i}>{capitalize(item)}</li>)}
@@ -79,6 +81,7 @@ class Profile extends PureComponent {
         <p>{availability && availability.notes}</p>
         {isUser && <button onClick={() => this.handleFormToggle('editingAvailability')}>{editingAvailability ? 'CLOSE' : 'EDIT'}</button>}
         {isUser && editingAvailability && <AvailabilityForm onDone={this.handleFormToggle}/>}
+
         <Shareable isUser={isUser} heading="Giving" shareableType="giving" shareable={giving}/>
         <Shareable isUser={isUser} heading="Requesting" shareableType="requesting" shareable={requesting}/>
       </section>
