@@ -7,7 +7,7 @@
 ## Description
 
 Designed to promote personal interactions between friends in ways that fulfill our own needs while allowing us to contribute to our friends' happiness quotas simultaneously.
-https://github.com/eighthnote
+https://alchemyshareables.herokuapp.com
 
 ## Installation Instructions
 
