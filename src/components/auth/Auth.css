@@ -51,4 +51,7 @@
       background-color: white;
     }
   }
+  @media (min-width: 470px) {
+    width: 350px;
+  }
 }
