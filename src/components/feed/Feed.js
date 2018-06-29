@@ -24,7 +24,7 @@ class Feed extends PureComponent {
 
     return (
       <div>
-        <h2>Your Feed</h2>
+        <h2>High-Priority Shareables</h2>
         <ul>
           {feed && feed.map((shareable, i) => (
             <FeedShareable
