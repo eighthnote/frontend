@@ -38,8 +38,9 @@ class Friends extends PureComponent {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.sendFriendRequest({ email: `${this.state.addFriendForm}` });
-    this.setState({ friendMessage: 'Friend request sent! If your friend does not receive a request, check the spelling of their email address.' });
+    this.props.sendFriendRequest({ email: `${this.state.addFriendForm}` }).then((res) => {
+      this.setState({ friendMessage: res.payload });
+    });
     this.setState({ addFriendForm: '' });
   };
 
@@ -47,6 +48,7 @@ class Friends extends PureComponent {
     this.props.acceptFriendRequest(event.target.id);
     this.props.loadFriends();
   };
+  console.log(res.payload);
 
   handleRemoveFriend = event => {
     if(confirm('This will remove your friend, and remove you from their friends list. Are you sure you want to do this?')) {
