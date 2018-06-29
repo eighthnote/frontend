@@ -11,15 +11,17 @@ export default class FeedShareable extends Component {
     participants: PropTypes.any,
     groupSize: PropTypes.any,
     confirmed: PropTypes.any,
-    expiration: PropTypes.any
+    expiration: PropTypes.any,
+    owner: PropTypes.any
   };
 
   render() {
-    const { name, date, priority, type, repeats, participants, groupSize, confirmed, expiration } = this.props;
+    const { name, date, priority, type, repeats, participants, groupSize, confirmed, expiration, owner } = this.props;
 
     return (
       <li>
         <div>
+          <h3>{owner}</h3>
           <h3>{name || 'N/A'}</h3>
           <p>Date: {date || 'N/A'}</p>
           <p>Expiration: {expiration || 'N/A'}</p>
