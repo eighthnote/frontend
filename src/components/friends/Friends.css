@@ -2,6 +2,9 @@
   padding: 2rem 1rem;
   width: 75%;
   margin: 0 auto;
+  h3 {
+    margin-bottom: 0.5rem;
+  }
   .friend-add-form {
     border: 1rem solid var(--dark-saffron);
     padding: 1rem;
@@ -33,7 +36,7 @@
   }
   .friend-list {
     h3 {
-      margin: 1rem 0;
+      margin-top: 2rem;
     }
     a {
       color: var(--magenta);
