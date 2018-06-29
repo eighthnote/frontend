@@ -51,6 +51,11 @@
       background-color: white;
     }
   }
+  .auth-error {
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: 500;
+  }
   @media (min-width: 470px) {
     width: 350px;
   }

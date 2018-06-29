@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -37,10 +37,13 @@ class Auth extends PureComponent {
             </div>
           )}/>
           <Route path="/auth/signup" render={() => (
+            <Fragment>
             <div className="auth-form signup">
               <Credentials action="SIGN UP" submitCredentials={signup} includeName={true}/>
-              {!!error && <p>{error.error}</p>}
+              
             </div>
+            <div className="auth-error">{!!error && <span>{error.error}</span>}</div>
+            </Fragment>
           )}/>
           <Redirect to="/auth/signin"/>
         </Switch>
