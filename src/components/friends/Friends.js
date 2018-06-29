@@ -92,7 +92,7 @@ class Friends extends PureComponent {
                   <Friend
                     firstName={friend.firstName}
                     lastName={friend.lastName}
-                    imageUrl={friend.imageUrl}
+                    pictureUrl={friend.pictureUrl}
                   />
                 </Link>
               </span>
