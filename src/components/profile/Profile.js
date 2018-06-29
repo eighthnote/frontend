@@ -88,7 +88,7 @@ class Profile extends PureComponent {
             <ul>
               {availability && availability.days && availability.days.map((item, i) => <li key={i}>{capitalize(item)}</li>)}
             </ul>
-            <p><span className="notes-heading">Notes: </span>{availability && availability.notes}</p>
+            {availability && availability.notes && <p><span className="notes-heading">Notes: </span>{availability.notes}</p>}
           </div>
 
           <Shareable isUser={isUser} heading="Giving" shareableType="giving" shareable={giving}/>
