@@ -38,10 +38,12 @@ class Auth extends PureComponent {
         </ul>
         <Switch>
           <Route path='/auth/signin' render={() => (
-            <div className="auth-form signin">
-              <Credentials action="SIGN IN" submitCredentials={signin}/>
-              {!!error && <p>{error.error}</p>}
-            </div>
+            <Fragment>
+              <div className="auth-form signin">
+                <Credentials action="SIGN IN" submitCredentials={signin}/>
+              </div>
+              <div className="auth-error">{!!error && <span>{error.error}</span>}</div>   
+            </Fragment>
           )}/>
           <Route path="/auth/signup" render={() => (
             <Fragment>
