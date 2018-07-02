@@ -8,12 +8,12 @@ export const DELETE_FRIEND = 'DELETE_FRIEND';
 export const getFriends = state => state.friends;
 export const getFriendRequest = state => state.friendRequest;
 
-export function friends(state = [], { type, payload }) {
+export function friends(state = {}, { type, payload }) {
   switch(type) {
     case FRIENDS_LOAD:
       return payload;
     case LOGOUT:
-      return [];
+      return {};
     default:
       return state;
   }

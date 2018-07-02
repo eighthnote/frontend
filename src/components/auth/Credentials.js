@@ -1,12 +1,17 @@
 import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getError } from '../app/reducers';
+import { clearError } from '../app/actions';
 import styles from './Credentials.css';
 
-export default class Credentials extends PureComponent {
+class Credentials extends PureComponent {
   static propTypes = {
     submitCredentials: PropTypes.func.isRequired,
     action: PropTypes.string.isRequired,
-    includeName: PropTypes.bool
+    includeName: PropTypes.bool,
+    error: PropTypes.object,
+    clearError: PropTypes.func.isRequired
   };
 
   state = {
@@ -17,6 +22,8 @@ export default class Credentials extends PureComponent {
   };
 
   handleChange = ({ target }) => {
+    const { error, clearError } = this.props;
+    if(error) clearError();
     this.setState({ [target.id]: target.value });
   };
 
@@ -52,3 +59,10 @@ export default class Credentials extends PureComponent {
     );
   }
 }
+
+export default connect(
+  state => ({
+    error: getError(state)
+  }),
+  { clearError }
+)(Credentials);

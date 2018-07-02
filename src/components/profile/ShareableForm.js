@@ -11,7 +11,7 @@ export default class ShareableForm extends PureComponent {
 
   state = {
     name: '',
-    date: '',
+    expiration: '',
     priority: false
   };
 
@@ -22,25 +22,25 @@ export default class ShareableForm extends PureComponent {
   handleSubmit = event => {
     event.preventDefault();
     const { shareableType, onComplete } = this.props;
-    let { name, date, priority } = this.state;
+    let { name, expiration, priority } = this.state;
     if(priority) {
       priority = 2;
     }
-    if(date) {
-      date = localizeDate(date);
+    if(expiration) {
+      expiration = localizeDate(expiration);
     }
-    const submission = { name, date, priority, type: shareableType };
+    const submission = { name, expiration, priority, type: shareableType };
     onComplete(submission);
     this.setState({
       name: '',
-      date: '',
+      expiration: '',
       priority: false
     });
   };
 
   render() {
     const { action, shareableType } = this.props;
-    const { name, date, priority } = this.state;
+    const { name, expiration, priority } = this.state;
 
     return (
       <form className="shareable-form" onSubmit={this.handleSubmit}>
@@ -49,9 +49,9 @@ export default class ShareableForm extends PureComponent {
           <input id={`${shareableType}-name`} type="text" name="name" value={name} required onChange={this.handleChange}/>
         </div>
 
-        <div className="date">
-          <label htmlFor={`${shareableType}-date`}>By (optional):</label>
-          <input id={`${shareableType}-date`} type="date" name="date" value={date} onChange={this.handleChange}/>
+        <div className="expiration">
+          <label htmlFor={`${shareableType}-expiration`}>By (optional):</label>
+          <input id={`${shareableType}-expiration`} type="date" name="expiration" value={expiration} onChange={this.handleChange}/>
         </div>
     
         <div className="priority">

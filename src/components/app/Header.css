@@ -6,7 +6,7 @@
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     display: block;
-    width: fit-content;
+    width: 16rem;
     margin: 0 auto;
     background: linear-gradient(150deg,var(--saffron), var(--magenta));
     background-clip: text;

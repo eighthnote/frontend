@@ -15,12 +15,21 @@ class Auth extends PureComponent {
     signin: PropTypes.func.isRequired,
     signup: PropTypes.func.isRequired,
     location: PropTypes.object,
-    error: PropTypes.any,
+    error: PropTypes.object,
     clearError: PropTypes.func.isRequired
   };
 
+  componentDidUpdate({ location }) {
+    const locationPreUpdate = location.pathname;
+    const locationPostUpdate = this.props.location.pathname;
+    if(locationPreUpdate === locationPostUpdate) return;
+    const { error, clearError } = this.props;
+    if(error) clearError();
+  }
+
   componentWillUnmount() {
-    this.props.clearError();
+    const { error, clearError } = this.props;
+    if(error) clearError();
   }
 
   render() {
@@ -38,10 +47,12 @@ class Auth extends PureComponent {
         </ul>
         <Switch>
           <Route path='/auth/signin' render={() => (
-            <div className="auth-form signin">
-              <Credentials action="SIGN IN" submitCredentials={signin}/>
-              {!!error && <p>{error.error}</p>}
-            </div>
+            <Fragment>
+              <div className="auth-form signin">
+                <Credentials action="SIGN IN" submitCredentials={signin}/>
+              </div>
+              <div className="auth-error">{!!error && <span>{error.error}</span>}</div>   
+            </Fragment>
           )}/>
           <Route path="/auth/signup" render={() => (
             <Fragment>

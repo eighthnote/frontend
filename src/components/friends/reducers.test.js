@@ -5,29 +5,31 @@ import {
 } from './reducers';
 import { LOGOUT } from '../auth/reducers';
 
-const friendsData = [{ _id: '123', name: 'Pilar' }, { _id: '456', name: 'Bailey' }];
+const friendsData = {
+  friends: [{ _id: '123', name: 'Pilar' }, { _id: '456', name: 'Bailey' }],
+  pendingFriends: [{ _id: '789', name: 'Betsy' }]
+};
 
 describe('friends reducer', () => {
-  it('has default values of an empty array', () => {
+  it('has default values of an empty object', () => {
     const state = friends(undefined, {});
-    expect(state).toEqual([]);
+    expect(state).toEqual({});
   });
   
   it('loads friends', () => {
-    const state = friends([], { type: FRIENDS_LOAD, payload: friendsData });
+    const state = friends({}, { type: FRIENDS_LOAD, payload: friendsData });
     expect(state).toEqual(friendsData);
   });
 
   it('clears friends on logout', () => {
     const state = friends(friendsData, { type: LOGOUT });
-    expect(state).toEqual([]);
+    expect(state).toEqual({});
   });
 });
 
 describe('friends selectors', () => {
   it('gets friends', () => {
-    const friendIds = ['123', '456'];
-    const got = getFriends({ friends: friendIds });
-    expect(got).toEqual(friendIds);
+    const got = getFriends({ friends: friendsData });
+    expect(got).toEqual(friendsData);
   });
 });

@@ -45,7 +45,7 @@ class Shareable extends PureComponent {
               {!!item.priority && <span className="accessible-priority">urgent</span>}
               <span className={item.priority ? 'high-priority shareable-info' : 'shareable-info'}>
                 {item.name}
-                {item.date && ` (by ${formatDate(item.date)})`}
+                {item.expiration && ` (by ${formatDate(item.expiration)})`}
                 {isUser && <button className="remove" onClick={() => this.handleClick(item._id, shareableType)}>&times;</button>}
               </span>
             </li>

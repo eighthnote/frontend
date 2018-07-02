@@ -43,7 +43,7 @@
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 3fr 2fr;
     grid-gap: 1rem;
-    grid-template-areas: "description description" "date priority"
+    grid-template-areas: "description description" "expiration priority"
   }
   .description {
     grid-area: description;
@@ -54,8 +54,8 @@
       margin-right: 0;
     }
   }
-  .date {
-    grid-area: date;
+  .expiration {
+    grid-area: expiration;
     display: flex;
     align-items: center;
     input {
