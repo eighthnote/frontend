@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 export default class Friend extends Component {
   static propTypes = {
-    firstName: PropTypes.any,
-    lastName: PropTypes.any,
-    pictureUrl: PropTypes.any
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+    pictureUrl: PropTypes.string
   };
 
   render() {
