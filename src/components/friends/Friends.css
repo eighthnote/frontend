@@ -78,6 +78,12 @@
     display: flex;
     align-items: center;
   }
+  .friend-error {
+    width: 90%;
+    text-align: center;
+    margin: 1rem auto 0 auto;
+    font-weight: 500;
+  }
   @media (min-width: 470px) {
     width: 350px;
   }

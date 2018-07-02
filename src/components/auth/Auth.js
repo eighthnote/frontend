@@ -15,7 +15,7 @@ class Auth extends PureComponent {
     signin: PropTypes.func.isRequired,
     signup: PropTypes.func.isRequired,
     location: PropTypes.object,
-    error: PropTypes.any,
+    error: PropTypes.object,
     clearError: PropTypes.func.isRequired
   };
 

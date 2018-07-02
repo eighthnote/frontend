@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Friend from './Friend';
 import styles from './Friends.css';
-
+import { getError } from '../app/reducers';
+import { clearError } from '../app/actions';
 import { loadFriends,
   sendFriendRequest,
   acceptFriendRequest,
   removeFriend
 } from './actions';
-
 import { getFriends } from './reducers';
 
 class Friends extends PureComponent {
@@ -19,7 +19,9 @@ class Friends extends PureComponent {
     sendFriendRequest: PropTypes.func.isRequired,
     acceptFriendRequest: PropTypes.func.isRequired,
     loadFriends: PropTypes.func.isRequired,
-    removeFriend: PropTypes.func.isRequired
+    removeFriend: PropTypes.func.isRequired,
+    error: PropTypes.object,
+    clearError: PropTypes.func.isRequired
   };
 
   state = {
@@ -31,13 +33,15 @@ class Friends extends PureComponent {
   }
 
   handleChange = ({ target }) => {
+    const { error, clearError } = this.props;
+    if(error) clearError();
     this.setState({ addFriendForm: target.value });
   };
 
   handleSubmit = event => {
     event.preventDefault();
     this.props.sendFriendRequest({ email: `${this.state.addFriendForm}` })
-      .then(() => alert('Friend request sent!'));
+      .then(() => alert('Friend request sent! If your friend does not receive the request, please check the spelling of their email.'));
     this.setState({ addFriendForm: '' });
   };
 
@@ -56,7 +60,7 @@ class Friends extends PureComponent {
   };
 
   render() {
-    const { allFriends } = this.props;
+    const { allFriends, error } = this.props;
     if(!allFriends) return null;
 
     const { friends, pendingFriends } = allFriends;
@@ -72,6 +76,7 @@ class Friends extends PureComponent {
           </div>
           <button type="submit">SEND REQUEST</button>
         </form>
+        <div className="friend-error">{!!error && <span>{error.error}</span>}</div>
 
         <div className="friend-list">
           {pendingFriends && !!pendingFriends.length && <h3>Pending Friend Requests</h3>}
@@ -108,11 +113,13 @@ class Friends extends PureComponent {
 
 export default connect(
   state => ({
-    allFriends: getFriends(state)
+    allFriends: getFriends(state),
+    error: getError(state)
   }),
   { loadFriends,
     sendFriendRequest,
     acceptFriendRequest,
-    removeFriend
+    removeFriend,
+    clearError
   }
 )(Friends);
