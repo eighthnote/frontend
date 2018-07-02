@@ -24,12 +24,12 @@ class Feed extends PureComponent {
     return (
       <div className={styles.feed}>
         <ul>
-          {feed && feed.map((shareable, i) => (
+          {feed && !!feed.length ? feed.map((shareable, i) => (
             <FeedShareable
               key={i}
               {...shareable}
             />
-          ))}
+          )) : <li style={{ border: 'none' }}>No friends are giving or requesting anything urgent!</li>}
         </ul>
       </div>
     );
