@@ -19,8 +19,17 @@ class Auth extends PureComponent {
     clearError: PropTypes.func.isRequired
   };
 
+  componentDidUpdate({ location }) {
+    const locationPreUpdate = location.pathname;
+    const locationPostUpdate = this.props.location.pathname;
+    if(locationPreUpdate === locationPostUpdate) return;
+    const { error, clearError } = this.props;
+    if(error) clearError();
+  }
+
   componentWillUnmount() {
-    this.props.clearError();
+    const { error, clearError } = this.props;
+    if(error) clearError();
   }
 
   render() {
