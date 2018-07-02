@@ -18,19 +18,22 @@ class Feed extends PureComponent {
 
   render() {
     const { feed } = this.props;
-
     if(!feed) return null;
 
+    // Don't mix <ul>/<li> when there is no content! 
     return (
       <div className={styles.feed}>
-        <ul>
-          {feed && !!feed.length ? feed.map((shareable, i) => (
-            <FeedShareable
-              key={i}
-              {...shareable}
-            />
-          )) : <li style={{ border: 'none' }}>No friends are giving or requesting anything urgent!</li>}
-        </ul>
+        {feed.length > 0 ?
+          <ul>
+            {feed.map((shareable, i) => (
+              <FeedShareable
+                key={i}
+                {...shareable}
+              />
+            ))}
+          </ul> :
+          <span>No friends are giving or requesting anything urgent!</span>
+          }
       </div>
     );
   }
