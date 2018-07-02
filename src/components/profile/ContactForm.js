@@ -19,8 +19,8 @@ class ContactForm extends PureComponent {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.updateProfile(this.state);
-    this.props.onDone('editingContact');
+    this.props.updateProfile(this.state)
+      .then(() => this.props.onDone('editingContact'));
   };
 
   render() {

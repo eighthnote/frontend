@@ -40,8 +40,8 @@ class AvailabilityForm extends PureComponent {
         days: checkedDays,
         notes
       }
-    });
-    this.props.onDone('editingAvailability');
+    })
+      .then(() => this.props.onDone('editingAvailability'));
   };
 
   render() {

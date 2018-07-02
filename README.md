@@ -2,6 +2,8 @@
 
 # Overview
 
+// initial grading commit
+
 **Shareable** is a react redux app to help friends maintain relationships and build community.
 
 ## Description

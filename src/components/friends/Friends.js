@@ -41,21 +41,30 @@ class Friends extends PureComponent {
   handleSubmit = event => {
     event.preventDefault();
     this.props.sendFriendRequest({ email: `${this.state.addFriendForm}` })
-      .then(() => alert('Friend request sent! If your friend does not receive the request, please check the spelling of their email.'));
-    this.setState({ addFriendForm: '' });
+      .then(() => {
+        this.setState({ addFriendForm: '' });
+        alert('Friend request sent! If your friend does not receive the request, please check the spelling of their email.');
+      });
   };
 
   handleAcceptFriend = ({ target }) => {
     const { acceptFriendRequest, loadFriends } = this.props;
-    acceptFriendRequest(target.id);
-    loadFriends();
+    acceptFriendRequest(target.id)
+      // If you don't wait, you may reload before accept friend is finished
+      .then(() => {
+        // Is it necessary to reload all the friends?
+        loadFriends();
+      })
   };
 
   handleRemoveFriend = ({ target }) => {
     const { removeFriend, loadFriends } = this.props;
     if(confirm('This will remove your friend, and remove you from their friends list. Are you sure you want to do this?')) {
-      removeFriend(target.id);
-      loadFriends();
+      removeFriend(target.id)
+        .then(() => {
+          // Reload ALL friends? Can't we just remove the one friend?
+          loadFriends();
+        })
     }
   };
 

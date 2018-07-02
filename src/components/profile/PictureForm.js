@@ -19,8 +19,8 @@ class PictureForm extends PureComponent {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.updateProfile(this.state);
-    this.props.onDone('editingPicture');
+    this.props.updateProfile(this.state)
+      .then(() => this.props.onDone('editingPicture'));
   };
 
   render() {
