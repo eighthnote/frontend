@@ -23,7 +23,7 @@ export default class About extends PureComponent {
           Join Shareable and see what you have to gain by sharing what you have to give.
         </p>
         <p> 
-          You can find the people behind Shareable at <a href="https://github.com/eighthnote" target="_blank">https://github.com/eighthnote</a>.
+          You can find the people behind Shareable at <a href="https://github.com/eighthnote" target="_blank" rel="noopener noreferrer">https://github.com/eighthnote</a>.
         </p>
       </div>
     );
